@@ -1,0 +1,46 @@
+version: v1beta11
+
+vars:
+  # k3d
+  - name: K3D_CLUSTER_NAME
+    value: edgefarm-network
+  - name: K3D_CONFIG
+    command: echo $(pwd)/k3d-config.yaml
+  - name: K3D_EXTRA_ARGS
+    value: --volume $HOME/.devspace/certs/:/etc/self-ssl/@server:*
+
+dependencies:
+  - name: k3d
+    source:
+      git: https://github.com/edgefarm/devspace.base
+      subPath: /environments/k3d
+      branch: v1.0.1
+    vars:
+      - name: K3D_CLUSTER_NAME
+        value: ${K3D_CLUSTER_NAME}
+      - name: K3D_CONFIG
+        value: ${K3D_CONFIG}
+      - name: K3D_EXTRA_ARGS
+        value: ${K3D_EXTRA_ARGS}
+
+  - name: edgefarm-core
+    source:
+      path: ../
+
+commands:
+  - name: init
+    command: |-
+      devspace run update
+      devspace run k3d.init
+
+  - name: purge
+    command: |-
+      devspace run k3d.purge
+
+  - name: activate
+    command: |-
+      devspace run k3d.activate
+
+  - name: update
+    command: |-
+      devspace update dependencies

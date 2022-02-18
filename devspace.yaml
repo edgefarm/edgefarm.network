@@ -1,0 +1,9 @@
+version: v1beta11
+
+deployments:
+  - name: anck
+    kubectl:
+      kustomize: true
+      manifests:
+        - ./manifests/anck
+    namespace: anck

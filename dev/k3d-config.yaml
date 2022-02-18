@@ -1,0 +1,40 @@
+apiVersion: k3d.io/v1alpha3
+kind: Simple
+name: edgefarm-network
+servers: 1
+agents: 1
+kubeAPI:
+  hostPort: "50550"
+image: rancher/k3s:v1.20.12-k3s1
+registries:
+  use:
+    - registry.k3d.localhost:5000
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:*
+      # set admission plugins (e.g. for capsule)
+      - arg: --kube-apiserver-arg=enable-admission-plugins=PodNodeSelector,LimitRanger,ResourceQuota,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
+        nodeFilters:
+          - server:*
+ports:
+  - port: 50080:80
+    nodeFilters:
+      - loadbalancer
+  - port: 50443:443
+    nodeFilters:
+      - loadbalancer
+  - port: 50000:10000
+    nodeFilters:
+      - server:*
+  - port: 50002:10002
+    nodeFilters:
+      - server:*
+  - port: 50003:10003
+    nodeFilters:
+      - server:*
+  - port: 50004:10004
+    nodeFilters:
+      - server:*
