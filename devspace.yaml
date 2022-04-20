@@ -7,3 +7,12 @@ deployments:
       manifests:
         - ./manifests/anck
     namespace: anck
+
+  - name: nats-main
+    kubectl:
+      kustomize: true
+      kustomizeArgs:
+      - "--enable-helm"
+      manifests:
+        - ./manifests/nats-main
+    namespace: nats

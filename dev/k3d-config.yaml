@@ -2,10 +2,10 @@ apiVersion: k3d.io/v1alpha3
 kind: Simple
 name: edgefarm-network
 servers: 1
-agents: 1
+agents: 3
 kubeAPI:
   hostPort: "50550"
-image: rancher/k3s:v1.20.12-k3s1
+image: rancher/k3s:v1.21.12-k3s1
 registries:
   use:
     - registry.k3d.localhost:5000
@@ -26,15 +26,15 @@ ports:
   - port: 50443:443
     nodeFilters:
       - loadbalancer
-  - port: 50000:10000
+  - port: 54222:4222
     nodeFilters:
       - server:*
-  - port: 50002:10002
+      - agent:*
+  - port: 57422:7422
     nodeFilters:
       - server:*
-  - port: 50003:10003
+      - agent:*
+  - port: 57522:7522
     nodeFilters:
       - server:*
-  - port: 50004:10004
-    nodeFilters:
-      - server:*
+      - agent:*
