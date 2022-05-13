@@ -44,3 +44,11 @@ devspace deploy
 ```
 
 To apply your modifications, rerun `devspace deploy`.
+
+### nats-main
+
+to test your setup, run:
+
+```sh
+nats bench -s localhost:54222 foo --pub 1 --sub 1 --size 1600 --creds gen/nsc/nkeys/creds/edgefarm_operator/acc1/user.creds
+```

@@ -8,6 +8,14 @@ vars:
     command: echo $(pwd)/k3d-config.yaml
   - name: K3D_EXTRA_ARGS
     value: --volume $HOME/.devspace/certs/:/etc/self-ssl/@server:*
+  # nats
+  - name: NATS_CLIENT_PORT
+    value: 54222
+  - name: NATS_LEAFNODE_PORT
+    value: 57422
+  # anck
+  - name: NSC_HOME
+    command: "echo $(pwd)/gen/nsc/accounts"
 
 dependencies:
   - name: k3d
@@ -32,6 +40,10 @@ commands:
     command: |-
       devspace run update
       devspace run k3d.init
+      devspace run init-accounts
+      devspace run gen-account-secrets
+      devspace run gen-server-infos
+      devspace run gen-nats-accounts-config
 
   - name: purge
     command: |-
@@ -44,3 +56,91 @@ commands:
   - name: update
     command: |-
       devspace update dependencies
+
+  - name: init-accounts
+    command: |-
+      if [[ -d "$(pwd)/gen/nsc" ]]; then
+        echo "nats accounts already exists. Please manually remove gen/nsc to recreate accounts."
+        exit 0
+      fi
+
+      export NKEYS_PATH=$(pwd)/gen/nsc/nkeys NSC_HOME=${NSC_HOME}
+      nsc init -d $(pwd)/gen/nsc/accounts/nats -n edgefarm_operator
+      for i in {1..10}; do
+          nsc add account acc$i
+          nsc edit account acc$i --mem-storage -1 --streams -1 --consumer -1 --disk-storage -1
+          nsc add user --account acc$i --name user
+      done
+
+  - name: gen-account-secrets
+    command: |-
+      export NSC_HOME=${NSC_HOME}
+      get_account_public_key() {
+          account=$1
+          key=$(nsc describe account -n $1 -J | jq -r '.sub')
+          echo $key
+      }
+
+      generate_secret() {
+        ACCOUNT=$1
+        USER=$2
+        FUNCTION=$3
+        ACCOUNT_PUBLIC_KEY="$(get_account_public_key $ACCOUNT)"
+        SECRET_OUT="$(kubectl create secret generic $(echo "$ACCOUNT" | tr '[:upper:]' '[:lower:]') \
+        --from-file=user=${NSC_HOME}/../nkeys/creds/edgefarm_operator/$ACCOUNT/$USER.creds \
+        --from-literal=account-public-key=$ACCOUNT_PUBLIC_KEY --dry-run=client -o yaml)"
+
+        SECRET_OUT=$(yq ".metadata.labels += {\"natsfunction\": \"$FUNCTION\"}" <<<"$SECRET_OUT")
+        SECRET_OUT=$(yq ".metadata.labels += {\"natsaccount\": \"$ACCOUNT\" }" <<<"$SECRET_OUT")
+        echo "$SECRET_OUT"
+      }
+
+      mkdir -p $(pwd)/gen/manifests/anck
+      echo "$(generate_secret SYS sys sys-account)" > gen/manifests/anck/sys.yaml
+
+      for i in {1..10}
+      do
+        echo "$(generate_secret acc$i user users)" > gen/manifests/anck/acc$i.yaml
+      done
+
+  - name: gen-server-infos
+    command: |-
+      mkdir -p $(pwd)/gen/manifests/anck
+      echo "$(kubectl create secret generic nats-server-infos \
+        --from-literal=NATS_ADDRESS=nats://localhost:${NATS_CLIENT_PORT} \
+        --from-literal=LEAF_ADDRESS=nats://localhost:${NATS_LEAFNODE_PORT} \
+        --dry-run=client -o yaml)" > $(pwd)/gen/manifests/anck/nats-server-infos.yaml
+
+  - name: gen-nats-accounts-config
+    command: |-
+      export NSC_HOME=${NSC_HOME}
+      mkdir -p $(pwd)/gen/manifests/nats-main
+      CONFIG=$(nsc generate config --sys-account SYS --nats-resolver)
+      YAML=$(kubectl create secret generic nats-account-resolver \
+        --from-literal=account-resolver.conf="$CONFIG" --dry-run=client -o yaml)
+      echo "$YAML" > gen/manifests/nats-main/nats-account-resolver.yaml
+
+deployments:
+  - name: anck-preload
+    kubectl:
+      manifests:
+        - ./gen/manifests/anck/
+    namespace: anck
+
+  - name: nats-main-config
+    kubectl:
+      manifests:
+        - ./gen/manifests/nats-main/
+    namespace: nats
+
+
+hooks:
+
+  - name: push-nats-accounts
+    command: |-
+      echo -n "Waiting until nats-main is ready"
+      until kubectl rollout status --watch --timeout=60s statefulset -n nats nats 2>/dev/null; do echo -n "." && sleep 2; done
+      nsc push --system-account SYS -u nats://localhost:${NATS_CLIENT_PORT} \
+        -A --config-dir $(pwd)/gen/nsc/accounts --data-dir $(pwd)/gen/nsc/accounts/nats \
+        --keystore-dir $(pwd)/gen/nsc/nkeys
+    events: ["after:deploy:nats-main-config"]

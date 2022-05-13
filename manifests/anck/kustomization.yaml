@@ -1,5 +1,13 @@
+# yaml-language-server: https://json.schemastore.org/kustomization.json
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: anck
+
+images:
+- name: ci4rail/anck:latest
+  newName: ghcr.io/edgefarm/anck
+  newTag: beta
+
 resources:
-  - github.com/edgefarm/anck/config/default?ref=main
+  - https://github.com/edgefarm/anck/config/default/?ref=beta
