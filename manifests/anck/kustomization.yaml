@@ -7,7 +7,7 @@ namespace: anck
 images:
 - name: ci4rail/anck:latest
   newName: ghcr.io/edgefarm/anck
-  newTag: main
+  newTag: beta
 
 resources:
-  - https://github.com/edgefarm/anck/config/default/?ref=main
+  - https://github.com/edgefarm/anck/config/default/?ref=beta
