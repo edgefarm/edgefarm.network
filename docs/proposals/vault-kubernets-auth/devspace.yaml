@@ -1,0 +1,119 @@
+version: v1beta11
+
+vars:
+  # vault ca
+  - name: VAULT_CA
+    value: vault
+  - name: VAULT_SECRET
+    value: vault-ca
+  - name: VAULT_NS
+    value: vault-system
+  # k3d
+  - name: K3D_CLUSTER_NAME
+    value: auth-example
+  - name: K3D_CONFIG
+    command: echo $(pwd)/k3d-config.yaml
+  - name: K3D_EXTRA_ARGS
+    value: --volume $HOME/.devspace/certs/:/etc/self-ssl/@server:*
+
+dependencies:
+  - name: mkcert
+    source:
+      git: https://github.com/edgefarm/devspace.base
+      subPath: /environments/mkcert
+      branch: v1.0.1
+  - name: k3d
+    source:
+      git: https://github.com/edgefarm/devspace.base
+      subPath: /environments/k3d
+      branch: v1.0.1
+    vars:
+      - name: K3D_CLUSTER_NAME
+        value: ${K3D_CLUSTER_NAME}
+      - name: K3D_CONFIG
+        value: ${K3D_CONFIG}
+      - name: K3D_EXTRA_ARGS
+        value: ${K3D_EXTRA_ARGS}
+
+commands:
+  - name: init
+    command: |-
+      devspace run update
+      devspace run k3d.init
+      devspace run init-vault-ca
+
+  - name: init-vault-ca
+    command: |-
+      #!/bin/bash
+      set -e
+      devspace run mkcert.init-ca ${VAULT_CA}
+      kubectl get ns ${VAULT_NS} &>/dev/null || kubectl create ns ${VAULT_NS}
+      devspace run mkcert.create-ca-secret ${VAULT_CA} ${VAULT_SECRET} ${VAULT_NS}
+
+      [ ! -d "$(pwd)/dev/manifests/vault/.certs" ] && mkdir -p "$(pwd)/dev/manifests/vault/.certs"
+      devspace run mkcert.create-cert ${VAULT_CA} \
+        -cert-file $(pwd)/dev/manifests/vault/.certs/server.crt \
+        -key-file $(pwd)/dev/manifests/vault/.certs/server.key *.nip.io *.edgefarm.local
+
+  - name: init-vault
+    command: |-
+      #!/bin/bash
+      set -e
+      echo Waiting for vault to be ready...
+      until kubectl wait --for=condition=Ready pod -l k8s-app=vault -n  vault-system 2>/dev/null; do echo -n "." && sleep 2; done
+      cd dev/hack/vault/
+      ./init-vault.sh
+
+  - name: purge
+    command: |-
+      #!/bin/bash
+      set -e
+      devspace run k3d.purge
+
+  - name: purge
+    command: |-
+      #!/bin/bash
+      set -e
+      devspace run k3d.purge
+
+  - name: activate
+    command: |-
+      #!/bin/bash
+      set -e
+      devspace run k3d.activate
+
+  - name: update
+    command: |-
+      #!/bin/bash
+      set -e
+      devspace update dependencies
+
+  - name: build-example
+    command: |-
+      #!/bin/bash
+      set -e
+      cd auth-example
+      make image
+      make push
+
+  - name: write-secret
+    command: |-
+      #!/bin/bash
+      set -e
+      cd dev/hack/vault/
+      source common.sh
+      login
+      vault kv put -mount=secret creds password=YouNeverGuessThis
+
+deployments:
+  - name: vault
+    kubectl:
+      kustomize: true
+      manifests:
+        - ./dev/manifests/vault
+    namespace: vault-system
+
+  - name: auth-example
+    kubectl:
+      manifests:
+        - ./auth-example/manifests

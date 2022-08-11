@@ -1,0 +1,110 @@
+version: v1beta11
+
+vars:
+  # kubeedge certificates
+  - name: KUBEEDGE_CA
+    value: kubeedge-edgemesh-nodegroup
+  - name: KUBEEDGE_CA_SECRET
+    value: kubeedge-ca
+  - name: KUBEEDGE_SECRET
+    value: kubeedge-certs
+  - name: KUBEEDGE_NS
+    value: kubeedge
+
+dependencies:
+  - name: mkcert
+    source:
+      git: https://github.com/edgefarm/devspace.base
+      subPath: /environments/mkcert
+      branch: v2.2.0
+
+commands:
+  - name: init
+    command: |-
+      #!/bin/bash
+      set -e
+      ./create.sh docker
+      devspace run init-kubeedge-ca
+      devspace run init-edgemesh-ca
+
+  - name: purge
+    command: |-
+      #!/bin/bash
+      set -e
+      sudo talosctl cluster destroy
+
+  - name: init-kubeedge-ca
+    command: |-
+      #!/bin/bash
+      set -e
+      DEFAULT_INTERFACE=$(route | grep default | awk '{print $8}')
+      HOST_IP=$(ip -4 -br addr show | grep $DEFAULT_INTERFACE | awk '{print $3}' | cut -d '/' -f1)
+
+      devspace run mkcert.init-ca ${KUBEEDGE_CA}
+      kubectl get ns ${KUBEEDGE_NS} &>/dev/null || kubectl create ns ${KUBEEDGE_NS}
+      devspace run mkcert.create-ca-secret ${KUBEEDGE_CA_SECRET} ${KUBEEDGE_NS}
+
+      [ ! -d "$(pwd)/deploy/kubeedge/cloudcore/.certs" ] && mkdir -p "$(pwd)/deploy/kubeedge/cloudcore/.certs"
+      devspace run mkcert.create-cert \
+        -cert-file $(pwd)/deploy/kubeedge/cloudcore/.certs/server.crt \
+        -key-file $(pwd)/deploy/kubeedge/cloudcore/.certs/server.key *.nip.io cloudcore.kubeedge.svc.cluster.local $HOST_IP
+
+  - name: init-edgemesh-certs
+    command: |-
+      #!/bin/bash
+      set -e
+      cd tools/certs
+      ./certs.sh cert create-all
+      set +e
+      ./certs.sh secret create edgemesh-certs kubeedge server.pem server.key
+      ./certs.sh secret create edgemesh-ca kubeedge rootCA.pem rootCA.key
+
+  - name: port-forward-start
+    command: |-
+      #!/bin/bash
+      cd tools/ports
+      ./forward.sh start
+
+  - name: port-forward-stop
+    command: |-
+      #!/bin/bash
+      cd tools/ports
+      ./forward.sh stop
+
+hooks:
+  - name: "patch flannel daemonst"
+    command: "kubectl patch daemonset -n kube-system kube-flannel --patch-file deploy/flannel/flannel-patch.yaml"
+    events: ["before:deploy"]
+  - name: "patch kube-proxy daemonst"
+    command: "kubectl patch daemonset -n kube-system kube-proxy --patch-file deploy/kube-proxy/kube-proxy-patch.yaml"
+    events: ["before:deploy"]
+  - name: "generate-edgemesh-server-with-host-ip"
+    command: |
+      #!/bin/bash
+      set -e
+      DEFAULT_INTERFACE=$(route | grep default | awk '{print $8}')
+      HOST_IP=$(ip -4 -br addr show | grep $DEFAULT_INTERFACE | awk '{print $3}' | cut -d '/' -f1)
+      cat deploy/kubeedge/edgemesh/server/edgemesh/04-configmap.yaml.TEMPLATE | sed "s/YOUR_HOST_IP_FOR_DEFAULT_INTERFACE/$HOST_IP/g" > deploy/kubeedge/edgemesh/server/edgemesh/04-configmap.yaml
+    events: ["before:deploy"]
+
+deployments:
+  - name: cloudcore
+    kubectl:
+      kustomize: true
+      manifests:
+        - ./deploy/kubeedge/cloudcore
+    namespace: kubeedge
+
+  - name: controllermanager
+    kubectl:
+      kustomize: true
+      manifests:
+        - ./deploy/kubeedge/controllermanager
+    namespace: kubeedge
+
+  - name: edgemesh
+    kubectl:
+      kustomize: true
+      manifests:
+        - ./deploy/kubeedge/edgemesh
+    namespace: kubeedge

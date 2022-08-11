@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: auth-example
+  namespace: auth-example
+spec:
+  selector:
+    matchLabels:
+      app: auth-example
+  template:
+    metadata:
+      labels:
+        app: auth-example
+    spec:
+      containers:
+        - image: k3d-registry.k3d.localhost:5000/auth-example:latest
+          env:
+            - name: VAULT_ADDR
+              value: http://vault.vault-system.svc.cluster.local:8200
+          imagePullPolicy: Always
+          name: auth-example
+      serviceAccount: auth-example
