@@ -1,6 +1,6 @@
 module auth-example
 
-go 1.18
+go 1.19
 
 require (
 	github.com/hashicorp/vault/api v1.7.2
