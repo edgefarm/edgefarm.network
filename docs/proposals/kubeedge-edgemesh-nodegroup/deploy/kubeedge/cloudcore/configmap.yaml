@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudcore
+  labels:
+    k8s-app: kubeedge
+    kubeedge: cloudcore
+data:
+  cloudcore.yaml: |
+    apiVersion: cloudcore.config.kubeedge.io/v1alpha2
+    kind: CloudCore
+    kubeAPIConfig:
+      kubeConfig: ""
+      master: ""
+    modules:
+      cloudHub:
+        nodeLimit: 1000
+        tlsCAFile: /etc/kubeedge/ca/rootCA.crt
+        tlsCAKeyFile: /etc/kubeedge/ca/rootCA.key
+        tlsCertFile: /etc/kubeedge/certs/server.crt
+        tlsPrivateKeyFile: /etc/kubeedge/certs/server.key
+        unixsocket:
+          address: unix:///var/lib/kubeedge/kubeedge.sock
+          enable: true
+        websocket:
+          address: 0.0.0.0
+          enable: true
+          port: 10000
+        quic:
+          address: 0.0.0.0
+          enable: false
+          maxIncomingStreams: 10000
+          port: 10001
+        https:
+          address: 0.0.0.0
+          enable: true
+          port: 10002
+      cloudStream:
+        enable: true
+        streamPort: 10003
+        tlsStreamCAFile: /etc/kubeedge/ca/rootCA.crt
+        tlsStreamCertFile: /etc/kubeedge/certs/server.crt
+        tlsStreamPrivateKeyFile: /etc/kubeedge/certs/server.key
+        tlsTunnelCAFile: /etc/kubeedge/ca/rootCA.crt
+        tlsTunnelCertFile: /etc/kubeedge/certs/server.crt
+        tlsTunnelPrivateKeyFile: /etc/kubeedge/certs/server.key
+        tunnelPort: 10004
+      dynamicController:
+        enable: true
+      router:
+        enable: false
+      iptablesManager:
+        enable: true
+        mode: external
