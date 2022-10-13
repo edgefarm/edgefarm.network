@@ -442,7 +442,7 @@ gateway:
 # enabled, an initializer container will be used to gather
 # the public ips.
 bootconfig:
-  image: natsio/nats-boot-config:0.5.4
+  image: natsio/nats-boot-config:0.7.4
   pullPolicy: IfNotPresent
   securityContext: {}
 
