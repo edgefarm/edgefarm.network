@@ -3,8 +3,8 @@ module auth-example
 go 1.18
 
 require (
-	github.com/hashicorp/vault/api v1.7.2
-	github.com/hashicorp/vault/api/auth/kubernetes v0.2.0
+	github.com/hashicorp/vault/api v1.8.0
+	github.com/hashicorp/vault/api/auth/kubernetes v0.3.0
 )
 
 require (
@@ -30,7 +30,7 @@ require (
 	github.com/hashicorp/go-version v1.2.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hashicorp/vault/sdk v0.5.1 // indirect
+	github.com/hashicorp/vault/sdk v0.6.0 // indirect
 	github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
