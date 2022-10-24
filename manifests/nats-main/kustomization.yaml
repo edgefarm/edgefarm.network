@@ -10,7 +10,7 @@ resources:
 helmCharts:
 - name: nats
   # namespace: default
-  version: 0.16.0
+  version: 0.18.2
   repo: https://nats-io.github.io/k8s/helm/charts/
   releaseName: nats
   valuesInline:
