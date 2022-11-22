@@ -1,0 +1,56 @@
+# -- Overrides the chart's name
+nameOverride: ""
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+namespace: ""
+
+config:
+  nats:
+    host: localhost
+    token: secret
+  targetNodeGroupLabels:
+    - matchLabels:
+        network.edgefarm.io/edge: ""
+
+edgeApplication:
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: "docker/default"
+    prometheus.io/path: /metrics
+    prometheus.io/port: "7777"
+    prometheus.io/scrape: "true"
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  containerSecurityContext: {}
+  image:
+    registry: docker.io
+    repository: nats
+    tag: 2.9.6-alpine3.16
+    pullPolicy: IfNotPresent
+  pullSecrets:
+  extraArgs: {}
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 250m
+    limits:
+      memory: 400Mi
+      cpu: 500m
+  nodeSelector: {}
+  tolerations:
+    - effect: NoExecute
+      key: edgefarm.applications
+      operator: Exists
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role.kubernetes.io/edge
+                operator: Exists
+  service:
+    annotations: {}
+    type:
+    port: "4222"
+    targetPort: "4222"
+    portName: http

@@ -1,18 +1,118 @@
-version: v1beta11
+version: v2beta1
+name: edgefarm-network
+
+imports:
+  - path: ./config.yaml
+
+vars:
+  CLUSTER_IP:
+    command: |-
+      #!/bin/bash
+      set -e
+      IP=$(kubectl get secrets -n default cluster-ip -o jsonpath='{.data.clusterIP}' | base64 -d)
+      echo ${IP}
+
+commands:
+  help: |-
+    #!/bin/bash
+    set -e
+    GREEN='\033[0;32m'
+    BRED='\033[3;31m'
+    BGREEN='\033[1;32m'
+    GREY='\033[0;36m'
+    BOLD='\033[1m'
+    NC='\033[0m' # No Color
+    echo -e "${BGREEN}Usage of ${BRED}edgefarm.network:${NC}"
+    echo -e "${GREEN} EdgeFarm related commands:${NC}"
+    echo -e "${BOLD}  devspace run-pipeline deploy-network                ${GREY}Deploy edgefarm-network to the cluster${NC}"
+    echo -e "${BOLD}  devspace run-pipeline purge-network                 ${GREY}Delete edgefarm-network from the cluster${NC}"
+
+functions:
+  wait_for_pod: |-
+    #!/bin/bash
+    set -e
+    echo "wait for pod $1 (ns: $2)"
+    until kubectl wait --for=condition=ready pod -n $2 $1 --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+
+pipelines:
+  deploy-network: |-
+    #!/bin/bash
+    set -e
+    COLOR='\033[0;93m'
+    NC='\033[0m'
+    kubectl label node default-worker edgefarm.io/nats-main=true --overwrite
+    create_deployments nats-main
+    wait_for_pod "-l app.kubernetes.io/instance=nats-main,app.kubernetes.io/name=nats" nats
+    create_deployments leaf-nats
+    echo -e "${COLOR}Creating example jetstream in domain: main${NC}"
+    docker run --rm \
+    --entrypoint /bin/sh \
+    -v $(pwd)/dev/config/example.json:/config/example.json \
+    natsio/nats-box:0.13.2 \
+    -c "/usr/local/bin/nats stream create \
+    --config /config/example.json \
+    --user ${NATS_TOKEN} \
+    -s nats://${CLUSTER_IP}:4222" \
+    --domain main
+
+  purge-network: |-
+    #!/bin/bash
+    set -e
+    COLOR='\033[0;93m'
+    NC='\033[0m'
+    purge_deployments nats-main
+    purge_deployments leaf-nats
 
 deployments:
-  - name: anck
-    kubectl:
-      kustomize: true
-      manifests:
-        - ./manifests/anck
-    namespace: anck
-
-  - name: nats-main
-    kubectl:
-      kustomize: true
-      kustomizeArgs:
-      - "--enable-helm"
-      manifests:
-        - ./manifests/nats-main
+  nats-main:
+    helm:
+      chart:
+        name: nats
+        repo: https://nats-io.github.io/k8s/helm/charts/
+      values:
+        nats:
+          # externalAccess is enabled because to give access to external devices through kind port mapping
+          externalAccess: true
+          advertise: false
+          serviceAccount:
+            create: false
+          jetstream:
+            enabled: true
+            domain: main
+            fileStorage:
+              size: ${MAIN_NATS_MAX_STORAGE}
+        namespaceOverride: "nats"
+        podDisruptionBudget:
+          enabled: false
+        nodeSelector: { edgefarm.io/nats-main: "true" }
+        cluster:
+          # cluster is disabled in local setup
+          enabled: false
+          #replicas: 3
+          noAdvertise: true
+        leafnodes:
+          enabled: true
+          noAdvertise: true
+        natsbox:
+          enabled: false
+        auth:
+          enabled: true
+          # fixed token to access the nats cluster
+          token: ${NATS_TOKEN}
     namespace: nats
+
+  leaf-nats:
+    namespace: nats
+    helm:
+      chart:
+        name: leaf-nats
+        path: ./charts/leaf-nats
+      values:
+        fullnameOverride: leaf-nats
+        config:
+          nats:
+            host: ${CLUSTER_IP}
+            token: ${NATS_TOKEN}
+          targetNodeGroupLabels:
+            - matchLabels:
+                network.edgefarm.io/edge: ""

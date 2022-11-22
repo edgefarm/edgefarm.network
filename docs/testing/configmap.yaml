@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testing-nats-resources
+  namespace: testing
+data:
+  consumer.json: |-
+    {
+      "stream_name": "testing-stream",
+      "name": "testing-consumer",
+      "config": {
+        "ack_policy": "explicit",
+        "ack_wait": 30000000000,
+        "deliver_policy": "all",
+        "durable_name": "testing-consumer",
+        "filter_subject": "testing.>",
+        "max_ack_pending": 1000,
+        "max_deliver": -1,
+        "max_waiting": 512,
+        "replay_policy": "instant",
+        "num_replicas": 0
+      },
+      "delivered": {
+        "consumer_seq": 0,
+        "stream_seq": 0
+      },
+      "ack_floor": {
+        "consumer_seq": 0,
+        "stream_seq": 0
+      },
+      "num_ack_pending": 0,
+      "num_redelivered": 0,
+      "num_waiting": 0,
+      "num_pending": 0,
+      "cluster": {
+        "leader": "nats-main-0"
+      }
+    }
+
+  stream.json: |-
+    {
+      "config": {
+        "name": "testing-stream",
+        "subjects": [
+          "testing.>"
+        ],
+        "retention": "limits",
+        "max_consumers": -1,
+        "max_msgs_per_subject": -1,
+        "max_msgs": -1,
+        "max_bytes": 10485760,
+        "max_age": 0,
+        "max_msg_size": -1,
+        "storage": "file",
+        "discard": "old",
+        "num_replicas": 1,
+        "duplicate_window": 120000000000,
+        "sealed": false,
+        "deny_delete": false,
+        "deny_purge": false,
+        "allow_rollup_hdrs": false
+      }
+    }

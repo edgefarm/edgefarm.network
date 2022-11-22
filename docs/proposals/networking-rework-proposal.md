@@ -1,12 +1,12 @@
 ---
 title: edgefarm.network (nextgen)
-status: Pending
+status: In Progress
 authors:
     - "@siredmar"
     - "@batthebee"
 approvers:
 creation-date: 2022-08-10
-last-updated:  2022-08-10
+last-updated:  2022-21-11
 ---
 
 # edgefarm.network (nextgen)
@@ -136,6 +136,7 @@ vault -> mainresolver : <<updates>>
 mainnats -up- leafif : <<provide>>
 mainnats -up- clientif : <<provide>>
 
+@enduml
 ```
 
 ```plantuml
@@ -208,6 +209,7 @@ pod -down-> db : <<authenticate>>
 
 policy -> db : <<restrict access>>
 
+@enduml
 ```
 
 ```plantuml
@@ -289,6 +291,7 @@ controller -> namespaces : <<watch>>
 
 controller ---> vault : <<configure>>
 
+@enduml
 ```
 
 ```plantuml
@@ -408,6 +411,7 @@ leafnats -up- clientif : <<provide>>
 leafnats -> leafif : <<connect>>
 leafresolver <~> mainresolver : <<sync>>
 
+@enduml
 ```
 
 ```plantuml
@@ -519,7 +523,6 @@ end
 #### NetworkPolicy Type Definition
 
 ```go
-
 // NetworkPolicy defines network access permissions and restrictions
 type NetworkPolicy struct {
     // AllowPub adds publish permissions for specified subjects
@@ -562,6 +565,8 @@ controller -> manifest : <<watch>>
 controller --> natsmanifest : <<create nats crds>>
 natscontroller -> natsmanifest : <<watch>>
 natscontroller --> nats : <<create stream>>
+
+@enduml
 
 ```
 
@@ -669,6 +674,8 @@ sidecar -up-> clientif : <<connect>>
 nats -- clientif : <<provide>>
 
 controller --> pod : <<extend>>
+
+@enduml
 ```
 
 ```plantuml
@@ -696,7 +703,6 @@ group process pod "baz"
     sidecar -> persistent : store nats component spec
     sidecar -> sidecar : run dapr
 end
-
 
 @enduml
 ```
