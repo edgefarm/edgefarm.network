@@ -81,6 +81,12 @@ deployments:
             domain: main
             fileStorage:
               size: ${MAIN_NATS_MAX_STORAGE}
+        exporter:
+          enabled: true
+          image: natsio/prometheus-nats-exporter:latest
+          pullPolicy: IfNotPresent
+          serviceMonitor:
+            enabled: true
         namespaceOverride: "nats"
         podDisruptionBudget:
           enabled: false
