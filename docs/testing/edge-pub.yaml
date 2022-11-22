@@ -1,0 +1,62 @@
+apiVersion: apps.kubeedge.io/v1alpha1
+kind: EdgeApplication
+metadata:
+  name: test-pub
+  labels:
+    app.kubernetes.io/name: test-pub
+  namespace: testing
+spec:
+  workloadTemplate:
+    manifests:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          namespace: testing
+          name: test-pub
+          labels:
+            app.kubernetes.io/name: test-pub
+            app.kubernetes.io/instance: test-pub
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: test-pub
+              app.kubernetes.io/instance: test-pub
+          template:
+            metadata:
+              labels:
+                app.kubernetes.io/name: test-pub
+                app.kubernetes.io/instance: test-pub
+            spec:
+              containers:
+                - name: pub
+                  image: natsio/nats-box:0.13.2
+                  imagePullPolicy: IfNotPresent
+                  command: ["/bin/sh"]
+                  args:
+                    [
+                      "-c",
+                      "nats --user secret -s nats://leaf-nats.nats.svc.cluster.local:4222 pub testing.message --count 5000 --sleep 100ms 'Message from {{ID}}: {{Count}}: {{ Random 5000 5000 }}'",
+                    ]
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 100Mi
+                    requests:
+                      cpu: 100m
+                      memory: 50Mi
+              tolerations:
+                - effect: NoExecute
+                  key: edgefarm.applications
+                  operator: Exists
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                      - matchExpressions:
+                          - key: node-role.kubernetes.io/edge
+                            operator: Exists
+  workloadScope:
+    targetNodeGroupSelectors:
+      - matchLabels:
+          network.edgefarm.io/testing: "pub"

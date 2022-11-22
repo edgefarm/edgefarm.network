@@ -1,0 +1,191 @@
+apiVersion: apps.kubeedge.io/v1alpha1
+kind: EdgeApplication
+metadata:
+  name: leaf-nats
+  labels:
+    app.kubernetes.io/name: leaf-nats
+  namespace: {{ .Values.namespace | default .Release.Namespace }}
+spec:
+
+  workloadTemplate:
+    manifests:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          namespace: {{ .Values.namespace | default .Release.Namespace }}
+          name: {{ include "leaf-nats.fullname" . }}
+          labels:
+{{ include "leaf-nats.labels" . | indent 12 }}
+          {{- with .Values.edgeApplication.annotations }}
+          annotations:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+{{ include "leaf-nats.selectorLabels" . | indent 14 }}
+          template:
+            metadata:
+              labels:
+{{ include "leaf-nats.selectorLabels" . | indent 16 }}
+        {{- with .Values.edgeApplication.podLabels }}
+        {{- toYaml . | nindent 16 }}
+        {{- end }}
+        {{- with .Values.edgeApplication.podAnnotations }}
+              annotations:
+        {{ toYaml . | indent 16 }}
+        {{- end }}
+            spec:
+              {{- with .Values.edgeApplication.podSecurityContext }}
+              securityContext:
+              {{- toYaml . | nindent 16 }}
+              {{- end }}
+              initContainers:
+              - name: initconfig
+                image: bash:5.0.7
+                imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
+                command: ["/bin/sh", "-c"]
+                args: ["-c", "cp /template/nats.json /result/nats.json && sed -i 's/TEMPLATE_NATS_DOMAIN/'\"$NODE_NAME\"'/g' /result/nats.json && sed -i 's/TEMPLATE_NATS_TOKEN/{{ .Values.config.nats.token }}/g' /result/nats.json && sed -i 's/TEMPLATE_NATS_HOST/{{ .Values.config.nats.host }}/g' /result/nats.json"]
+                env:
+                  - name: NODE_NAME
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: spec.nodeName
+                volumeMounts:
+                  - name: init-nats-config
+                    mountPath: /template
+                    readOnly: true
+                  - name: nats-config
+                    mountPath: /result
+                    readOnly: false
+              containers:
+              - name: {{ include "leaf-nats.name" . }}
+                image: "{{ .Values.edgeApplication.image.registry }}/{{ .Values.edgeApplication.image.repository }}:{{ .Values.edgeApplication.image.tag }}"
+                imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
+                env:
+                  - name: POD_NAME
+                    valueFrom:
+                      fieldRef:
+                        apiVersion: v1
+                        fieldPath: metadata.name
+                  - name: SERVER_NAME
+                    value: $(POD_NAME)
+                  - name: POD_NAMESPACE
+                    valueFrom:
+                      fieldRef:
+                        apiVersion: v1
+                        fieldPath: metadata.namespace
+                  - name: NODE_NAME
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: spec.nodeName
+                {{- with .Values.edgeApplication.containerSecurityContext }}
+                securityContext:
+                {{- toYaml . | nindent 18 }}
+                {{- end }}
+                {{- with .Values.edgeApplication.resources }}
+                resources:
+                {{- toYaml . | nindent 18 }}
+                {{- end }}
+                volumeMounts:
+                  - name: jetstrea-store
+                    mountPath: /data
+                    readOnly: false
+                  - name: nats-config
+                    mountPath: /config
+                    readOnly: false
+                ports:
+                  - name: http
+                    containerPort: 4222
+                    protocol: TCP
+                args:
+                  - "-c"
+                  - "/config/nats.json"
+                  {{- if .Values.edgeApplication.extraArgs  }}
+                  {{- range .Values.edgeApplication.extraArgs  }}
+                  - {{ . }}
+                  {{- end }}
+                  {{- end }}
+              {{- with .Values.edgeApplication.image.pullSecrets }}
+              imagePullSecrets:
+              {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.edgeApplication.nodeSelector }}
+              nodeSelector:
+              {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.edgeApplication.tolerations }}
+              volumes:
+                - name: jetstrea-store
+                  hostPath:
+                    path: /data/jetstream_store
+
+                - name: init-nats-config
+                  configMap:
+                    name: initial-nats-config
+
+                - name: nats-config
+                  hostPath:
+                    path: /data/nats
+              tolerations:
+              {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.edgeApplication.affinity }}
+              affinity:
+              {{- toYaml . | nindent 16 }}
+              {{- end }}
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                    - nats-server
+                    - -sl=ldm=/var/run/nats/nats.pid
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: /
+                  port: 8222
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              startupProbe:
+                failureThreshold: 30
+                httpGet:
+                  path: /healthz
+                  port: 8222
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: {{ template "leaf-nats.fullname" . }}
+          namespace: {{ .Values.namespace | default .Release.Namespace }}
+          labels:
+{{ include "leaf-nats.labels"  . | indent 11 }}
+        {{- if .Values.edgeApplication.service.annotations }}
+          annotations:
+        {{ toYaml .Values.edgeApplication.service.annotations | indent 11 }}
+        {{- end }}
+        spec:
+          type: {{ .Values.edgeApplication.service.type }}
+          ports:
+            - port: {{ .Values.edgeApplication.service.port }}
+            {{- if ( and (eq .Values.edgeApplication.service.type "NodePort" ) (not (empty .Values.edgeApplication.service.nodePort)) ) }}
+              nodePort: {{ .Values.edgeApplication.service.nodePort }}
+            {{- end }}
+              targetPort: {{ .Values.edgeApplication.service.targetPort }}
+              protocol: TCP
+              name: {{ .Values.edgeApplication.service.portName }}
+          selector:
+{{ include "leaf-nats.selectorLabels" . | indent 11 }}
+  workloadScope:
+    targetNodeGroupSelectors:
+    {{- with .Values.config.targetNodeGroupLabels}}
+    {{- toYaml . | nindent 6 }}
+    {{- end }}

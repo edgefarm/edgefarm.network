@@ -1,0 +1,12 @@
+version: v2beta1
+name: edgefarm-network
+
+vars:
+  # Define the maximum file storage size for the NATS main server.
+  MAIN_NATS_MAX_STORAGE:
+    value: "10Gi"
+
+  # Define the shared NATS token to be used to connect to the NATS cluster.
+  # This token is used by the leaf-nats servers running on the edge nodes.
+  NATS_TOKEN:
+    value: "secret"
