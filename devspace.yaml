@@ -41,6 +41,8 @@ pipelines:
     COLOR='\033[0;93m'
     NC='\033[0m'
     kubectl label node default-worker edgefarm.io/nats-main=true --overwrite
+
+    create_deployments servicemonitors-crd
     create_deployments nats-main
     wait_for_pod "-l app.kubernetes.io/instance=nats-main,app.kubernetes.io/name=nats" nats
     create_deployments leaf-nats
@@ -106,6 +108,11 @@ deployments:
           # fixed token to access the nats cluster
           token: ${NATS_TOKEN}
     namespace: nats
+
+  servicemonitors-crd:
+    kubectl:
+      manifests:
+        - https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_servicemonitors.yaml
 
   leaf-nats:
     namespace: nats
