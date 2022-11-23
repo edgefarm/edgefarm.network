@@ -32,7 +32,7 @@ The image is divided into two parts:
 2.1 cloud nats server
 2.2 application running on the cloud that reads messages from the stream located on the cloud nats server
 
-In this example there will be a stream created with size of 10 MiB and a consumer that reads messages from the stream.
+In this example there will be a stream created with size of 100 MiB and a consumer that reads messages from the stream.
 
 ### Deploying the test application
 

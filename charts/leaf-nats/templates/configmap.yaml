@@ -6,6 +6,7 @@ metadata:
 data:
     nats.json: |-
         {
+            "server_name": "TEMPLATE_NATS_DOMAIN"
             "jetstream": {
                 "store_dir": "/store",
                 "domain": "TEMPLATE_NATS_DOMAIN"
