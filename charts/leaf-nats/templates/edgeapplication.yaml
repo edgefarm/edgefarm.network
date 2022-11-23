@@ -60,6 +60,24 @@ spec:
                     mountPath: /result
                     readOnly: false
               containers:
+              - name: metrics
+                image: natsio/prometheus-nats-exporter:0.10.1
+                imagePullPolicy: IfNotPresent
+                securityContext: {}
+                resources: {}
+                args:
+                - -connz
+                - -routez
+                - -subz
+                - -varz
+                - -prefix=nats
+                - -use_internal_server_id
+                - -jsz=all
+                - -leafz
+                - http://localhost:8222/
+                ports:
+                - containerPort: 7777
+                  name: metrics
               - name: {{ include "leaf-nats.name" . }}
                 image: "{{ .Values.edgeApplication.image.registry }}/{{ .Values.edgeApplication.image.repository }}:{{ .Values.edgeApplication.image.tag }}"
                 imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
@@ -182,6 +200,11 @@ spec:
               targetPort: {{ .Values.edgeApplication.service.targetPort }}
               protocol: TCP
               name: {{ .Values.edgeApplication.service.portName }}
+            - appProtocol: http
+              name: monitor
+              port: 8222
+              protocol: TCP
+              targetPort: 8222
           selector:
 {{ include "leaf-nats.selectorLabels" . | indent 11 }}
   workloadScope:
