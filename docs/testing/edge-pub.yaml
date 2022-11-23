@@ -36,7 +36,7 @@ spec:
                   args:
                     [
                       "-c",
-                      "nats --user secret -s nats://leaf-nats.nats.svc.cluster.local:4222 pub testing.message --count 5000 --sleep 100ms 'Message from {{ID}}: {{Count}}: {{ Random 5000 5000 }}'",
+                      "nats --user secret -s nats://leaf-nats.nats.svc.cluster.local:4222 pub testing.message --count 5000 --sleep 333ms 'Message from {{ID}}: {{Count}}: {{ Random 2000 2000 }}'",
                     ]
                   resources:
                     limits:

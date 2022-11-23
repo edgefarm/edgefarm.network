@@ -48,7 +48,7 @@ data:
         "max_consumers": -1,
         "max_msgs_per_subject": -1,
         "max_msgs": -1,
-        "max_bytes": 10485760,
+        "max_bytes": 104857600,
         "max_age": 0,
         "max_msg_size": -1,
         "storage": "file",
