@@ -7,7 +7,24 @@ namespace: ""
 config:
   nats:
     host: localhost
-    token: secret
+    leafNodeConnectionAccount: default
+    # accounts:
+    #   {
+    #     default:
+    #       { users: [{ user: user, password: pass }], jetstream: enabled },
+    #   }
+    # authorization:
+    # {
+    #   default_permissions:
+    #   {
+    #         publish: ">",
+    #         subscribe: ">"
+    #   },
+    #   users:
+    #   [
+    #     { user: user, password: pass }
+    #   ]
+    # }
   targetNodeGroupLabels:
     - matchLabels:
         network.edgefarm.io/edge: ""

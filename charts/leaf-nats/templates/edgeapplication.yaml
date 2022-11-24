@@ -46,7 +46,7 @@ spec:
                 image: bash:5.0.7
                 imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
                 command: ["/bin/sh", "-c"]
-                args: ["-c", "cp /template/nats.json /result/nats.json && sed -i 's/TEMPLATE_NATS_DOMAIN/'\"$NODE_NAME\"'/g' /result/nats.json && sed -i 's/TEMPLATE_NATS_TOKEN/{{ .Values.config.nats.token }}/g' /result/nats.json && sed -i 's/TEMPLATE_NATS_HOST/{{ .Values.config.nats.host }}/g' /result/nats.json"]
+                args: ["-c", "cp /template/nats.json /result/nats.json && sed -i 's/TEMPLATE_NATS_DOMAIN/'\"$NODE_NAME\"'/g' /result/nats.json"]
                 env:
                   - name: NODE_NAME
                     valueFrom:
@@ -78,7 +78,7 @@ spec:
                 ports:
                 - containerPort: 7777
                   name: metrics
-              - name: {{ include "leaf-nats.name" . }}
+              - name: nats
                 image: "{{ .Values.edgeApplication.image.registry }}/{{ .Values.edgeApplication.image.repository }}:{{ .Values.edgeApplication.image.tag }}"
                 imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
                 env:
@@ -107,8 +107,8 @@ spec:
                 {{- toYaml . | nindent 18 }}
                 {{- end }}
                 volumeMounts:
-                  - name: jetstrea-store
-                    mountPath: /data
+                  - name: jetstream-store
+                    mountPath: /jetstream_store
                     readOnly: false
                   - name: nats-config
                     mountPath: /config
@@ -135,17 +135,15 @@ spec:
               {{- end }}
               {{- with .Values.edgeApplication.tolerations }}
               volumes:
-                - name: jetstrea-store
+                - name: jetstream-store
                   hostPath:
-                    path: /data/jetstream_store
-
+                    path: /data/nats/jetstream_store
                 - name: init-nats-config
                   configMap:
                     name: initial-nats-config
-
                 - name: nats-config
                   hostPath:
-                    path: /data/nats
+                    path: /data/nats/config
               tolerations:
               {{- toYaml . | nindent 16 }}
               {{- end }}

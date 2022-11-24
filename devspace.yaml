@@ -35,6 +35,16 @@ functions:
     until kubectl wait --for=condition=ready pod -n $2 $1 --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
 
 pipelines:
+  deploy-main-nats: |-
+    #!/bin/bash
+    set -e
+    COLOR='\033[0;93m'
+    NC='\033[0m'
+    create_deployments nats-main
+
+  deploy-leaf-nats: |-
+    create_deployments leaf-nats
+
   deploy-network: |-
     #!/bin/bash
     set -e
@@ -105,8 +115,26 @@ deployments:
           enabled: false
         auth:
           enabled: true
-          # fixed token to access the nats cluster
-          token: ${NATS_TOKEN}
+          basic:
+            accounts:
+              {
+                SYS:
+                  {
+                    users: [{ user: admin, password: admin }],
+                    jetstream: enabled,
+                  },
+                default:
+                  {
+                    users: [{ user: user, password: pass }],
+                    jetstream: enabled,
+                  },
+              }
+            # users:
+            #   - user
+            # defaultPermissions:
+            #   publish: [">"]
+            #   subscribe: [">"]
+        system_account: SYS
     namespace: nats
 
   servicemonitors-crd:
@@ -125,7 +153,6 @@ deployments:
         config:
           nats:
             host: ${CLUSTER_IP}
-            token: ${NATS_TOKEN}
           targetNodeGroupLabels:
             - matchLabels:
                 network.edgefarm.io/edge: ""

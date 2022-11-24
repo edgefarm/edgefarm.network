@@ -8,14 +8,15 @@ data:
         {
             "server_name": "TEMPLATE_NATS_DOMAIN"
             "jetstream": {
-                "store_dir": "/store",
+                "store_dir": "/jetstream_store",
                 "domain": "TEMPLATE_NATS_DOMAIN"
             },
             "http": 8222,
             "leafnodes": {
                 "remotes": [
                 {
-                    "url": "nats://TEMPLATE_NATS_TOKEN@TEMPLATE_NATS_HOST:7422",
+                    "url": "nats://{{ .Values.config.nats.host }}:7422",
+                    "account": "default",
                     "deny_imports": [
                     "local.>"
                     ],
@@ -24,5 +25,17 @@ data:
                     ]
                 }
                 ]
-            }
+            },
+            "accounts":{
+                "SYS": {
+                      "users": [{"user": "admin", "password": "admin"}]
+                },
+                "default": {
+                    "users": [{ "user": "user", "password": "pass" }],
+                    "jetstream": "enabled",
+                }
+              }
+            "authorization": {
+                "default_permissions": { "publish": ">", "subscribe": ">" },
+              }
         }

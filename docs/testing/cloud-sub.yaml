@@ -26,7 +26,7 @@ spec:
           args:
             [
               "-c",
-              "nats --user secret -s nats://nats-main.nats.svc.cluster.local:4222 stream add --config /config/stream.json && nats --user secret -s nats://nats-main.nats.svc.cluster.local:4222 consumer add testing-stream --config /config/consumer.json",
+              "nats -s nats://user:pass@nats-main.nats.svc.cluster.local:4222 stream add --config /config/stream.json && nats -s nats://user:pass@nats-main.nats.svc.cluster.local:4222 consumer add testing-stream --config /config/consumer.json",
             ]
           volumeMounts:
             - name: config
@@ -47,7 +47,7 @@ spec:
           args:
             [
               "-c",
-              "while true; do nats --user secret -s nats://nats-main.nats.svc.cluster.local:4222 consumer next testing-stream testing-consumer --count 2; done",
+              "while true; do nats -s nats://user:pass@nats-main.nats.svc.cluster.local:4222 consumer next testing-stream testing-consumer --count 2; done",
             ]
           resources:
             limits:
