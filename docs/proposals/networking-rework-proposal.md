@@ -373,7 +373,7 @@ actor "k8s user" as user
 package k8s {
 
     package "workload namespaces" as workload {
-        package "nodepool" as edgenetwork {
+        package "nodegroup" as edgenetwork {
             [leaf nats] as leafnats
             database "cached resolver" as leafresolver
 
@@ -404,6 +404,7 @@ controller ----> manifest : <<watch>>
 user ---> manifest : <<apply>>
 
 controller -left-> edgenetwork : <<deploy>>
+controller -----> leafnats : <<set labels>>
 
 mainnats -up- leafif : <<provide>>
 
@@ -419,6 +420,7 @@ leafresolver <~> mainresolver : <<sync>>
 
 actor "k8s user" as user
 participant "network controller" as controller
+participant "nats controller" as natscontroller
 participant "network namespace" as namespace
 participant "control plane" as controlplane
 participant "main nats" as mainnats
@@ -427,13 +429,25 @@ database "credential store (vault)" as vault
 
 loop
     controller -> namespace : watch for crds edgenetwork.edgefarm.io
+    controller -> namespace : watch for pods with label keys network.edgefarm.io/type=leaf
 end
 
 user -> namespace : crd edgenetwork.edgefarm.io "edgenw"
 
 group process crd "edgenetwork"
-    controller -> leafnats ** : add deployment nats leaf on nodegroup
+    controller -> leafnats ** : add deployment nats leaf on nodegroup with labels: network.edgefarm.io/name=... and network.edgefarm.io/type=leaf
     leafnats -> namespace : to:
+end
+
+group process pod with label network.edgefarm.io/type=leaf
+    controller -> leafnats: get node name and network name from labels
+    controller -> namespace: get edgenetwork.edgefarm.io crd
+    controller -> controller: calculate domain from network name and node name
+    controller -> namespace: create stream crd
+
+    natscontroller -> namespace: get stream crd
+    natscontroller -> natscontroller: handle stream crd
+    natscontroller -> mainnats: create/update/delete streams for given domains
 end
 
 alt if no nkey
