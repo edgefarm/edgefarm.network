@@ -9,8 +9,15 @@ vars:
     command: |-
       #!/bin/bash
       set -e
-      IP=$(kubectl get nodes $(kubectl get pods -n nats nats-main-0 -o jsonpath='{.spec.nodeName}') -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
-      echo ${IP}
+      LOCAL=$(kubectl get secrets -n default cluster-info -o jsonpath='{.data.kindCluster}' | base64 -d)
+      if [ "$LOCAL" == "true" ]; then
+        IP=$(kubectl get secrets -n default cluster-info -o jsonpath='{.data.clusterIP}' | base64 -d)
+        echo ${IP}
+      else
+        echo "nats-main.nats.svc.cluster.local"
+        IP=$(kubectl get nodes $(kubectl get pods -n nats nats-main-0 -o jsonpath='{.spec.nodeName}') -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
+        echo ${IP}
+      fi
 
 commands:
   help: |-
@@ -57,15 +64,66 @@ pipelines:
     COLOR='\033[0;93m'
     NC='\033[0m'
     echo -e "${COLOR}Creating example jetstream in domain: main${NC}"
-    docker run --rm \
-    --entrypoint /bin/sh \
-    -v $(pwd)/dev/config/example.json:/config/example.json \
-    natsio/nats-box:0.13.2 \
-    -c "/usr/local/bin/nats stream create \
-    --config /config/example.json \
-    --user ${NATS_TOKEN} \
-    -s nats://${MAIN_NATS_IP}:4222" \
-    --domain main
+    cat <<EOF | kubectl apply -n nats -f -
+    kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: example-stream
+    data:
+      example.json: |
+        {
+          "config": {
+            "name": "example",
+            "subjects": [
+              "example.>"
+            ],
+            "retention": "limits",
+            "max_consumers": -1,
+            "max_msgs_per_subject": -1,
+            "max_msgs": -1,
+            "max_bytes": 10485760,
+            "max_age": 0,
+            "max_msg_size": -1,
+            "storage": "file",
+            "discard": "old",
+            "num_replicas": 1,
+            "duplicate_window": 120000000000,
+            "sealed": false,
+            "deny_delete": false,
+            "deny_purge": false,
+            "allow_rollup_hdrs": false
+          }
+        }
+    ---
+    kind: Job
+    apiVersion: batch/v1
+    metadata:
+      name: create-example-stream
+      labels:
+        app.kubernetes.io/name: create-example-stream
+    spec:
+      template:
+        spec:
+          containers:
+          - name: create-example-stream
+            image: natsio/nats-box:0.13.2
+            command:
+            - /bin/sh
+            - -c
+            - "/usr/local/bin/nats stream create --config /config/example.json --user ${NATS_TOKEN} -s nats://nats-main.nats.svc.cluster.local:4222 --domain main && /usr/local/bin/nats stream ls --user ${NATS_TOKEN} -s nats://nats-main.nats.svc.cluster.local:4222 --domain main"
+            volumeMounts:
+            - name: example-stream
+              mountPath: /config
+          restartPolicy: Never
+          volumes:
+          - name: example-stream
+            configMap:
+              name: example-stream
+      backoffLimit: 4
+    EOF
+    kubectl wait --for=condition=complete job/create-example-stream -n nats --timeout=60s
+    kubectl logs job/create-example-stream -n nats
+    kubectl delete job create-example-stream -n nats
 
   deploy-edge-network: |-
     #!/bin/bash
@@ -97,7 +155,6 @@ deployments:
             enabled: true
             domain: main
             fileStorage:
-              storageClassName: local-path
               size: ${MAIN_NATS_MAX_STORAGE}
         exporter:
           enabled: true

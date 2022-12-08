@@ -78,7 +78,7 @@ spec:
                 ports:
                 - containerPort: 7777
                   name: metrics
-              - name: {{ include "leaf-nats.name" . }}
+              - name: nats
                 image: "{{ .Values.edgeApplication.image.registry }}/{{ .Values.edgeApplication.image.repository }}:{{ .Values.edgeApplication.image.tag }}"
                 imagePullPolicy: {{ .Values.edgeApplication.image.pullPolicy }}
                 env:
