@@ -5,11 +5,11 @@ imports:
   - path: ./config.yaml
 
 vars:
-  CLUSTER_IP:
+  MAIN_NATS_IP:
     command: |-
       #!/bin/bash
       set -e
-      IP=$(kubectl get secrets -n default cluster-ip -o jsonpath='{.data.clusterIP}' | base64 -d)
+      IP=$(kubectl get nodes $(kubectl get pods -n nats nats-main-0 -o jsonpath='{.spec.nodeName}') -o jsonpath='{.status.addresses[?(@.type=="InternalIP")].address}')
       echo ${IP}
 
 commands:
@@ -36,16 +36,26 @@ functions:
 
 pipelines:
   deploy-network: |-
+    run_pipelines deploy-cloud-network
+    run_pipelines deploy-edge-network
+    run_pipelines deploy-example-stream
+
+  deploy-cloud-network: |-
     #!/bin/bash
     set -e
     COLOR='\033[0;93m'
     NC='\033[0m'
-    kubectl label node default-worker edgefarm.io/nats-main=true --overwrite
+    kubectl label node -l '!node-role.kubernetes.io/control-plane' edgefarm.io/nats-main=true --overwrite
 
     create_deployments servicemonitors-crd
     create_deployments nats-main
     wait_for_pod "-l app.kubernetes.io/instance=nats-main,app.kubernetes.io/name=nats" nats
-    create_deployments leaf-nats
+
+  deploy-example-stream: |-
+    #!/bin/bash
+    set -e
+    COLOR='\033[0;93m'
+    NC='\033[0m'
     echo -e "${COLOR}Creating example jetstream in domain: main${NC}"
     docker run --rm \
     --entrypoint /bin/sh \
@@ -54,8 +64,13 @@ pipelines:
     -c "/usr/local/bin/nats stream create \
     --config /config/example.json \
     --user ${NATS_TOKEN} \
-    -s nats://${CLUSTER_IP}:4222" \
+    -s nats://${MAIN_NATS_IP}:4222" \
     --domain main
+
+  deploy-edge-network: |-
+    #!/bin/bash
+    set -e
+    create_deployments leaf-nats
 
   purge-network: |-
     #!/bin/bash
@@ -82,6 +97,7 @@ deployments:
             enabled: true
             domain: main
             fileStorage:
+              storageClassName: local-path
               size: ${MAIN_NATS_MAX_STORAGE}
         exporter:
           enabled: true
@@ -124,7 +140,7 @@ deployments:
         fullnameOverride: leaf-nats
         config:
           nats:
-            host: ${CLUSTER_IP}
+            host: ${MAIN_NATS_IP}
             token: ${NATS_TOKEN}
           targetNodeGroupLabels:
             - matchLabels:

@@ -39,7 +39,7 @@ In this example there will be a stream created with size of 100 MiB and a consum
 First off, label the nodeGroups you want to use for this test. In this example all nodeGroups are used and therefore labeled with the same label.
 
 ```console
-$ kubectl nodegroups.apps.kubeedge.io --all network.edgefarm.io/testing=pub
+$ kubectl label nodegroups.apps.kubeedge.io --all network.edgefarm.io/testing=pub
 nodegroup.apps.kubeedge.io/virtual-4df58d72 labeled
 nodegroup.apps.kubeedge.io/virtual-acf96a77 labeled
 ```
