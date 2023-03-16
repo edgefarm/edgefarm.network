@@ -25,7 +25,7 @@ edgeApplication:
   image:
     registry: docker.io
     repository: nats
-    tag: 2.9.6-alpine3.16
+    tag: 2.9.8-alpine3.16
     pullPolicy: IfNotPresent
   pullSecrets:
   extraArgs: {}
