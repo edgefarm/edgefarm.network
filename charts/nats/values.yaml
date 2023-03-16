@@ -543,7 +543,7 @@ natsbox:
 # The NATS config reloader image to use.
 reloader:
   enabled: true
-  image: natsio/nats-server-config-reloader:0.7.4
+  image: natsio/nats-server-config-reloader:0.10.1
   pullPolicy: IfNotPresent
   securityContext: {}
   extraConfigs: []
