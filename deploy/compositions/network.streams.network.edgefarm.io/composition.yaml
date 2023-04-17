@@ -375,20 +375,20 @@ spec:
     - name: addStreams
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-streams:1.0.0-beta.14
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-streams:1.0.0-beta.15
         network:
           policy: Runner
 
     - name: addEdgeNetworks
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.14
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.15
         network:
           policy: Runner
 
     - name: addUsers
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-users:1.0.0-beta.14
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-users:1.0.0-beta.15
         network:
           policy: Runner
