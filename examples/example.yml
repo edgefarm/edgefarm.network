@@ -132,17 +132,16 @@ spec:
           fileStorage: 1G
           inMemoryStorage: 1G
         tolerations: []
-
-        matchExpressions:
-          - key: mysubnet
-            operator: Exists
-          - key: mysubnet
-            operator: In
-            values:
-              - big
-              - kaesebrot
+        nodeSelectorTerm:
+          matchExpressions:
+            - key: mynetwork-big
+              operator: Exists
       - name: small
         limits:
           fileStorage: 200M
           inMemoryStorage: 200M
         tolerations: []
+        nodeSelectorTerm:
+          matchExpressions:
+            - key: mynetwork-big
+              operator: Exists
