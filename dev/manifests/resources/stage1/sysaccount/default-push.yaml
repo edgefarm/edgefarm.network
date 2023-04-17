@@ -1,0 +1,24 @@
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: default-push
+spec:
+  forProvider:
+    operator: myoperator
+    account: sys
+    claims:
+      user:
+        data: -1
+        payload: -1
+        subs: -1
+        pub:
+          allow:
+            - "$SYS.REQ.CLAIMS.LIST"
+            - "$SYS.REQ.CLAIMS.UPDATE"
+            - "$SYS.REQ.CLAIMS.DELETE"
+        resp:
+        sub:
+          allow:
+            - _INBOX.>
+  providerConfigRef:
+    name: provider-natssecrets

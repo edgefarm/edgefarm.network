@@ -1,0 +1,4796 @@
+config:
+  apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+  kind: Config
+  spec:
+    webhookURL: https://webhook.site/a42d42c7-037d-4782-b3cd-beca09b61633
+desired:
+  composite:
+    connectionDetails: []
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: >
+            {"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"mynetwork","namespace":"myconfig"},"spec":{"compositeDeletePolicy":"Foreground","parameters":{"streams":[{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["main.first.\u003e","foo.\u003e"]},"name":"firstinmain","type":"Standard"},{"config":{"discard":"Old","maxBytes":202400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["main.second.\u003e"]},"name":"secondinmain","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":302400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["small.first.\u003e"]},"name":"firstinsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":402400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["small.second.\u003e"]},"name":"secondinsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":502400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["big.first.\u003e"]},"name":"firstinbig","subNetworkRef":"big","type":"Standard"},{"config":{"discard":"Old","maxBytes":602400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"aggregate","references":["firstinsmall","firstinbig"],"type":"Aggregate"}],"subNetworks":[{"limits":{"fileStorage":"1G","inMemoryStorage":"1G"},"name":"big","tolerations":[]},{"limits":{"fileStorage":"200M","inMemoryStorage":"200M"},"name":"small","tolerations":[]}],"users":[{"limits":{"data":-1,"payload":1000,"subscriptions":-1},"name":"mainonly","permissions":{"pub":{"allow":["main.\u003e"]},"sub":{"allow":["main.\u003e"]}}},{"limits":{"data":1000,"payload":1000,"subscriptions":50},"name":"smallonly","permissions":{"pub":{"allow":["*.small.\u003e"]},"sub":{"allow":["*.small.\u003e"]}}}]}}}
+        creationTimestamp: 2023-04-14T13:24:19Z
+        finalizers:
+          - composite.apiextensions.crossplane.io
+        generateName: mynetwork-
+        generation: 14
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-8gjvc
+        managedFields:
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            fieldsType: FieldsV1
+            fieldsV1:
+              f:metadata:
+                f:annotations:
+                  .: {}
+                  f:kubectl.kubernetes.io/last-applied-configuration: {}
+                f:finalizers:
+                  .: {}
+                  v:"composite.apiextensions.crossplane.io": {}
+                f:generateName: {}
+                f:labels:
+                  .: {}
+                  f:crossplane.io/claim-name: {}
+                  f:crossplane.io/claim-namespace: {}
+                  f:crossplane.io/composite: {}
+              f:spec:
+                .: {}
+                f:claimRef:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:name: {}
+                  f:namespace: {}
+                f:compositionRef:
+                  .: {}
+                  f:name: {}
+                f:compositionRevisionRef:
+                  .: {}
+                  f:name: {}
+                f:compositionUpdatePolicy: {}
+                f:parameters:
+                  .: {}
+                  f:streams: {}
+                  f:subNetworks: {}
+                  f:users: {}
+                f:resourceRefs: {}
+                f:writeConnectionSecretToRef:
+                  .: {}
+                  f:name: {}
+                  f:namespace: {}
+            manager: crossplane
+            operation: Update
+            time: 2023-04-14T13:24:29Z
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            fieldsType: FieldsV1
+            fieldsV1:
+              f:status:
+                .: {}
+                f:conditions: {}
+                f:connectionDetails:
+                  .: {}
+                  f:lastPublishedTime: {}
+                f:operator: {}
+            manager: crossplane
+            operation: Update
+            subresource: status
+            time: 2023-04-14T13:24:38Z
+        name: mynetwork-8gjvc
+        resourceVersion: "1707481"
+        uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: mynetwork
+          namespace: myconfig
+        compositionRef:
+          name: xnetworks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xnetworks.streams.network.edgefarm.io-4bed0dc
+        compositionUpdatePolicy: Automatic
+        parameters:
+          streams:
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 102400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - main.first.>
+                  - foo.>
+              name: firstinmain
+              subNetworkRef: main
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 202400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - main.second.>
+              name: secondinmain
+              subNetworkRef: main
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 302400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - network-operator-worker3.network-operator-worker2.small.first.>
+              name: firstinsmall
+              subNetworkRef: small
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 402400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - network-operator-worker3.network-operator-worker2.small.second.>
+              name: secondinsmall
+              subNetworkRef: small
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 502400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+              name: firstinbig
+              subNetworkRef: big
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 602400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+              name: aggregate
+              references:
+                - firstinsmall
+                - firstinbig
+              subNetworkRef: main
+              type: Aggregate
+          subNetworks:
+            - limits:
+                fileStorage: 1G
+                inMemoryStorage: 1G
+              name: big
+              tolerations: []
+            - limits:
+                fileStorage: 200M
+                inMemoryStorage: 200M
+              name: small
+              tolerations: []
+          users:
+            - limits:
+                data: -1
+                payload: 1000
+                subscriptions: -1
+              name: mainonly
+              permissions:
+                pub:
+                  allow:
+                    - main.>
+                  deny: []
+                sub:
+                  allow:
+                    - main.>
+                  deny: []
+            - limits:
+                data: 1000
+                payload: 1000
+                subscriptions: 50
+              name: smallonly
+              permissions:
+                pub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+                sub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+        resourceRefs:
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: Account
+            name: mynetwork-myconfig
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-mainonly
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-smallonly
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-sys-account-user
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-system
+          - apiVersion: kubernetes.crossplane.io/v1alpha1
+            kind: Object
+            name: mynetwork-myconfig-get-network-base-config
+          - apiVersion: nats.crossplane.io/v1alpha1
+            kind: ProviderConfig
+            name: mynetwork-myconfig
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XEdgeNetwork
+            name: mynetwork-myconfig-big
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XEdgeNetwork
+            name: mynetwork-myconfig-small
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: aggregate-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker3
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinmain-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinmain-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+        writeConnectionSecretToRef:
+          name: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          namespace: crossplane-system
+      status:
+        account: 528b6c59-c002-403d-948d-434a69195cc5
+        conditions:
+          - lastTransitionTime: 2023-04-14T13:24:38Z
+            reason: ReconcileSuccess
+            status: "True"
+            type: Synced
+          - lastTransitionTime: 2023-04-14T13:24:38Z
+            reason: Creating
+            status: "False"
+            type: Ready
+        connectionDetails:
+          lastPublishedTime: 2023-04-14T13:24:38Z
+        operator: myoperator
+        system: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+  resources:
+    - name: provider-nats-config
+      resource:
+        apiVersion: nats.crossplane.io/v1alpha1
+        kind: ProviderConfig
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: provider-nats-config
+          generateName: mynetwork-8gjvc-
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          name: mynetwork-myconfig
+          namespace: myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+        spec:
+          credentials:
+            secretRef:
+              key: provider-config-secret
+              name: mynetwork-myconfig-system
+              namespace: myconfig
+            source: Secret
+    - name: sys-account-user
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: sys-account-user
+          generateName: mynetwork-8gjvc-
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          name: mynetwork-myconfig-sys-account-user
+          namespace: myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+        spec:
+          forProvider:
+            account: sys
+            claims:
+              user:
+                data: -1
+                payload: -1
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-sys-account-user
+            namespace: myconfig
+    - name: get-network-base-config
+      resource:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: get-network-base-config
+          generateName: mynetwork-8gjvc-
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+          name: mynetwork-myconfig-get-network-base-config
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: network-base-config
+                namespace: crossplane-system
+          managementPolicy: Observe
+          providerConfigRef:
+            name: provider-kubernetes
+    - name: account
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: Account
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: account
+            crossplane.io/external-name: mynetwork-myconfig
+          generateName: mynetwork-8gjvc-
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            external-name: mynetwork-myconfig
+          name: mynetwork-myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+        spec:
+          forProvider:
+            claims:
+              account:
+                limits:
+                  conn: -1
+                  consumer: -1
+                  data: -1
+                  diskStorage: -1
+                  exports: -1
+                  imports: -1
+                  leafNodeConn: -1
+                  memStorage: -1
+                  payload: -1
+                  streams: -1
+                  subs: -1
+                  wildcardExports: true
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-account
+            namespace: crossplane-system
+    - name: system
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: system
+          generateName: mynetwork-8gjvc-
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          name: mynetwork-myconfig-system
+          namespace: myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+        spec:
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: -1
+                payload: -1
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-system
+            namespace: myconfig
+    - name: stream-firstinmain-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinmain
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: firstinmain
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          name: firstinmain-main
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - main.first.>
+                - foo.>
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-secondinmain-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: secondinmain
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: secondinmain
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          name: secondinmain-main
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 202400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - main.second.>
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-aggregate-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: aggregate
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: aggregate
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          name: aggregate-main
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              maxBytes: 204800
+              retention: Limits
+              sources:
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-small-network-operator-worker2.API
+                    deliverPrefix: ""
+                  name: firstinsmall
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-small-network-operator-worker3.API
+                    deliverPrefix: ""
+                  name: firstinsmall
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker.API
+                    deliverPrefix: ""
+                  name: firstinbig
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker2.API
+                    deliverPrefix: ""
+                  name: firstinbig
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker3.API
+                    deliverPrefix: ""
+                  name: firstinbig
+              storage: File
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinbig
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinbig
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker3
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinbig
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker2
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinsmall
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: firstinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          name: firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 302400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.first.>
+            domain: mynetwork-myconfig-small-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: firstinsmall
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: firstinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          name: firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 302400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.first.>
+            domain: mynetwork-myconfig-small-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: secondinsmall
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: secondinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          name: secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 402400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.second.>
+            domain: mynetwork-myconfig-small-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/external-name: secondinsmall
+          labels:
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: secondinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          name: secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+        spec:
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 402400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.second.>
+            domain: mynetwork-myconfig-small-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+    - name: big
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XEdgeNetwork
+        metadata:
+          labels:
+            dependsOnSecondUid: b1cc7c73-f90f-43e7-b5bf-d0d5e422a941
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          name: mynetwork-myconfig-big
+        spec:
+          connectionSecretRefs:
+            sysAccountUserSecretRef:
+              name: mynetwork-myconfig-sys-account-user
+            systemUserSecretRef:
+              name: mynetwork-myconfig-system
+          limits:
+            fileStorage: 1G
+            inMemoryStorage: 1G
+          namespace: myconfig
+          network: mynetwork-myconfig
+          nodeSelectorTerm: {}
+          subNetwork: big
+          tolerations: []
+    - name: small
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XEdgeNetwork
+        metadata:
+          labels:
+            dependsOnSecondUid: b1cc7c73-f90f-43e7-b5bf-d0d5e422a941
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          name: mynetwork-myconfig-small
+        spec:
+          connectionSecretRefs:
+            sysAccountUserSecretRef:
+              name: mynetwork-myconfig-sys-account-user
+            systemUserSecretRef:
+              name: mynetwork-myconfig-system
+          limits:
+            fileStorage: 200M
+            inMemoryStorage: 200M
+          namespace: myconfig
+          network: mynetwork-myconfig
+          nodeSelectorTerm: {}
+          subNetwork: small
+          tolerations: []
+    - name: user-mainonly
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          labels:
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          name: mynetwork-myconfig-mainonly
+        name: mynetwork-myconfig-mainonly
+        spec:
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: -1
+                payload: 1000
+                pub:
+                  allow:
+                    - main.>
+                  deny: []
+                sub:
+                  allow:
+                    - main.>
+                  deny: []
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-mainonly
+            namespace: myconfig
+    - name: user-smallonly
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          labels:
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          name: mynetwork-myconfig-smallonly
+        name: mynetwork-myconfig-smallonly
+        spec:
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: 1000
+                payload: 1000
+                pub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+                sub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+                subs: 50
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-smallonly
+            namespace: myconfig
+observed:
+  composite:
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: >
+            {"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"mynetwork","namespace":"myconfig"},"spec":{"compositeDeletePolicy":"Foreground","parameters":{"streams":[{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["main.first.\u003e","foo.\u003e"]},"name":"firstinmain","type":"Standard"},{"config":{"discard":"Old","maxBytes":202400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["main.second.\u003e"]},"name":"secondinmain","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":302400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["small.first.\u003e"]},"name":"firstinsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":402400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["small.second.\u003e"]},"name":"secondinsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":502400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["big.first.\u003e"]},"name":"firstinbig","subNetworkRef":"big","type":"Standard"},{"config":{"discard":"Old","maxBytes":602400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"aggregate","references":["firstinsmall","firstinbig"],"type":"Aggregate"}],"subNetworks":[{"limits":{"fileStorage":"1G","inMemoryStorage":"1G"},"name":"big","tolerations":[]},{"limits":{"fileStorage":"200M","inMemoryStorage":"200M"},"name":"small","tolerations":[]}],"users":[{"limits":{"data":-1,"payload":1000,"subscriptions":-1},"name":"mainonly","permissions":{"pub":{"allow":["main.\u003e"]},"sub":{"allow":["main.\u003e"]}}},{"limits":{"data":1000,"payload":1000,"subscriptions":50},"name":"smallonly","permissions":{"pub":{"allow":["*.small.\u003e"]},"sub":{"allow":["*.small.\u003e"]}}}]}}}
+        creationTimestamp: 2023-04-14T13:24:19Z
+        finalizers:
+          - composite.apiextensions.crossplane.io
+        generateName: mynetwork-
+        generation: 14
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-8gjvc
+        managedFields:
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            fieldsType: FieldsV1
+            fieldsV1:
+              f:metadata:
+                f:annotations:
+                  .: {}
+                  f:kubectl.kubernetes.io/last-applied-configuration: {}
+                f:finalizers:
+                  .: {}
+                  v:"composite.apiextensions.crossplane.io": {}
+                f:generateName: {}
+                f:labels:
+                  .: {}
+                  f:crossplane.io/claim-name: {}
+                  f:crossplane.io/claim-namespace: {}
+                  f:crossplane.io/composite: {}
+              f:spec:
+                .: {}
+                f:claimRef:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:name: {}
+                  f:namespace: {}
+                f:compositionRef:
+                  .: {}
+                  f:name: {}
+                f:compositionRevisionRef:
+                  .: {}
+                  f:name: {}
+                f:compositionUpdatePolicy: {}
+                f:parameters:
+                  .: {}
+                  f:streams: {}
+                  f:subNetworks: {}
+                  f:users: {}
+                f:resourceRefs: {}
+                f:writeConnectionSecretToRef:
+                  .: {}
+                  f:name: {}
+                  f:namespace: {}
+            manager: crossplane
+            operation: Update
+            time: 2023-04-14T13:24:29Z
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            fieldsType: FieldsV1
+            fieldsV1:
+              f:status:
+                .: {}
+                f:conditions: {}
+                f:connectionDetails:
+                  .: {}
+                  f:lastPublishedTime: {}
+                f:operator: {}
+            manager: crossplane
+            operation: Update
+            subresource: status
+            time: 2023-04-14T13:24:38Z
+        name: mynetwork-8gjvc
+        resourceVersion: "1707481"
+        uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: mynetwork
+          namespace: myconfig
+        compositionRef:
+          name: xnetworks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xnetworks.streams.network.edgefarm.io-4bed0dc
+        compositionUpdatePolicy: Automatic
+        parameters:
+          streams:
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 102400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - main.first.>
+                  - foo.>
+              name: firstinmain
+              subNetworkRef: main
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 202400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - main.second.>
+              name: secondinmain
+              subNetworkRef: main
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 302400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - small.first.>
+              name: firstinsmall
+              subNetworkRef: small
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 402400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - small.second.>
+              name: secondinsmall
+              subNetworkRef: small
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 502400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+                subjects:
+                  - big.first.>
+              name: firstinbig
+              subNetworkRef: big
+              type: Standard
+            - config:
+                discard: Old
+                discardNewPerSubject: false
+                duplicates: 2m0s
+                maxAge: 0s
+                maxBytes: 602400
+                maxConsumers: -1
+                maxMsgSize: -1
+                maxMsgs: -1
+                maxMsgsPerSubject: -1
+                noAck: false
+                replicas: 1
+                retention: Limits
+                storage: File
+              name: aggregate
+              references:
+                - firstinsmall
+                - firstinbig
+              subNetworkRef: main
+              type: Aggregate
+          subNetworks:
+            - limits:
+                fileStorage: 1G
+                inMemoryStorage: 1G
+              name: big
+              tolerations: []
+            - limits:
+                fileStorage: 200M
+                inMemoryStorage: 200M
+              name: small
+              tolerations: []
+          users:
+            - limits:
+                data: -1
+                payload: 1000
+                subscriptions: -1
+              name: mainonly
+              permissions:
+                pub:
+                  allow:
+                    - main.>
+                sub:
+                  allow:
+                    - main.>
+            - limits:
+                data: 1000
+                payload: 1000
+                subscriptions: 50
+              name: smallonly
+              permissions:
+                pub:
+                  allow:
+                    - "*.small.>"
+                sub:
+                  allow:
+                    - "*.small.>"
+        resourceRefs:
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: Account
+            name: mynetwork-myconfig
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-mainonly
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-smallonly
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-sys-account-user
+          - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+            kind: User
+            name: mynetwork-myconfig-system
+          - apiVersion: kubernetes.crossplane.io/v1alpha1
+            kind: Object
+            name: mynetwork-myconfig-get-network-base-config
+          - apiVersion: nats.crossplane.io/v1alpha1
+            kind: ProviderConfig
+            name: mynetwork-myconfig
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XEdgeNetwork
+            name: mynetwork-myconfig-big
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XEdgeNetwork
+            name: mynetwork-myconfig-small
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: aggregate-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinbig-mynetwork-myconfig-big-network-operator-worker3
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinmain-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinmain-main
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+          - apiVersion: streams.network.edgefarm.io/v1alpha1
+            kind: XStream
+            name: secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+        writeConnectionSecretToRef:
+          name: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          namespace: crossplane-system
+      status:
+        conditions:
+          - lastTransitionTime: 2023-04-14T13:24:38Z
+            reason: ReconcileSuccess
+            status: "True"
+            type: Synced
+          - lastTransitionTime: 2023-04-14T13:24:38Z
+            reason: Creating
+            status: "False"
+            type: Ready
+        connectionDetails:
+          lastPublishedTime: 2023-04-14T13:24:38Z
+        operator: myoperator
+  resources:
+    - connectionDetails: []
+      name: small
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XEdgeNetwork
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: small
+          creationTimestamp: 2023-04-14T13:24:57Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnSecondUid: b1cc7c73-f90f-43e7-b5bf-d0d5e422a941
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnSecondUid: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:connectionSecretRefs:
+                    .: {}
+                    f:sysAccountUserSecretRef: {}
+                    f:systemUserSecretRef: {}
+                  f:limits:
+                    .: {}
+                    f:fileStorage: {}
+                    f:inMemoryStorage: {}
+                  f:network: {}
+                  f:nodeSelectorTerm: {}
+                  f:resourceRefs: {}
+                  f:subNetwork: {}
+                  f:tolerations: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:58Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:01Z
+          name: mynetwork-myconfig-small
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706550"
+          uid: 41db88f6-d3e0-4668-8487-98428a0b8377
+        spec:
+          compositionRef:
+            name: xedgenetworks.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xedgenetworks.streams.network.edgefarm.io-115a13c
+          compositionUpdatePolicy: Automatic
+          connectionSecretRefs:
+            sysAccountUserSecretRef:
+              name: mynetwork-myconfig-sys-account-user
+            systemUserSecretRef:
+              name: mynetwork-myconfig-system
+          limits:
+            fileStorage: 200M
+            inMemoryStorage: 200M
+          network: mynetwork-myconfig
+          nodeSelectorTerm: {}
+          resourceRefs:
+            - apiVersion: kubernetes.crossplane.io/v1alpha1
+              kind: Object
+              name: mynetwork-8gjvc-jqdf6
+          subNetwork: small
+          tolerations: []
+        status:
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:00Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:01Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:01Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:00Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: mynetwork
+    - connectionDetails: []
+      name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker3
+            crossplane.io/external-name: firstinbig
+          creationTimestamp: 2023-04-14T13:25:14Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:16Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:22Z
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker3
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707046"
+          uid: e61860fb-0383-4912-bfe8-e8af3d29d0d5
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-lnd4c
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-big-network-operator-worker3
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:22Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:22Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:18Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:18Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: firstinbig
+    - connectionDetails: []
+      name: stream-firstinmain-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinmain-main
+            crossplane.io/external-name: firstinmain
+          creationTimestamp: 2023-04-14T13:25:21Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: firstinmain
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:sealed: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:25Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:lastSequence: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:31Z
+          name: firstinmain-main
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707209"
+          uid: 32e3dacf-fc65-4de5-81a0-d91c776495ee
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              sealed: true
+              storage: File
+              subjects:
+                - main.first.>
+                - foo.>
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-jb5hg
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: ""
+              address: ""
+              userPublicKey: ""
+            state:
+              bytes: ""
+              consumerCount: 0
+              firstSequence: 0
+              lastSequence: 0
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:31Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:31Z
+              reason: Creating
+              status: "False"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:27Z
+                reason: Creating
+                status: "False"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:27Z
+                message:
+                  "create failed: nats: stream configuration for create can not be
+                  sealed"
+                reason: ReconcileError
+                status: "False"
+                type: Synced
+          uid: firstinmain
+    - connectionDetails: []
+      name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+            crossplane.io/external-name: secondinsmall
+          creationTimestamp: 2023-04-14T13:25:16Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: secondinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:20Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:27Z
+          name: secondinsmall-mynetwork-myconfig-small-network-operator-worker2
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707145"
+          uid: f9daad2b-665e-410e-8c06-e013e4c3f53c
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 402400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.second.>
+            domain: mynetwork-myconfig-small-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-cgtcb
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-small-network-operator-worker2
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:27Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:27Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:22Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:21Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: secondinsmall
+    - connectionDetails:
+        - name: dapr
+          value: >-
+            apiVersion: dapr.io/v1alpha1
+
+            kind: Component
+
+            metadata:
+              name: streams
+            spec:
+              type: pubsub.jetstream
+              version: v1
+              metadata:
+              - name: natsURL
+                value: "nats://localhost:4222"
+              - name: jwt
+                value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJJS1JDTkJYUzZWVTI3M09HQUNLN1c0WE5VNFpXWkNaVjdVQ1ROM0gyT1FPUkdNNjdUWktBIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVETlFJV1kzWDVUQ0E3SFZWRUhaUzIyV000UEk1NERINUNRWVU3SExQVktPU01HVzNFRzJZNDZFIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsibWFpbi5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJtYWluLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjoxMDAwLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.aQHURGFdeGoAWruyLBSIiaJmPjtD7VCCpbg5I8ojmtJajuz0bHtnFQ0xw2eED1rqIi6WT3e_9xXH_9EFhiG_Bw"
+              - name: seedKey
+                value: "SUAPTPIOFYOP45LL2OMYF2NJNU75XUEXD4PHCCSXBX5R4IEW7UODK4NR3E"
+        - name: jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJJS1JDTkJYUzZWVTI3M09HQUNLN1c0WE5VNFpXWkNaVjdVQ1ROM0gyT1FPUkdNNjdUWktBIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVETlFJV1kzWDVUQ0E3SFZWRUhaUzIyV000UEk1NERINUNRWVU3SExQVktPU01HVzNFRzJZNDZFIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsibWFpbi5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJtYWluLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjoxMDAwLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.aQHURGFdeGoAWruyLBSIiaJmPjtD7VCCpbg5I8ojmtJajuz0bHtnFQ0xw2eED1rqIi6WT3e_9xXH_9EFhiG_Bw
+        - name: provider-config-secret
+          value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJJS1JDTkJYUzZWVTI3M09HQUNLN1c0WE5VNFpXWkNaVjdVQ1ROM0gyT1FPUkdNNjdUWktBIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVETlFJV1kzWDVUQ0E3SFZWRUhaUzIyV000UEk1NERINUNRWVU3SExQVktPU01HVzNFRzJZNDZFIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsibWFpbi5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJtYWluLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjoxMDAwLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.aQHURGFdeGoAWruyLBSIiaJmPjtD7VCCpbg5I8ojmtJajuz0bHtnFQ0xw2eED1rqIi6WT3e_9xXH_9EFhiG_Bw","seed_key":"SUAPTPIOFYOP45LL2OMYF2NJNU75XUEXD4PHCCSXBX5R4IEW7UODK4NR3E","address":"nats://nats.nats:4222"}'
+        - name: seed
+          value: SUAPTPIOFYOP45LL2OMYF2NJNU75XUEXD4PHCCSXBX5R4IEW7UODK4NR3E
+        - name: account-public-key
+          value: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+        - name: address
+          value: nats://nats.nats:4222
+        - name: creds
+          value: >
+            -----BEGIN NATS USER JWT-----
+
+            eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJJS1JDTkJYUzZWVTI3M09HQUNLN1c0WE5VNFpXWkNaVjdVQ1ROM0gyT1FPUkdNNjdUWktBIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVETlFJV1kzWDVUQ0E3SFZWRUhaUzIyV000UEk1NERINUNRWVU3SExQVktPU01HVzNFRzJZNDZFIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsibWFpbi5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJtYWluLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjoxMDAwLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.aQHURGFdeGoAWruyLBSIiaJmPjtD7VCCpbg5I8ojmtJajuz0bHtnFQ0xw2eED1rqIi6WT3e_9xXH_9EFhiG_Bw
+
+            ------END NATS USER JWT------
+
+
+            ************************* IMPORTANT *************************
+
+            NKEY Seed printed below can be used to sign and prove identity.
+
+            NKEYs are sensitive and should be treated as secrets.
+
+
+            -----BEGIN USER NKEY SEED-----
+
+            SUAPTPIOFYOP45LL2OMYF2NJNU75XUEXD4PHCCSXBX5R4IEW7UODK4NR3E
+
+            ------END USER NKEY SEED------
+
+
+            *************************************************************
+      name: user-mainonly
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: user-mainonly
+            crossplane.io/external-create-pending: 2023-04-14T13:24:48Z
+            crossplane.io/external-create-succeeded: 2023-04-14T13:24:48Z
+            crossplane.io/external-name: mynetwork-myconfig-mainonly
+          creationTimestamp: 2023-04-14T13:24:47Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generation: 3
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          managedFields:
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-create-pending: {}
+                    f:crossplane.io/external-create-succeeded: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              time: 2023-04-14T13:24:48Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:account: {}
+                    f:creds: {}
+                    f:issue: {}
+                    f:jwt: {}
+                    f:jwtPath: {}
+                    f:nkey: {}
+                    f:nkeyPath: {}
+                    f:operator: {}
+                    f:user: {}
+                  f:conditions: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:49Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:account: {}
+                    f:claims:
+                      .: {}
+                      f:user:
+                        .: {}
+                        f:data: {}
+                        f:payload: {}
+                        f:pub:
+                          .: {}
+                          f:allow: {}
+                          f:deny: {}
+                        f:sub:
+                          .: {}
+                          f:allow: {}
+                          f:deny: {}
+                        f:subs: {}
+                    f:operator: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:writeConnectionSecretToRef:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:57Z
+          name: mynetwork-myconfig-mainonly
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706288"
+          uid: 44ffad02-882c-42f8-bc25-3acf0433c854
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: -1
+                payload: 1000
+                pub:
+                  allow:
+                    - main.>
+                  deny: []
+                sub:
+                  allow:
+                    - main.>
+                  deny: []
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-mainonly
+            namespace: myconfig
+        status:
+          atProvider:
+            account: mynetwork-myconfig
+            creds: nats-secrets/creds/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-mainonly
+            issue: nats-secrets/issue/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-mainonly
+            jwt: "true"
+            jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-mainonly
+            nkey: "true"
+            nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-mainonly
+            operator: myoperator
+            user: mynetwork-myconfig-mainonly
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:49Z
+              reason: Available
+              status: "True"
+              type: Ready
+            - lastTransitionTime: 2023-04-14T13:24:48Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+    - connectionDetails: []
+      name: get-network-base-config
+      resource:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: get-network-base-config
+            crossplane.io/external-name: mynetwork-myconfig-get-network-base-config
+          creationTimestamp: 2023-04-14T13:24:29Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generateName: mynetwork-8gjvc-
+          generation: 1
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+          managedFields:
+            - apiVersion: kubernetes.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:generateName: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:manifest:
+                      .: {}
+                      f:apiVersion: {}
+                      f:kind: {}
+                      f:metadata:
+                        .: {}
+                        f:name: {}
+                        f:namespace: {}
+                  f:managementPolicy: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:29Z
+            - apiVersion: kubernetes.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+              manager: crossplane-kubernetes-provider
+              operation: Update
+              time: 2023-04-14T13:24:29Z
+            - apiVersion: kubernetes.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:manifest:
+                      .: {}
+                      f:apiVersion: {}
+                      f:data:
+                        .: {}
+                        f:operator: {}
+                      f:kind: {}
+                      f:metadata:
+                        .: {}
+                        f:annotations:
+                          .: {}
+                          f:kubectl.kubernetes.io/last-applied-configuration: {}
+                        f:creationTimestamp: {}
+                        f:managedFields: {}
+                        f:name: {}
+                        f:namespace: {}
+                        f:resourceVersion: {}
+                        f:uid: {}
+                  f:conditions: {}
+              manager: crossplane-kubernetes-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:29Z
+          name: mynetwork-myconfig-get-network-base-config
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1705838"
+          uid: 79d973f9-289b-4043-af28-337e5f807380
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: network-base-config
+                namespace: crossplane-system
+          managementPolicy: Observe
+          providerConfigRef:
+            name: provider-kubernetes
+        status:
+          atProvider:
+            manifest:
+              apiVersion: v1
+              data:
+                operator: myoperator
+              kind: ConfigMap
+              metadata:
+                annotations:
+                  kubectl.kubernetes.io/last-applied-configuration: >
+                    {"apiVersion":"v1","data":{"operator":"myoperator"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":null,"name":"network-base-config","namespace":"crossplane-system"}}
+                creationTimestamp: 2023-03-27T20:24:32Z
+                managedFields:
+                  - apiVersion: v1
+                    fieldsType: FieldsV1
+                    fieldsV1:
+                      f:data:
+                        .: {}
+                        f:operator: {}
+                      f:metadata:
+                        f:annotations:
+                          .: {}
+                          f:kubectl.kubernetes.io/last-applied-configuration: {}
+                    manager: kubectl-client-side-apply
+                    operation: Update
+                    time: 2023-03-27T20:24:32Z
+                name: network-base-config
+                namespace: crossplane-system
+                resourceVersion: "2365"
+                uid: ea75f14e-7321-44c4-8275-2b709d20f193
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:29Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:24:29Z
+              reason: Available
+              status: "True"
+              type: Ready
+    - connectionDetails: []
+      name: big
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XEdgeNetwork
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: big
+          creationTimestamp: 2023-04-14T13:24:57Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnSecondUid: b1cc7c73-f90f-43e7-b5bf-d0d5e422a941
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnSecondUid: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:connectionSecretRefs:
+                    .: {}
+                    f:sysAccountUserSecretRef: {}
+                    f:systemUserSecretRef: {}
+                  f:limits:
+                    .: {}
+                    f:fileStorage: {}
+                    f:inMemoryStorage: {}
+                  f:network: {}
+                  f:nodeSelectorTerm: {}
+                  f:resourceRefs: {}
+                  f:subNetwork: {}
+                  f:tolerations: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:58Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:01Z
+          name: mynetwork-myconfig-big
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706494"
+          uid: bd3743b1-5885-4401-b4a4-dee53a1ab743
+        spec:
+          compositionRef:
+            name: xedgenetworks.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xedgenetworks.streams.network.edgefarm.io-115a13c
+          compositionUpdatePolicy: Automatic
+          connectionSecretRefs:
+            sysAccountUserSecretRef:
+              name: mynetwork-myconfig-sys-account-user
+            systemUserSecretRef:
+              name: mynetwork-myconfig-system
+          limits:
+            fileStorage: 1G
+            inMemoryStorage: 1G
+          network: mynetwork-myconfig
+          nodeSelectorTerm: {}
+          resourceRefs:
+            - apiVersion: kubernetes.crossplane.io/v1alpha1
+              kind: Object
+              name: mynetwork-8gjvc-znn8s
+          subNetwork: big
+          tolerations: []
+        status:
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:00Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:01Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:24:59Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:24:59Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: mynetwork
+    - connectionDetails: []
+      name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+            crossplane.io/external-name: firstinsmall
+          creationTimestamp: 2023-04-14T13:25:13Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: firstinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:14Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:21Z
+          name: firstinsmall-mynetwork-myconfig-small-network-operator-worker2
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707011"
+          uid: 2ce617f2-583f-430d-b8c6-9473b2c8e4b4
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 302400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.first.>
+            domain: mynetwork-myconfig-small-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-22ld5
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-small-network-operator-worker2
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:17Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:17Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:16Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:16Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: firstinsmall
+    - connectionDetails: []
+      name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+            crossplane.io/external-name: secondinsmall
+          creationTimestamp: 2023-04-14T13:25:17Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: secondinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:20Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:27Z
+          name: secondinsmall-mynetwork-myconfig-small-network-operator-worker3
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707114"
+          uid: e567af8a-5705-4bf9-baa4-5a551f9aca01
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 402400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.second.>
+            domain: mynetwork-myconfig-small-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-g4cct
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-small-network-operator-worker3
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:27Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:27Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:21Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:21Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: secondinsmall
+    - connectionDetails:
+        - name: pub
+          value: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+        - name: jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJTSFVNTVY2RTVEVkhESURTUjZCNllUUUZTRVlDUkVXSVBaQ05YN1M3SkNXSUVIM1E2WjRRIiwiaWF0IjoxNjgxNDc4Njc4LCJpc3MiOiJPQklTUzJSS0w3UkpDUFNUSFBLTVhSQjVWWUdXTFJWRE8zWllLVjVERjRKWEVXVk9LTVBRTk9QNCIsInN1YiI6IkFDM1hLUzY1Vk9TN000WFgyRlBHSUhQVktRQ0VJTUJXVU9ISTVFRFNJVFRZRURXQU5HRjM0WVBNIiwibmF0cyI6eyJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMSwibWVtX3N0b3JhZ2UiOi0xLCJkaXNrX3N0b3JhZ2UiOi0xLCJzdHJlYW1zIjotMSwiY29uc3VtZXIiOi0xfSwiZGVmYXVsdF9wZXJtaXNzaW9ucyI6eyJwdWIiOnt9LCJzdWIiOnt9fSwidHlwZSI6ImFjY291bnQiLCJ2ZXJzaW9uIjoyfX0.-xdJB0O8nQsI1FvwjloUJ19Up9SohUauK20SqXI8tHAZH5kMcmjV3CoMerI9C6uDySvS7KlnqFqO0DsycxqVDw
+      name: account
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: Account
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: account
+            crossplane.io/external-create-pending: 2023-04-14T13:24:38Z
+            crossplane.io/external-create-succeeded: 2023-04-14T13:24:39Z
+            crossplane.io/external-name: mynetwork-myconfig
+          creationTimestamp: 2023-04-14T13:24:38Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generateName: mynetwork-8gjvc-
+          generation: 2
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            external-name: mynetwork-myconfig
+          managedFields:
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:generateName: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:external-name: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:claims:
+                      .: {}
+                      f:account:
+                        .: {}
+                        f:limits:
+                          .: {}
+                          f:conn: {}
+                          f:consumer: {}
+                          f:data: {}
+                          f:diskMaxStreamBytes: {}
+                          f:diskStorage: {}
+                          f:exports: {}
+                          f:imports: {}
+                          f:leafNodeConn: {}
+                          f:memMaxStreamBytes: {}
+                          f:memStorage: {}
+                          f:payload: {}
+                          f:streams: {}
+                          f:subs: {}
+                          f:wildcardExports: {}
+                    f:operator: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:writeConnectionSecretToRef:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:38Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-create-pending: {}
+                    f:crossplane.io/external-create-succeeded: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+                f:spec:
+                  f:forProvider:
+                    f:claims:
+                      f:account:
+                        f:defaultPermissions:
+                          .: {}
+                          f:pub: {}
+                          f:sub: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              time: 2023-04-14T13:24:39Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:account: {}
+                    f:issue: {}
+                    f:jwt: {}
+                    f:jwtPath: {}
+                    f:lastPushed: {}
+                    f:nkey: {}
+                    f:nkeyPath: {}
+                    f:operator: {}
+                    f:pushed: {}
+                  f:conditions: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:40Z
+          name: mynetwork-myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706090"
+          uid: 528b6c59-c002-403d-948d-434a69195cc5
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            claims:
+              account:
+                defaultPermissions:
+                  pub: {}
+                  sub: {}
+                limits:
+                  conn: -1
+                  consumer: -1
+                  data: -1
+                  diskMaxStreamBytes: 0
+                  diskStorage: -1
+                  exports: -1
+                  imports: -1
+                  leafNodeConn: -1
+                  memMaxStreamBytes: 0
+                  memStorage: -1
+                  payload: -1
+                  streams: -1
+                  subs: -1
+                  wildcardExports: true
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-account
+            namespace: crossplane-system
+        status:
+          atProvider:
+            account: mynetwork-myconfig
+            issue: nats-secrets/issue/operator/myoperator/account/mynetwork-myconfig
+            jwt: "true"
+            jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-myconfig
+            lastPushed: 2023-04-14T13:24:39Z
+            nkey: "true"
+            nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-myconfig
+            operator: myoperator
+            pushed: "true"
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:40Z
+              reason: Available
+              status: "True"
+              type: Ready
+            - lastTransitionTime: 2023-04-14T13:24:40Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+    - connectionDetails:
+        - name: address
+          value: nats://nats.nats:4222
+        - name: creds
+          value: >
+            -----BEGIN NATS USER JWT-----
+
+            eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJKQ09NRzM2U1lQTDdNSlJNSDYySkU2VUxZU01JSFZaN1FKVEpIUEdTS1dRS0tSWk9SSVdRIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVBWFI3SUNWT0FLREk3UVBZV01CVURJVFRPVzU0UDNaRjdMTTQ2RkZYUkxSUk1UQkJPWkRTV1NUIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.AlJVHmm6iJKi51nangxQfrYf5nxH-Jm93tuDxF_jcDiNN_PfeBH1wXIyCyWlbYAm83EgqDjWbDhQ9CuLm4uDBQ
+
+            ------END NATS USER JWT------
+
+
+            ************************* IMPORTANT *************************
+
+            NKEY Seed printed below can be used to sign and prove identity.
+
+            NKEYs are sensitive and should be treated as secrets.
+
+
+            -----BEGIN USER NKEY SEED-----
+
+            SUAJQNR7CJT53TYLNWXVVEDI4SB3LQR4G2OJEBMOEWZWGUKYWXHREULRTU
+
+            ------END USER NKEY SEED------
+
+
+            *************************************************************
+        - name: dapr
+          value: >-
+            apiVersion: dapr.io/v1alpha1
+
+            kind: Component
+
+            metadata:
+              name: streams
+            spec:
+              type: pubsub.jetstream
+              version: v1
+              metadata:
+              - name: natsURL
+                value: "nats://localhost:4222"
+              - name: jwt
+                value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJKQ09NRzM2U1lQTDdNSlJNSDYySkU2VUxZU01JSFZaN1FKVEpIUEdTS1dRS0tSWk9SSVdRIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVBWFI3SUNWT0FLREk3UVBZV01CVURJVFRPVzU0UDNaRjdMTTQ2RkZYUkxSUk1UQkJPWkRTV1NUIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.AlJVHmm6iJKi51nangxQfrYf5nxH-Jm93tuDxF_jcDiNN_PfeBH1wXIyCyWlbYAm83EgqDjWbDhQ9CuLm4uDBQ"
+              - name: seedKey
+                value: "SUAJQNR7CJT53TYLNWXVVEDI4SB3LQR4G2OJEBMOEWZWGUKYWXHREULRTU"
+        - name: jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJKQ09NRzM2U1lQTDdNSlJNSDYySkU2VUxZU01JSFZaN1FKVEpIUEdTS1dRS0tSWk9SSVdRIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVBWFI3SUNWT0FLREk3UVBZV01CVURJVFRPVzU0UDNaRjdMTTQ2RkZYUkxSUk1UQkJPWkRTV1NUIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.AlJVHmm6iJKi51nangxQfrYf5nxH-Jm93tuDxF_jcDiNN_PfeBH1wXIyCyWlbYAm83EgqDjWbDhQ9CuLm4uDBQ
+        - name: provider-config-secret
+          value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJKQ09NRzM2U1lQTDdNSlJNSDYySkU2VUxZU01JSFZaN1FKVEpIUEdTS1dRS0tSWk9SSVdRIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVBWFI3SUNWT0FLREk3UVBZV01CVURJVFRPVzU0UDNaRjdMTTQ2RkZYUkxSUk1UQkJPWkRTV1NUIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.AlJVHmm6iJKi51nangxQfrYf5nxH-Jm93tuDxF_jcDiNN_PfeBH1wXIyCyWlbYAm83EgqDjWbDhQ9CuLm4uDBQ","seed_key":"SUAJQNR7CJT53TYLNWXVVEDI4SB3LQR4G2OJEBMOEWZWGUKYWXHREULRTU","address":"nats://nats.nats:4222"}'
+        - name: seed
+          value: SUAJQNR7CJT53TYLNWXVVEDI4SB3LQR4G2OJEBMOEWZWGUKYWXHREULRTU
+        - name: account-public-key
+          value: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+      name: system
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: system
+            crossplane.io/external-create-pending: 2023-04-14T13:24:48Z
+            crossplane.io/external-create-succeeded: 2023-04-14T13:24:48Z
+            crossplane.io/external-name: mynetwork-myconfig-system
+          creationTimestamp: 2023-04-14T13:24:47Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generateName: mynetwork-8gjvc-
+          generation: 2
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          managedFields:
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:generateName: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:account: {}
+                    f:claims:
+                      .: {}
+                      f:user:
+                        .: {}
+                        f:data: {}
+                        f:payload: {}
+                        f:subs: {}
+                    f:operator: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:writeConnectionSecretToRef:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:47Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-create-pending: {}
+                    f:crossplane.io/external-create-succeeded: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+                f:spec:
+                  f:forProvider:
+                    f:claims:
+                      f:user:
+                        f:pub: {}
+                        f:sub: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              time: 2023-04-14T13:24:48Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:account: {}
+                    f:creds: {}
+                    f:issue: {}
+                    f:jwt: {}
+                    f:jwtPath: {}
+                    f:nkey: {}
+                    f:nkeyPath: {}
+                    f:operator: {}
+                    f:user: {}
+                  f:conditions: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:48Z
+          name: mynetwork-myconfig-system
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706229"
+          uid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: -1
+                payload: -1
+                pub: {}
+                sub: {}
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-system
+            namespace: myconfig
+        status:
+          atProvider:
+            account: mynetwork-myconfig
+            creds: nats-secrets/creds/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-system
+            issue: nats-secrets/issue/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-system
+            jwt: "true"
+            jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-system
+            nkey: "true"
+            nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-system
+            operator: myoperator
+            user: mynetwork-myconfig-system
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:48Z
+              reason: Available
+              status: "True"
+              type: Ready
+            - lastTransitionTime: 2023-04-14T13:24:48Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+    - connectionDetails: []
+      name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker
+            crossplane.io/external-name: firstinbig
+          creationTimestamp: 2023-04-14T13:25:14Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:16Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:22Z
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707045"
+          uid: b922b263-0083-46ea-bd59-8cf24763ae74
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-tpbrj
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-big-network-operator-worker
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:22Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:22Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:18Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:18Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: firstinbig
+    - connectionDetails: []
+      name: provider-nats-config
+      resource:
+        apiVersion: nats.crossplane.io/v1alpha1
+        kind: ProviderConfig
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: provider-nats-config
+          creationTimestamp: 2023-04-14T13:24:57Z
+          finalizers:
+            - in-use.crossplane.io
+          generateName: mynetwork-8gjvc-
+          generation: 1
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: e9e868b2-07ec-4799-a8ac-40cbcc12f52d
+          managedFields:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:generateName: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:credentials:
+                    .: {}
+                    f:secretRef:
+                      .: {}
+                      f:key: {}
+                      f:name: {}
+                      f:namespace: {}
+                    f:source: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:57Z
+            - apiVersion: nats.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:finalizers:
+                    .: {}
+                    v:"in-use.crossplane.io": {}
+              manager: provider-nats
+              operation: Update
+              time: 2023-04-14T13:24:57Z
+            - apiVersion: nats.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:users: {}
+              manager: provider-nats
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:14Z
+          name: mynetwork-myconfig
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707142"
+          uid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+        spec:
+          credentials:
+            secretRef:
+              key: provider-config-secret
+              name: mynetwork-myconfig-system
+              namespace: myconfig
+            source: Secret
+        status:
+          users: 10
+    - connectionDetails: []
+      name: stream-aggregate-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-aggregate-main
+            crossplane.io/external-name: aggregate
+          creationTimestamp: 2023-04-14T13:25:22Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 5
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: aggregate
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:sources: {}
+                      f:storage: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:27Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:lastSequence: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:31Z
+          name: aggregate-main
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707380"
+          uid: 7b7d5ed4-74a1-4e27-90fe-3458c7550d2e
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 204800
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              sources:
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-small-network-operator-worker2.API
+                    deliverPrefix: ""
+                  name: firstinsmall
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-small-network-operator-worker3.API
+                    deliverPrefix: ""
+                  name: firstinsmall
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker.API
+                    deliverPrefix: ""
+                  name: firstinbig
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker2.API
+                    deliverPrefix: ""
+                  name: firstinbig
+                - external:
+                    apiPrefix: $JS.mynetwork-myconfig-big-network-operator-worker3.API
+                    deliverPrefix: ""
+                  name: firstinbig
+              storage: File
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-2wvrn
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: ""
+              address: ""
+              userPublicKey: ""
+            state:
+              bytes: ""
+              consumerCount: 0
+              firstSequence: 0
+              lastSequence: 0
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:31Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:31Z
+              reason: Creating
+              status: "False"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:28Z
+                reason: Creating
+                status: "False"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:28Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: aggregate
+    - connectionDetails: []
+      name: stream-secondinmain-main
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-secondinmain-main
+            crossplane.io/external-name: secondinmain
+          creationTimestamp: 2023-04-14T13:25:13Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: main
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: ""
+            streams.network.edgefarm.io/stream: secondinmain
+            streams.network.edgefarm.io/subnetwork: main
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:14Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:20Z
+          name: secondinmain-main
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706976"
+          uid: 3cf99329-bbce-42d5-981c-416cd73a14a4
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 202400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - main.second.>
+            domain: main
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-xhlxw
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: main
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:16Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:16Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:14Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:14Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: secondinmain
+    - connectionDetails: []
+      name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+            crossplane.io/external-name: firstinsmall
+          creationTimestamp: 2023-04-14T13:25:13Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-small-network-operator-worker3
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker3
+            streams.network.edgefarm.io/stream: firstinsmall
+            streams.network.edgefarm.io/subnetwork: small
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:14Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:21Z
+          name: firstinsmall-mynetwork-myconfig-small-network-operator-worker3
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707019"
+          uid: 1fb2936e-8f59-4b64-865a-07b225ce3e4e
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 302400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker3.network-operator-worker2.small.first.>
+            domain: mynetwork-myconfig-small-network-operator-worker3
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-pcnzp
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-small-network-operator-worker3
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:17Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:17Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:16Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:16Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: firstinsmall
+    - connectionDetails:
+        - name: account-public-key
+          value: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+        - name: address
+          value: nats://nats.nats:4222
+        - name: creds
+          value: >
+            -----BEGIN NATS USER JWT-----
+
+            eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzUkxDRVFHVEdPRVBMUUhERkZaRTdHRE43V0hGVkpLSTNOQUNTRE9CM00yTDVRWldJUUNBIiwiaWF0IjoxNjgxNDc4Njg3LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVDQ1pZVkQzQURPVEhUWVhFTVlCWU1KUEVZWE82MjVGQUVFWDJRQ1VDMkhYSTZDUUUzQlVEUTVDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5zbWFsbC5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLnNtYWxsLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.S0VIMcI7OK_uwlkdwPdN_0ODnrRSl9BsiiB6Tc2QpZ7LSDh4_A_3DlEBrigaBL8fyVdohwtPsNvrTAPX2SxyCw
+
+            ------END NATS USER JWT------
+
+
+            ************************* IMPORTANT *************************
+
+            NKEY Seed printed below can be used to sign and prove identity.
+
+            NKEYs are sensitive and should be treated as secrets.
+
+
+            -----BEGIN USER NKEY SEED-----
+
+            SUAPCYK6BHGNGIYKLAAJOPZOBEIUGDMIQDLRJVAAI5FZ6AURQMEPQGQ2AQ
+
+            ------END USER NKEY SEED------
+
+
+            *************************************************************
+        - name: dapr
+          value: >-
+            apiVersion: dapr.io/v1alpha1
+
+            kind: Component
+
+            metadata:
+              name: streams
+            spec:
+              type: pubsub.jetstream
+              version: v1
+              metadata:
+              - name: natsURL
+                value: "nats://localhost:4222"
+              - name: jwt
+                value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzUkxDRVFHVEdPRVBMUUhERkZaRTdHRE43V0hGVkpLSTNOQUNTRE9CM00yTDVRWldJUUNBIiwiaWF0IjoxNjgxNDc4Njg3LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVDQ1pZVkQzQURPVEhUWVhFTVlCWU1KUEVZWE82MjVGQUVFWDJRQ1VDMkhYSTZDUUUzQlVEUTVDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5zbWFsbC5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLnNtYWxsLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.S0VIMcI7OK_uwlkdwPdN_0ODnrRSl9BsiiB6Tc2QpZ7LSDh4_A_3DlEBrigaBL8fyVdohwtPsNvrTAPX2SxyCw"
+              - name: seedKey
+                value: "SUAPCYK6BHGNGIYKLAAJOPZOBEIUGDMIQDLRJVAAI5FZ6AURQMEPQGQ2AQ"
+        - name: jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzUkxDRVFHVEdPRVBMUUhERkZaRTdHRE43V0hGVkpLSTNOQUNTRE9CM00yTDVRWldJUUNBIiwiaWF0IjoxNjgxNDc4Njg3LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVDQ1pZVkQzQURPVEhUWVhFTVlCWU1KUEVZWE82MjVGQUVFWDJRQ1VDMkhYSTZDUUUzQlVEUTVDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5zbWFsbC5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLnNtYWxsLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.S0VIMcI7OK_uwlkdwPdN_0ODnrRSl9BsiiB6Tc2QpZ7LSDh4_A_3DlEBrigaBL8fyVdohwtPsNvrTAPX2SxyCw
+        - name: provider-config-secret
+          value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzUkxDRVFHVEdPRVBMUUhERkZaRTdHRE43V0hGVkpLSTNOQUNTRE9CM00yTDVRWldJUUNBIiwiaWF0IjoxNjgxNDc4Njg3LCJpc3MiOiJBQzNYS1M2NVZPUzdNNFhYMkZQR0lIUFZLUUNFSU1CV1VPSEk1RURTSVRUWUVEV0FOR0YzNFlQTSIsInN1YiI6IlVDQ1pZVkQzQURPVEhUWVhFTVlCWU1KUEVZWE82MjVGQUVFWDJRQ1VDMkhYSTZDUUUzQlVEUTVDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5zbWFsbC5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLnNtYWxsLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.S0VIMcI7OK_uwlkdwPdN_0ODnrRSl9BsiiB6Tc2QpZ7LSDh4_A_3DlEBrigaBL8fyVdohwtPsNvrTAPX2SxyCw","seed_key":"SUAPCYK6BHGNGIYKLAAJOPZOBEIUGDMIQDLRJVAAI5FZ6AURQMEPQGQ2AQ","address":"nats://nats.nats:4222"}'
+        - name: seed
+          value: SUAPCYK6BHGNGIYKLAAJOPZOBEIUGDMIQDLRJVAAI5FZ6AURQMEPQGQ2AQ
+      name: user-smallonly
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: user-smallonly
+            crossplane.io/external-create-pending: 2023-04-14T13:24:47Z
+            crossplane.io/external-create-succeeded: 2023-04-14T13:24:47Z
+            crossplane.io/external-name: mynetwork-myconfig-smallonly
+          creationTimestamp: 2023-04-14T13:24:47Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generation: 3
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          managedFields:
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-create-pending: {}
+                    f:crossplane.io/external-create-succeeded: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              time: 2023-04-14T13:24:47Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:account: {}
+                    f:creds: {}
+                    f:issue: {}
+                    f:jwt: {}
+                    f:jwtPath: {}
+                    f:nkey: {}
+                    f:nkeyPath: {}
+                    f:operator: {}
+                    f:user: {}
+                  f:conditions: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:47Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:account: {}
+                    f:claims:
+                      .: {}
+                      f:user:
+                        .: {}
+                        f:data: {}
+                        f:payload: {}
+                        f:pub:
+                          .: {}
+                          f:allow: {}
+                          f:deny: {}
+                        f:sub:
+                          .: {}
+                          f:allow: {}
+                          f:deny: {}
+                        f:subs: {}
+                    f:operator: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:writeConnectionSecretToRef:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:58Z
+          name: mynetwork-myconfig-smallonly
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706329"
+          uid: 2216d168-bfac-4598-a48a-534d54bdbabf
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            account: mynetwork-myconfig
+            claims:
+              user:
+                data: 1000
+                payload: 1000
+                pub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+                sub:
+                  allow:
+                    - "*.small.>"
+                  deny: []
+                subs: 50
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-smallonly
+            namespace: myconfig
+        status:
+          atProvider:
+            account: mynetwork-myconfig
+            creds: nats-secrets/creds/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-smallonly
+            issue: nats-secrets/issue/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-smallonly
+            jwt: "true"
+            jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-smallonly
+            nkey: "true"
+            nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-myconfig/user/mynetwork-myconfig-smallonly
+            operator: myoperator
+            user: mynetwork-myconfig-smallonly
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:47Z
+              reason: Available
+              status: "True"
+              type: Ready
+            - lastTransitionTime: 2023-04-14T13:24:47Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+    - connectionDetails:
+        - name: address
+          value: nats://nats.nats:4222
+        - name: creds
+          value: >
+            -----BEGIN NATS USER JWT-----
+
+            eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJBVkUyNkdTTlkzVVhRNTRVVkxBR01BRFIyU1hWS0ZYTFRHTUVEWU5LV1BHUzNERDIzRUJRIiwiaWF0IjoxNjgxNDc4Njg4LCJpc3MiOiJBQUdTVzVUQ1NEREVMTFZCRE5SUUc3NE5aQTdYQkE2MkZNN0lIQzU2TVFVVlAzSTRUMkQ1NUk1RyIsInN1YiI6IlVCNUQzQU1OS0pZQzRHSE5GQU1PV0w3TUhTRUtKR0tUTDJJN1pQNFlRTDVUVU5FREU1WVhLS0FJIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.pIhVJgJuTsbDDZ062vEQ6mmfdRwx0BYMmD4DzubMuGQs8_x9JMt3aLCx_Ta1wbltr22ajlYXlVsodhT8blr6CA
+
+            ------END NATS USER JWT------
+
+
+            ************************* IMPORTANT *************************
+
+            NKEY Seed printed below can be used to sign and prove identity.
+
+            NKEYs are sensitive and should be treated as secrets.
+
+
+            -----BEGIN USER NKEY SEED-----
+
+            SUAD65JDCBLCRUL2YTY6YSATJITZ5LGRVHT3HMQTTWRS7SDNPN2AM7IUMA
+
+            ------END USER NKEY SEED------
+
+
+            *************************************************************
+        - name: operator-jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiI1S0tBQVY0NUVKWTRJTFY0QVVIUlZPSkNFSUE3UjUzRFJBUDdaWVdBSFFHNFpNTVk3RlBRIiwiaWF0IjoxNjgwMjQ0MzE4LCJpc3MiOiJPQklTUzJSS0w3UkpDUFNUSFBLTVhSQjVWWUdXTFJWRE8zWllLVjVERjRKWEVXVk9LTVBRTk9QNCIsInN1YiI6Ik9CSVNTMlJLTDdSSkNQU1RIUEtNWFJCNVZZR1dMUlZETzNaWUtWNURGNEpYRVdWT0tNUFFOT1A0IiwibmF0cyI6eyJhY2NvdW50X3NlcnZlcl91cmwiOiJuYXRzOi8vbmF0cy5uYXRzOjQyMjIiLCJvcGVyYXRvcl9zZXJ2aWNlX3VybHMiOlsibmF0czovL25hdHMubmF0czo0MjIyIl0sInN5c3RlbV9hY2NvdW50IjoiQUFHU1c1VENTRERFTExWQkROUlFHNzROWkE3WEJBNjJGTTdJSEM1Nk1RVVZQM0k0VDJENTVJNUciLCJ0eXBlIjoib3BlcmF0b3IiLCJ2ZXJzaW9uIjoyfX0.2sy9SA-A-DWCexiE64tl7ktrhI9EpsBOFpSKPY-ZxesocAcnNPUNW2VTcI16F3lLsixf4NaADJkZL70TA_ZQAw
+        - name: sys-account-jwt
+          value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXT1FBS0dFNllCTllRWDNTMkpKNVBQN1U1QllNMllQVlNHUUpZT1YzTlFTNDJOSUszSkhRIiwiaWF0IjoxNjgxNDc4MzEzLCJpc3MiOiJPQklTUzJSS0w3UkpDUFNUSFBLTVhSQjVWWUdXTFJWRE8zWllLVjVERjRKWEVXVk9LTVBRTk9QNCIsInN1YiI6IkFBR1NXNVRDU0RERUxMVkJETlJRRzc0TlpBN1hCQTYyRk03SUhDNTZNUVVWUDNJNFQyRDU1STVHIiwibmF0cyI6eyJleHBvcnRzIjpbeyJuYW1lIjoiYWNjb3VudC1tb25pdG9yaW5nLXNlcnZpY2VzIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLioiLCJ0eXBlIjoic2VydmljZSIsInJlc3BvbnNlX3R5cGUiOiJTdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjo0LCJkZXNjcmlwdGlvbiI6IlJlcXVlc3QgYWNjb3VudCBzcGVjaWZpYyBtb25pdG9yaW5nIHNlcnZpY2VzIGZvcjogU1VCU1osIENPTk5aLCBMRUFGWiwgSlNaIGFuZCBJTkZPIiwiaW5mb191cmwiOiJodHRwczovL2RvY3MubmF0cy5pby9uYXRzLXNlcnZlci9jb25maWd1cmF0aW9uL3N5c19hY2NvdW50cyJ9LHsibmFtZSI6ImFjY291bnQtbW9uaXRvcmluZy1zdHJlYW1zIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLlx1MDAzZSIsInR5cGUiOiJzdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjozLCJkZXNjcmlwdGlvbiI6IkFjY291bnQgc3BlY2lmaWMgbW9uaXRvcmluZyBzdHJlYW0iLCJpbmZvX3VybCI6Imh0dHBzOi8vZG9jcy5uYXRzLmlvL25hdHMtc2VydmVyL2NvbmZpZ3VyYXRpb24vc3lzX2FjY291bnRzIn1dLCJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMX0sImRlZmF1bHRfcGVybWlzc2lvbnMiOnsicHViIjp7fSwic3ViIjp7fX0sInR5cGUiOiJhY2NvdW50IiwidmVyc2lvbiI6Mn19.EIYHwdc5TYV17j7Mmf5wMeRJXJwz990EzRT0glaUN34saHUFySuNHKnLJs8zyS1D7b2ZB93-JL8aiQul0McJDQ
+        - name: sys-account-public-key
+          value: AAGSW5TCSDDELLVBDNRQG74NZA7XBA62FM7IHC56MQUVP3I4T2D55I5G
+        - name: account-public-key
+          value: AAGSW5TCSDDELLVBDNRQG74NZA7XBA62FM7IHC56MQUVP3I4T2D55I5G
+      name: sys-account-user
+      resource:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: sys-account-user
+            crossplane.io/external-create-pending: 2023-04-14T13:24:48Z
+            crossplane.io/external-create-succeeded: 2023-04-14T13:24:48Z
+            crossplane.io/external-name: mynetwork-myconfig-sys-account-user
+          creationTimestamp: 2023-04-14T13:24:47Z
+          finalizers:
+            - finalizer.managedresource.crossplane.io
+          generateName: mynetwork-8gjvc-
+          generation: 2
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 528b6c59-c002-403d-948d-434a69195cc5
+          managedFields:
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                  f:generateName: {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:account: {}
+                    f:claims:
+                      .: {}
+                      f:user:
+                        .: {}
+                        f:data: {}
+                        f:payload: {}
+                        f:subs: {}
+                    f:operator: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:writeConnectionSecretToRef:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:24:47Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    f:crossplane.io/external-create-pending: {}
+                    f:crossplane.io/external-create-succeeded: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"finalizer.managedresource.crossplane.io": {}
+                f:spec:
+                  f:forProvider:
+                    f:claims:
+                      f:user:
+                        f:pub: {}
+                        f:sub: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              time: 2023-04-14T13:24:48Z
+            - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:account: {}
+                    f:creds: {}
+                    f:issue: {}
+                    f:jwt: {}
+                    f:jwtPath: {}
+                    f:nkey: {}
+                    f:nkeyPath: {}
+                    f:operator: {}
+                    f:user: {}
+                  f:conditions: {}
+              manager: crossplane-natssecrets-provider
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:24:48Z
+          name: mynetwork-myconfig-sys-account-user
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1706221"
+          uid: b1cc7c73-f90f-43e7-b5bf-d0d5e422a941
+        spec:
+          deletionPolicy: Delete
+          forProvider:
+            account: sys
+            claims:
+              user:
+                data: -1
+                payload: -1
+                pub: {}
+                sub: {}
+                subs: -1
+            operator: myoperator
+          providerConfigRef:
+            name: provider-natssecrets
+          writeConnectionSecretToRef:
+            name: mynetwork-myconfig-sys-account-user
+            namespace: myconfig
+        status:
+          atProvider:
+            account: sys
+            creds: nats-secrets/creds/operator/myoperator/account/sys/user/mynetwork-myconfig-sys-account-user
+            issue: nats-secrets/issue/operator/myoperator/account/sys/user/mynetwork-myconfig-sys-account-user
+            jwt: "true"
+            jwtPath: nats-secrets/jwt/operator/myoperator/account/sys/user/mynetwork-myconfig-sys-account-user
+            nkey: "true"
+            nkeyPath: nats-secrets/nkey/operator/myoperator/account/sys/user/mynetwork-myconfig-sys-account-user
+            operator: myoperator
+            user: mynetwork-myconfig-sys-account-user
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:24:48Z
+              reason: Available
+              status: "True"
+              type: Ready
+            - lastTransitionTime: 2023-04-14T13:24:48Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+    - connectionDetails: []
+      name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker2
+      resource:
+        apiVersion: streams.network.edgefarm.io/v1alpha1
+        kind: XStream
+        metadata:
+          annotations:
+            crossplane.io/composition-resource-name: stream-firstinbig-mynetwork-myconfig-big-network-operator-worker2
+            crossplane.io/external-name: firstinbig
+          creationTimestamp: 2023-04-14T13:25:15Z
+          finalizers:
+            - composite.apiextensions.crossplane.io
+          generation: 4
+          labels:
+            crossplane.io/claim-name: mynetwork
+            crossplane.io/claim-namespace: myconfig
+            crossplane.io/composite: mynetwork-8gjvc
+            dependsOnUid: 9f8f6718-b377-44e3-a419-f2d2265932d5
+            streams.network.edgefarm.io/domain: mynetwork-myconfig-big-network-operator-worker2
+            streams.network.edgefarm.io/namespace: myconfig
+            streams.network.edgefarm.io/network: mynetwork-myconfig
+            streams.network.edgefarm.io/node: network-operator-worker2
+            streams.network.edgefarm.io/stream: firstinbig
+            streams.network.edgefarm.io/subnetwork: big
+            streams.network.edgefarm.io/type: Standard
+          managedFields:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:metadata:
+                  f:annotations:
+                    .: {}
+                    f:crossplane.io/composition-resource-name: {}
+                    f:crossplane.io/external-name: {}
+                  f:finalizers:
+                    .: {}
+                    v:"composite.apiextensions.crossplane.io": {}
+                  f:labels:
+                    .: {}
+                    f:crossplane.io/claim-name: {}
+                    f:crossplane.io/claim-namespace: {}
+                    f:crossplane.io/composite: {}
+                    f:dependsOnUid: {}
+                    f:streams.network.edgefarm.io/domain: {}
+                    f:streams.network.edgefarm.io/namespace: {}
+                    f:streams.network.edgefarm.io/network: {}
+                    f:streams.network.edgefarm.io/node: {}
+                    f:streams.network.edgefarm.io/stream: {}
+                    f:streams.network.edgefarm.io/subnetwork: {}
+                    f:streams.network.edgefarm.io/type: {}
+                  f:ownerReferences:
+                    .: {}
+                    'k:{"uid":"c6e070f5-cb68-488d-a4fc-4fb01e14d599"}': {}
+                f:spec:
+                  .: {}
+                  f:compositionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionRevisionRef:
+                    .: {}
+                    f:name: {}
+                  f:compositionUpdatePolicy: {}
+                  f:deletionPolicy: {}
+                  f:forProvider:
+                    .: {}
+                    f:config:
+                      .: {}
+                      f:discard: {}
+                      f:discardNewPerSubject: {}
+                      f:duplicates: {}
+                      f:maxAge: {}
+                      f:maxBytes: {}
+                      f:maxConsumers: {}
+                      f:maxMsgSize: {}
+                      f:maxMsgs: {}
+                      f:maxMsgsPerSubject: {}
+                      f:noAck: {}
+                      f:replicas: {}
+                      f:retention: {}
+                      f:storage: {}
+                      f:subjects: {}
+                    f:domain: {}
+                  f:providerConfigRef:
+                    .: {}
+                    f:name: {}
+                  f:resourceRefs: {}
+              manager: crossplane
+              operation: Update
+              time: 2023-04-14T13:25:17Z
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              fieldsType: FieldsV1
+              fieldsV1:
+                f:status:
+                  .: {}
+                  f:atProvider:
+                    .: {}
+                    f:connection:
+                      .: {}
+                      f:accountPublicKey: {}
+                      f:address: {}
+                      f:userPublicKey: {}
+                    f:domain: {}
+                    f:state:
+                      .: {}
+                      f:bytes: {}
+                      f:consumerCount: {}
+                      f:firstSequence: {}
+                      f:firstTimestamp: {}
+                      f:lastSequence: {}
+                      f:lastTimestamp: {}
+                      f:messages: {}
+                  f:conditions: {}
+                  f:observed:
+                    .: {}
+                    f:conditions: {}
+                  f:uid: {}
+              manager: crossplane
+              operation: Update
+              subresource: status
+              time: 2023-04-14T13:25:21Z
+          name: firstinbig-mynetwork-myconfig-big-network-operator-worker2
+          ownerReferences:
+            - apiVersion: streams.network.edgefarm.io/v1alpha1
+              blockOwnerDeletion: true
+              controller: true
+              kind: XNetwork
+              name: mynetwork-8gjvc
+              uid: c6e070f5-cb68-488d-a4fc-4fb01e14d599
+          resourceVersion: "1707026"
+          uid: 71e91c04-f7c9-4857-b9d2-b78007b1005c
+        spec:
+          compositionRef:
+            name: xstreams.streams.network.edgefarm.io
+          compositionRevisionRef:
+            name: xstreams.streams.network.edgefarm.io-db43e50
+          compositionUpdatePolicy: Automatic
+          deletionPolicy: Delete
+          forProvider:
+            config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 502400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+                - network-operator-worker2.network-operator-worker3.network-operator-worker.big.first.>
+            domain: mynetwork-myconfig-big-network-operator-worker2
+          providerConfigRef:
+            name: mynetwork-myconfig
+          resourceRefs:
+            - apiVersion: nats.crossplane.io/v1alpha1
+              kind: Stream
+              name: mynetwork-8gjvc-dtk4m
+        status:
+          atProvider:
+            connection:
+              accountPublicKey: AC3XKS65VOS7M4XX2FPGIHPVKQCEIMBWUOHI5EDSITTYEDWANGF34YPM
+              address: nats://nats.nats:4222
+              userPublicKey: UAXR7ICVOAKDI7QPYWMBUDITTOW54P3ZF7LM46FFXRLRRMTBBOZDSWST
+            domain: mynetwork-myconfig-big-network-operator-worker2
+            state:
+              bytes: 0 B
+              consumerCount: 0
+              firstSequence: 0
+              firstTimestamp: 0001-01-01T00:00:00Z
+              lastSequence: 0
+              lastTimestamp: 0001-01-01T00:00:00Z
+              messages: 0
+          conditions:
+            - lastTransitionTime: 2023-04-14T13:25:21Z
+              reason: ReconcileSuccess
+              status: "True"
+              type: Synced
+            - lastTransitionTime: 2023-04-14T13:25:21Z
+              reason: Available
+              status: "True"
+              type: Ready
+          observed:
+            conditions:
+              - lastTransitionTime: 2023-04-14T13:25:19Z
+                reason: Available
+                status: "True"
+                type: Ready
+              - lastTransitionTime: 2023-04-14T13:25:19Z
+                reason: ReconcileSuccess
+                status: "True"
+                type: Synced
+          uid: firstinbig

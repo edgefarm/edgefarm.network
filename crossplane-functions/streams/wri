@@ -1,0 +1,4083 @@
+config:
+  apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+  kind: Config
+  spec:
+    webhookURL: https://webhook.site/a42d42c7-037d-4782-b3cd-beca09b61633
+desired:
+  composite:
+    connectionDetails:
+    - name: creds-myuser1
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: creds-myuser2
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr-myuser1
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA\"\
+        \n  - name: seedKey\n    value: \"SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E\""
+    - name: dapr-myuser2
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg\"\
+        \n  - name: seedKey\n    value: \"SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM\""
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"mynetwork","namespace":"myconfig"},"spec":{"parameters":{"resourceConfig":{"kubernetes":{"providerConfigName":"kubernetes-provider"},"natssecrets":{"providerConfigName":"providerconfig-natssecrets"}},"streams":[{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardmain1.\u003e"]},"name":"standardmain1","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardmain2.\u003e"]},"name":"standardmain2","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardsmall.\u003e"]},"name":"standardsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["binbig.\u003e"]},"name":"b-in-big","subNetworkRef":"big","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["binsmall.\u003e"]},"name":"b-in-small","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"ab-aggregate","references":["b-in-big","b-in-small"],"type":"Aggregate"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["z.\u003e"]},"name":"z","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"c","reference":"z","subNetworkRef":"small","type":"Mirror"}],"subNetworks":[{"limits":{"fileStorage":"2G","inMemoryStorage":"1G"},"name":"big","tolerations":[]},{"limits":{"fileStorage":"100M","inMemoryStorage":"100M"},"name":"small","tolerations":[]}],"users":[{"limits":{"data":-1,"payload":-1,"subscriptions":-1},"name":"myuser1","permissions":{"pub":{"allow":["allowed.\u003e","puballowed.\u003e"],"deny":["bar.\u003e"]},"sub":{"allow":["allowed.\u003e"],"deny":["baz.\u003e","puballowed.\u003e"]}}},{"limits":{"data":1000,"payload":1000,"subscriptions":50},"name":"myuser2","permissions":{"pub":{"allow":["one.\u003e"]},"sub":{"deny":["two.\u003e"]}}}]},"writeConnectionSecretToRef":{"name":"myconfig"}}}
+
+            '
+        creationTimestamp: 2023-03-28 06:28:42+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generateName: mynetwork-
+        generation: 190
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:kubectl.kubernetes.io/last-applied-configuration: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+            f:spec:
+              .: {}
+              f:claimRef:
+                .: {}
+                f:apiVersion: {}
+                f:kind: {}
+                f:name: {}
+                f:namespace: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:parameters:
+                .: {}
+                f:resourceConfig:
+                  .: {}
+                  f:kubernetes:
+                    .: {}
+                    f:providerConfigName: {}
+                  f:natssecrets:
+                    .: {}
+                    f:providerConfigName: {}
+                f:streams: {}
+                f:subNetworks: {}
+                f:users: {}
+              f:resourceRefs: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:28:52+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:conditions: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:03+00:00
+        name: mynetwork-gj82w
+        resourceVersion: '46887'
+        uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: mynetwork
+          namespace: myconfig
+        compositionRef:
+          name: networks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: networks.streams.network.edgefarm.io-59b07f4
+        compositionUpdatePolicy: Automatic
+        parameters:
+          resourceConfig:
+            kubernetes:
+              providerConfigName: kubernetes-provider
+            natssecrets:
+              providerConfigName: providerconfig-natssecrets
+          streams:
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects: &id001
+              - standardmain1.>
+            name: standardmain1
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects: &id002
+              - standardmain2.>
+            name: standardmain2
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - standardsmall.>
+            name: standardsmall
+            subNetworkRef: small
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - binbig.>
+            name: b-in-big
+            subNetworkRef: big
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - binsmall.>
+            name: b-in-small
+            subNetworkRef: small
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: ab-aggregate
+            references:
+            - b-in-big
+            - b-in-small
+            subNetworkRef: main
+            type: Aggregate
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects: &id003
+              - z.>
+            name: z
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: c
+            reference: z
+            subNetworkRef: small
+            type: Mirror
+          subNetworks:
+          - limits:
+              fileStorage: 2G
+              inMemoryStorage: 1G
+            name: big
+            tolerations: []
+          - limits:
+              fileStorage: 100M
+              inMemoryStorage: 100M
+            name: small
+            tolerations: []
+          users:
+          - limits:
+              data: -1
+              payload: -1
+              subscriptions: -1
+            name: myuser1
+            permissions:
+              pub:
+                allow:
+                - allowed.>
+                - puballowed.>
+                deny:
+                - bar.>
+              sub:
+                allow:
+                - allowed.>
+                deny:
+                - baz.>
+                - puballowed.>
+          - limits:
+              data: 1000
+              payload: 1000
+              subscriptions: 50
+            name: myuser2
+            permissions:
+              pub:
+                allow:
+                - one.>
+                deny: []
+              sub:
+                allow: []
+                deny:
+                - two.>
+        resourceRefs:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: Account
+          name: mynetwork-gj82w
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-myuser1
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-myuser2
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-sys
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-system
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-big
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-small
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-t9qjq
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: ProviderConfig
+          name: mynetwork-gj82w
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: b-in-big
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: b-in-small
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardmain1
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardmain2
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardsmall
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: z
+        writeConnectionSecretToRef:
+          name: 8d171fed-e6c9-46eb-a390-9c763a50962f
+          namespace: crossplane-system
+      status:
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          message: 'cannot compose resources: cannot patch and transform: cannot render
+            composite resource from composed resource "get-network-base-config" (a
+            Object named mynetwork-gj82w-t9qjq): cannot apply the patch at index 1:
+            status: no such field'
+          reason: ReconcileError
+          status: 'False'
+          type: Synced
+        operator: myoperator
+  resources:
+  - name: system
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: system
+        generateName: mynetwork-gj82w-
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w-system
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      name: system
+      spec:
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: -1
+              payload: -1
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-system
+          namespace: myconfig
+  - name: provider-nats-config
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: ProviderConfig
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: provider-nats-config
+        generateName: mynetwork-gj82w-
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w
+        namespace: myconfig
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      spec:
+        credentials:
+          secretRef:
+            key: provider-config-secret
+            name: mynetwork-gj82w-system
+            namespace: myconfig
+          source: Secret
+  - name: sys-account-user
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: sys-account-user
+        generateName: mynetwork-gj82w-
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w-sys
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      name: system
+      spec:
+        forProvider:
+          account: sys
+          claims:
+            user:
+              data: -1
+              payload: -1
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-sys
+          namespace: myconfig
+  - name: get-network-base-config
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: get-network-base-config
+        generateName: mynetwork-gj82w-
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w-t9qjq
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      spec:
+        forProvider:
+          manifest:
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: network-base-config
+              namespace: crossplane-system
+        managementPolicy: Observe
+        providerConfigRef:
+          name: provider-kubernetes
+  - name: account
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: Account
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: account
+        generateName: mynetwork-gj82w-
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      spec:
+        forProvider:
+          claims:
+            account:
+              limits:
+                conn: -1
+                consumer: -1
+                data: -1
+                diskStorage: -1
+                exports: -1
+                imports: -1
+                leafNodeConn: -1
+                memStorage: -1
+                payload: -1
+                streams: -1
+                subs: -1
+                wildcardExports: true
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-account
+          namespace: crossplane-system
+  - name: big
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        name: mynetwork-gj82w-big
+        namespace: myconfig
+      spec:
+        forProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              namespace: myconfig
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 2G
+                inMemoryStorage: 1G
+              namespace: myconfig
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: big
+              tolerations: []
+        providerConfigRef:
+          name: provider-kubernetes
+  - name: small
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        name: mynetwork-gj82w-small
+        namespace: myconfig
+      spec:
+        forProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              namespace: myconfig
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 100M
+                inMemoryStorage: 100M
+              namespace: myconfig
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: small
+              tolerations: []
+        providerConfigRef:
+          name: provider-kubernetes
+  - name: stream-standardmain1
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: standardmain1
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-standardmain2
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: standardmain2
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-z
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: z
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-b-in-big
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: b-in-big
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-big-network-operator-worker2
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-b-in-big
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: b-in-big
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-big-network-operator-worker3
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-b-in-big
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: b-in-big
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-big-network-operator-worker
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-standardsmall
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: standardsmall
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker3
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-standardsmall
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: standardsmall
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker2
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-b-in-small
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: b-in-small
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker3
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-b-in-small
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        name: b-in-small
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker2
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - connectionDetails:
+    - fromConnectionSecretKey: creds
+      name: creds-myuser1
+      type: FromConnectionSecretKey
+    - fromConnectionSecretKey: dapr
+      name: dapr-myuser1
+      type: FromConnectionSecretKey
+    name: myuser1
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: myuser1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w-myuser1
+        ownerReferences:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XMinimalNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      name: myuser1
+      spec:
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub:
+                allow:
+                - allowed.>
+                - puballowed.>
+                deny:
+                - bar.>
+              sub:
+                allow:
+                - allowed.>
+                deny:
+                - baz.>
+                - puballowed.>
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-myuser1
+          namespace: myconfig
+  - connectionDetails:
+    - fromConnectionSecretKey: creds
+      name: creds-myuser2
+      type: FromConnectionSecretKey
+    - fromConnectionSecretKey: dapr
+      name: dapr-myuser2
+      type: FromConnectionSecretKey
+    name: myuser2
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: myuser2
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        name: mynetwork-gj82w-myuser2
+        ownerReferences:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XMinimalNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      name: myuser2
+      spec:
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: 1000
+              payload: 1000
+              pub:
+                allow:
+                - one.>
+                deny: []
+              sub:
+                allow: []
+                deny:
+                - two.>
+              subs: 50
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-myuser2
+          namespace: myconfig
+  - name: stream-standardmain1-main
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/external-name: standardmain1
+        name: standardmain1-main
+        ownerReferences:
+        - apiVersion: natssecrets.crossplane.io/v1alpha1
+          blockOwnerDeletion: true
+          kind: User
+          name: mynetwork-gj82w-system
+          uid: null
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects: *id001
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-standardmain2-main
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/external-name: standardmain2
+        name: standardmain2-main
+        ownerReferences:
+        - apiVersion: natssecrets.crossplane.io/v1alpha1
+          blockOwnerDeletion: true
+          kind: User
+          name: mynetwork-gj82w-system
+          uid: null
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects: *id002
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+  - name: stream-z-main
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/external-name: z
+        name: z-main
+        ownerReferences:
+        - apiVersion: natssecrets.crossplane.io/v1alpha1
+          blockOwnerDeletion: true
+          kind: User
+          name: mynetwork-gj82w-system
+          uid: null
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            maxBytes: 102400
+            retention: Limits
+            storage: File
+            subjects: *id003
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+observed:
+  composite:
+    connectionDetails:
+    - name: creds-myuser1
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: creds-myuser2
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr-myuser1
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA\"\
+        \n  - name: seedKey\n    value: \"SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E\""
+    - name: dapr-myuser2
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg\"\
+        \n  - name: seedKey\n    value: \"SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM\""
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"mynetwork","namespace":"myconfig"},"spec":{"parameters":{"resourceConfig":{"kubernetes":{"providerConfigName":"kubernetes-provider"},"natssecrets":{"providerConfigName":"providerconfig-natssecrets"}},"streams":[{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardmain1.\u003e"]},"name":"standardmain1","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardmain2.\u003e"]},"name":"standardmain2","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["standardsmall.\u003e"]},"name":"standardsmall","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["binbig.\u003e"]},"name":"b-in-big","subNetworkRef":"big","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["binsmall.\u003e"]},"name":"b-in-small","subNetworkRef":"small","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"ab-aggregate","references":["b-in-big","b-in-small"],"type":"Aggregate"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["z.\u003e"]},"name":"z","subNetworkRef":"main","type":"Standard"},{"config":{"discard":"Old","maxBytes":102400,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"c","reference":"z","subNetworkRef":"small","type":"Mirror"}],"subNetworks":[{"limits":{"fileStorage":"2G","inMemoryStorage":"1G"},"name":"big","tolerations":[]},{"limits":{"fileStorage":"100M","inMemoryStorage":"100M"},"name":"small","tolerations":[]}],"users":[{"limits":{"data":-1,"payload":-1,"subscriptions":-1},"name":"myuser1","permissions":{"pub":{"allow":["allowed.\u003e","puballowed.\u003e"],"deny":["bar.\u003e"]},"sub":{"allow":["allowed.\u003e"],"deny":["baz.\u003e","puballowed.\u003e"]}}},{"limits":{"data":1000,"payload":1000,"subscriptions":50},"name":"myuser2","permissions":{"pub":{"allow":["one.\u003e"]},"sub":{"deny":["two.\u003e"]}}}]},"writeConnectionSecretToRef":{"name":"myconfig"}}}
+
+            '
+        creationTimestamp: 2023-03-28 06:28:42+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generateName: mynetwork-
+        generation: 190
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:kubectl.kubernetes.io/last-applied-configuration: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+            f:spec:
+              .: {}
+              f:claimRef:
+                .: {}
+                f:apiVersion: {}
+                f:kind: {}
+                f:name: {}
+                f:namespace: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:parameters:
+                .: {}
+                f:resourceConfig:
+                  .: {}
+                  f:kubernetes:
+                    .: {}
+                    f:providerConfigName: {}
+                  f:natssecrets:
+                    .: {}
+                    f:providerConfigName: {}
+                f:streams: {}
+                f:subNetworks: {}
+                f:users: {}
+              f:resourceRefs: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:28:52+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:conditions: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:03+00:00
+        name: mynetwork-gj82w
+        resourceVersion: '46887'
+        uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: mynetwork
+          namespace: myconfig
+        compositionRef:
+          name: networks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: networks.streams.network.edgefarm.io-59b07f4
+        compositionUpdatePolicy: Automatic
+        parameters:
+          resourceConfig:
+            kubernetes:
+              providerConfigName: kubernetes-provider
+            natssecrets:
+              providerConfigName: providerconfig-natssecrets
+          streams:
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - standardmain1.>
+            name: standardmain1
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - standardmain2.>
+            name: standardmain2
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - standardsmall.>
+            name: standardsmall
+            subNetworkRef: small
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - binbig.>
+            name: b-in-big
+            subNetworkRef: big
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - binsmall.>
+            name: b-in-small
+            subNetworkRef: small
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: ab-aggregate
+            references:
+            - b-in-big
+            - b-in-small
+            subNetworkRef: main
+            type: Aggregate
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - z.>
+            name: z
+            subNetworkRef: main
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 102400
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: c
+            reference: z
+            subNetworkRef: small
+            type: Mirror
+          subNetworks:
+          - limits:
+              fileStorage: 2G
+              inMemoryStorage: 1G
+            name: big
+            tolerations: []
+          - limits:
+              fileStorage: 100M
+              inMemoryStorage: 100M
+            name: small
+            tolerations: []
+          users:
+          - limits:
+              data: -1
+              payload: -1
+              subscriptions: -1
+            name: myuser1
+            permissions:
+              pub:
+                allow:
+                - allowed.>
+                - puballowed.>
+                deny:
+                - bar.>
+              sub:
+                allow:
+                - allowed.>
+                deny:
+                - baz.>
+                - puballowed.>
+          - limits:
+              data: 1000
+              payload: 1000
+              subscriptions: 50
+            name: myuser2
+            permissions:
+              pub:
+                allow:
+                - one.>
+              sub:
+                deny:
+                - two.>
+        resourceRefs:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: Account
+          name: mynetwork-gj82w
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-myuser1
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-myuser2
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-sys
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: mynetwork-gj82w-system
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-big
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-small
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: mynetwork-gj82w-t9qjq
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: ProviderConfig
+          name: mynetwork-gj82w
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: b-in-big
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: b-in-small
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardmain1
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardmain2
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: standardsmall
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: z
+        writeConnectionSecretToRef:
+          name: 8d171fed-e6c9-46eb-a390-9c763a50962f
+          namespace: crossplane-system
+      status:
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          message: 'cannot compose resources: cannot patch and transform: cannot render
+            composite resource from composed resource "get-network-base-config" (a
+            Object named mynetwork-gj82w-t9qjq): cannot apply the patch at index 1:
+            status: no such field'
+          reason: ReconcileError
+          status: 'False'
+          type: Synced
+  resources:
+  - connectionDetails:
+    - name: address
+      value: nats://nats.nats:4222
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA\"\
+        \n  - name: seedKey\n    value: \"SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E\""
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA
+    - name: provider-config-secret
+      value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJLWUtCUEFRN0dGNlM3SkIyN0hBSUFDUkxINjROUTdLUkkzR1FTVTc2NU5IUjNaTFpYQjZBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCQTZDRDZDNU5DU0MyTTRJTkFSWkxCTzNQMkJOSEFSVDdIUTZLWjJBTFZCRU1YUE1VTU5OTU1GIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiYWxsb3dlZC5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhci5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyJhbGxvd2VkLlx1MDAzZSJdLCJkZW55IjpbImJhei5cdTAwM2UiLCJwdWJhbGxvd2VkLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.GzfcTng6_pbtBKm88hsLYM4u5sQcAvhcXLF6HGKEHWDiFb0zAZ_P47H7JQWmsgJm8RmwLzBEK7wwi1zD10O9CA","seed_key":"SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E","address":"nats://nats.nats:4222"}'
+    - name: seed
+      value: SUAMATOYU3KW276XA5V2MONJBAQ536RHYXHMBKTNYQ6VY2GYWDF2W3BV7E
+    - name: account-public-key
+      value: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+    name: myuser1
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: myuser1
+          crossplane.io/external-create-pending: 2023-03-28 06:29:16+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:16+00:00
+          crossplane.io/external-name: mynetwork-gj82w-myuser1
+        creationTimestamp: 2023-03-28 06:29:16+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:pub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:sub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:16+00:00
+        name: mynetwork-gj82w-myuser1
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41381'
+        uid: e25a424d-799a-4363-8022-4cc1ca892430
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub:
+                allow:
+                - allowed.>
+                - puballowed.>
+                deny:
+                - bar.>
+              sub:
+                allow:
+                - allowed.>
+                deny:
+                - baz.>
+                - puballowed.>
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-myuser1
+          namespace: myconfig
+      status:
+        atProvider:
+          account: mynetwork-gj82w
+          creds: nats-secrets/creds/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser1
+          issue: nats-secrets/issue/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser1
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser1
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser1
+          operator: myoperator
+          user: mynetwork-gj82w-myuser1
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:16+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:16+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: address
+      value: nats://nats.nats:4222
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJQQVFRUjVOUE9ZMzVZQ0hQNE02SEdVWDJMSEcyUUNBNkYyRDdHSEE1Nk41TVBBRU5QQkJBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVDRU8zNUdJRExUTTIyWjJKR09DMk9NU1U1UE1JRkdRV0JaWk5QN1RYRVZFRU5UNFBBSEVCR0I1IiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.1e7R-kLvXpf7FO-5wi0Vq0Oimz1LMZwLAPmdTwGxcZkm4nRS4wF1WqWpdnna5Bg_mJuNGxebxobnXXZd1RXPDQ
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUABPSW7VAH4Y574XWDGFM74STH43JKIYJYXAXFPG5MEYMMWYZ4XA3EDNI
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJQQVFRUjVOUE9ZMzVZQ0hQNE02SEdVWDJMSEcyUUNBNkYyRDdHSEE1Nk41TVBBRU5QQkJBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVDRU8zNUdJRExUTTIyWjJKR09DMk9NU1U1UE1JRkdRV0JaWk5QN1RYRVZFRU5UNFBBSEVCR0I1IiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.1e7R-kLvXpf7FO-5wi0Vq0Oimz1LMZwLAPmdTwGxcZkm4nRS4wF1WqWpdnna5Bg_mJuNGxebxobnXXZd1RXPDQ\"\
+        \n  - name: seedKey\n    value: \"SUABPSW7VAH4Y574XWDGFM74STH43JKIYJYXAXFPG5MEYMMWYZ4XA3EDNI\""
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJQQVFRUjVOUE9ZMzVZQ0hQNE02SEdVWDJMSEcyUUNBNkYyRDdHSEE1Nk41TVBBRU5QQkJBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVDRU8zNUdJRExUTTIyWjJKR09DMk9NU1U1UE1JRkdRV0JaWk5QN1RYRVZFRU5UNFBBSEVCR0I1IiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.1e7R-kLvXpf7FO-5wi0Vq0Oimz1LMZwLAPmdTwGxcZkm4nRS4wF1WqWpdnna5Bg_mJuNGxebxobnXXZd1RXPDQ
+    - name: provider-config-secret
+      value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJQQVFRUjVOUE9ZMzVZQ0hQNE02SEdVWDJMSEcyUUNBNkYyRDdHSEE1Nk41TVBBRU5QQkJBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVDRU8zNUdJRExUTTIyWjJKR09DMk9NU1U1UE1JRkdRV0JaWk5QN1RYRVZFRU5UNFBBSEVCR0I1IiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.1e7R-kLvXpf7FO-5wi0Vq0Oimz1LMZwLAPmdTwGxcZkm4nRS4wF1WqWpdnna5Bg_mJuNGxebxobnXXZd1RXPDQ","seed_key":"SUABPSW7VAH4Y574XWDGFM74STH43JKIYJYXAXFPG5MEYMMWYZ4XA3EDNI","address":"nats://nats.nats:4222"}'
+    - name: seed
+      value: SUABPSW7VAH4Y574XWDGFM74STH43JKIYJYXAXFPG5MEYMMWYZ4XA3EDNI
+    - name: account-public-key
+      value: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+    name: system
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: system
+          crossplane.io/external-create-pending: 2023-03-28 06:29:15+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:15+00:00
+          crossplane.io/external-name: mynetwork-gj82w-system
+        creationTimestamp: 2023-03-28 06:29:15+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: mynetwork-gj82w-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:15+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:user:
+                    f:pub: {}
+                    f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-03-28 06:29:15+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:16+00:00
+        name: mynetwork-gj82w-system
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41392'
+        uid: c2b1f6df-2c8b-4174-b9b4-29b0f428b049
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub: {}
+              sub: {}
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-system
+          namespace: myconfig
+      status:
+        atProvider:
+          account: mynetwork-gj82w
+          creds: nats-secrets/creds/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-system
+          issue: nats-secrets/issue/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-system
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-system
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-system
+          operator: myoperator
+          user: mynetwork-gj82w-system
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:16+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:15+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: provider-nats-config
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: ProviderConfig
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: provider-nats-config
+        creationTimestamp: 2023-03-28 06:29:03+00:00
+        finalizers:
+        - in-use.crossplane.io
+        generateName: mynetwork-gj82w-
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:credentials:
+                .: {}
+                f:secretRef:
+                  .: {}
+                  f:key: {}
+                  f:name: {}
+                  f:namespace: {}
+                f:source: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:finalizers:
+                .: {}
+                v:"in-use.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:users: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:15+00:00
+        name: mynetwork-gj82w
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41687'
+        uid: 158fd5f0-5b2e-4b65-8801-ac41a2d2947b
+      spec:
+        credentials:
+          secretRef:
+            key: provider-config-secret
+            name: mynetwork-gj82w-system
+            namespace: myconfig
+          source: Secret
+      status:
+        users: 6
+  - connectionDetails: []
+    name: stream-b-in-big
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-b-in-big
+          crossplane.io/external-create-failed: 2023-03-28 06:29:46+00:00
+          crossplane.io/external-create-pending: 2023-03-28 06:29:46+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:46+00:00
+          crossplane.io/external-name: b-in-big
+        creationTimestamp: 2023-03-28 06:29:46+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:46+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-failed: {}
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:46+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:domain: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:firstTimestamp: {}
+                  f:lastSequence: {}
+                  f:lastTimestamp: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:46+00:00
+        name: b-in-big
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41701'
+        uid: e094f74b-34b2-46b3-af8c-83aebd73ebb9
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-big-network-operator-worker
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+            address: nats://nats.nats:4222
+            userPublicKey: UCEO35GIDLTM22Z2JGOC2OMSU5PMIFGQWBZZNP7TXEVEENT4PAHEBGB5
+          domain: mynetwork-gj82w-big-network-operator-worker
+          state:
+            bytes: 0 B
+            consumerCount: 0
+            firstSequence: 0
+            firstTimestamp: 0001-01-01 00:00:00+00:00
+            lastSequence: 0
+            lastTimestamp: 0001-01-01 00:00:00+00:00
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:46+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:46+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: dapr
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg\"\
+        \n  - name: seedKey\n    value: \"SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM\""
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg
+    - name: provider-config-secret
+      value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg","seed_key":"SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM","address":"nats://nats.nats:4222"}'
+    - name: seed
+      value: SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM
+    - name: account-public-key
+      value: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+    - name: address
+      value: nats://nats.nats:4222
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJXQUZQTkZJWjZETUdVTDNXVzZXQ0hEVU5DNFhTSU5RRTNRNE00UFkyTjVOTldaWVJPRjVRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBRExNU1RCTkIzWEVMRlJKUVg3R1NSUVBDRlFWUkVFNExGR1BNRU5QQ0ZXRVhCNU1XWFJaT1NRTCIsInN1YiI6IlVCRVNPNFJVQVU1VlNTQ0M3TEdFSURVNVZHV01DNFdDVlNBRlhPQ0pBVDdUS1ZSUUJOT1k3QVJDIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsib25lLlx1MDAzZSJdfSwic3ViIjp7ImRlbnkiOlsidHdvLlx1MDAzZSJdfSwic3VicyI6NTAsImRhdGEiOjEwMDAsInBheWxvYWQiOjEwMDAsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.YpwbeKGWrLUKGGh_an4z555F8BjAQ4wVvdQofKV1U6CEGY9tyawglsP9tpDBwc4ZTUuUu1gruSm2i2ZS2VkXBg
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAFQVAGY4QFCGBU2SV6L4CAIP72NWORTZPLPGSW7UVL6SGIHXCX4GV5ZM
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    name: myuser2
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: myuser2
+          crossplane.io/external-create-pending: 2023-03-28 06:29:15+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:15+00:00
+          crossplane.io/external-name: mynetwork-gj82w-myuser2
+        creationTimestamp: 2023-03-28 06:29:15+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 3
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-03-28 06:29:15+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:17+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:pub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:sub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:32+00:00
+        name: mynetwork-gj82w-myuser2
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41603'
+        uid: d9e894ad-400b-494f-9630-8c97993bcf4a
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: mynetwork-gj82w
+          claims:
+            user:
+              data: 1000
+              payload: 1000
+              pub:
+                allow:
+                - one.>
+                deny: []
+              sub:
+                allow: []
+                deny:
+                - two.>
+              subs: 50
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-myuser2
+          namespace: myconfig
+      status:
+        atProvider:
+          account: mynetwork-gj82w
+          creds: nats-secrets/creds/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser2
+          issue: nats-secrets/issue/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser2
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser2
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-gj82w/user/mynetwork-gj82w-myuser2
+          operator: myoperator
+          user: mynetwork-gj82w-myuser2
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:15+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJFSzQyM1ZOVExVNDRUQjZTS1E0TkdPNEE0QzRKSDVGWFo1NlRYVk5EUFpBWEwyUTVZRDdBIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJBQ040V1VXMkpaQkRBRzZTSVRDWUVNVkNNVzJOTUVWWUxKTUdXWklGQVVKTU1CVDJQNkxFS0JTVCIsInN1YiI6IlVEUVZCRlBKTldNM0Y1UElZTEtGT1FHUzdZNVhQMzVWNUtORzRKRTJQWlRHRkZON0oyWEZINTNIIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.5DThxdJPAtQDKozhdUq5q2kUfsY5AgHjslIPCHennpJDDn_bOFzntHtu6tcZ7NUNG8ylChi5zKmhmVdSoM_oAQ
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAKJU3UEDHKIJKLC6SPTBKGBW5N77ZLOOIT7FZ5TU3UGNWDE5GX6VQVJ4
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: operator-jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzR1pKRk4zSUxCQVpPU1haQ0pMRTZPUFVBWElIM0RYMzVEUEFLQVpWSUhKRktUQkVQVlJRIiwiaWF0IjoxNjc5OTQ4NjY4LCJpc3MiOiJPREdDTlUzSkdEVjZLQVhPQU5FV1ZUT0hZU1FVRFdCRExWV0hZSVRGTEJLNU83RTRDSkxaWFlWQyIsInN1YiI6Ik9ER0NOVTNKR0RWNktBWE9BTkVXVlRPSFlTUVVEV0JETFZXSFlJVEZMQks1TzdFNENKTFpYWVZDIiwibmF0cyI6eyJhY2NvdW50X3NlcnZlcl91cmwiOiJuYXRzOi8vbmF0cy5uYXRzOjQyMjIiLCJvcGVyYXRvcl9zZXJ2aWNlX3VybHMiOlsibmF0czovL25hdHMubmF0czo0MjIyIl0sInN5c3RlbV9hY2NvdW50IjoiQUNONFdVVzJKWkJEQUc2U0lUQ1lFTVZDTVcyTk1FVllMSk1HV1pJRkFVSk1NQlQyUDZMRUtCU1QiLCJ0eXBlIjoib3BlcmF0b3IiLCJ2ZXJzaW9uIjoyfX0.CZOJCZpHh-py38qDkHq66ToLM2aJVfcTzJ3nu0EMUy7RGzf6nZUrh79hDsFFX-TDBpjH7oY902sGauFH_4DPCQ
+    - name: sys-account-jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJOMkdPWTZNQlg0M01ETzc1TUE0M1ZLNllaVFNYQ0dGWk5OWVVUMlNPWDVVTVhTWTRCRUdBIiwiaWF0IjoxNjc5OTg0OTAwLCJpc3MiOiJPREdDTlUzSkdEVjZLQVhPQU5FV1ZUT0hZU1FVRFdCRExWV0hZSVRGTEJLNU83RTRDSkxaWFlWQyIsInN1YiI6IkFDTjRXVVcySlpCREFHNlNJVENZRU1WQ01XMk5NRVZZTEpNR1daSUZBVUpNTUJUMlA2TEVLQlNUIiwibmF0cyI6eyJleHBvcnRzIjpbeyJuYW1lIjoiYWNjb3VudC1tb25pdG9yaW5nLXNlcnZpY2VzIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLioiLCJ0eXBlIjoic2VydmljZSIsInJlc3BvbnNlX3R5cGUiOiJTdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjo0LCJkZXNjcmlwdGlvbiI6IlJlcXVlc3QgYWNjb3VudCBzcGVjaWZpYyBtb25pdG9yaW5nIHNlcnZpY2VzIGZvcjogU1VCU1osIENPTk5aLCBMRUFGWiwgSlNaIGFuZCBJTkZPIiwiaW5mb191cmwiOiJodHRwczovL2RvY3MubmF0cy5pby9uYXRzLXNlcnZlci9jb25maWd1cmF0aW9uL3N5c19hY2NvdW50cyJ9LHsibmFtZSI6ImFjY291bnQtbW9uaXRvcmluZy1zdHJlYW1zIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLlx1MDAzZSIsInR5cGUiOiJzdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjozLCJkZXNjcmlwdGlvbiI6IkFjY291bnQgc3BlY2lmaWMgbW9uaXRvcmluZyBzdHJlYW0iLCJpbmZvX3VybCI6Imh0dHBzOi8vZG9jcy5uYXRzLmlvL25hdHMtc2VydmVyL2NvbmZpZ3VyYXRpb24vc3lzX2FjY291bnRzIn1dLCJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMX0sImRlZmF1bHRfcGVybWlzc2lvbnMiOnsicHViIjp7fSwic3ViIjp7fX0sInR5cGUiOiJhY2NvdW50IiwidmVyc2lvbiI6Mn19.5mJTKF1LlzlzAIobK_Z30UG-j6sBy4DncAuR5YyNnEZtgQgsmqb_EJkZf9MABpyhfH-IH3PduNAILzF28mCMCg
+    - name: sys-account-public-key
+      value: ACN4WUW2JZBDAG6SITCYEMVCMW2NMEVYLJMGWZIFAUJMMBT2P6LEKBST
+    - name: account-public-key
+      value: ACN4WUW2JZBDAG6SITCYEMVCMW2NMEVYLJMGWZIFAUJMMBT2P6LEKBST
+    - name: address
+      value: nats://nats.nats:4222
+    name: sys-account-user
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: sys-account-user
+          crossplane.io/external-create-pending: 2023-03-28 06:29:16+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:16+00:00
+          crossplane.io/external-name: mynetwork-gj82w-sys
+        creationTimestamp: 2023-03-28 06:29:16+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: mynetwork-gj82w-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:user:
+                    f:pub: {}
+                    f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:16+00:00
+        name: mynetwork-gj82w-sys
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41373'
+        uid: 5f44c42b-8cd9-40f6-bb3b-4a7c6ee721f2
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: sys
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub: {}
+              sub: {}
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-sys
+          namespace: myconfig
+      status:
+        atProvider:
+          account: sys
+          creds: nats-secrets/creds/operator/myoperator/account/sys/user/mynetwork-gj82w-sys
+          issue: nats-secrets/issue/operator/myoperator/account/sys/user/mynetwork-gj82w-sys
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/sys/user/mynetwork-gj82w-sys
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/sys/user/mynetwork-gj82w-sys
+          operator: myoperator
+          user: mynetwork-gj82w-sys
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:16+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:16+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: big
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: big
+          crossplane.io/external-create-pending: 2023-03-28 06:29:03+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:03+00:00
+          crossplane.io/external-name: mynetwork-gj82w-big
+        creationTimestamp: 2023-03-28 06:29:03+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:namespace: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef:
+                        .: {}
+                        f:name: {}
+                      f:systemUserSecretRef:
+                        .: {}
+                        f:name: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:namespace: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+              f:managementPolicy: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                    f:creationTimestamp: {}
+                    f:generation: {}
+                    f:managedFields: {}
+                    f:name: {}
+                    f:namespace: {}
+                    f:resourceVersion: {}
+                    f:uid: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef:
+                        .: {}
+                        f:name: {}
+                      f:systemUserSecretRef:
+                        .: {}
+                        f:name: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+                  f:status:
+                    .: {}
+                    f:current: {}
+                    f:desired: {}
+                    f:ready: {}
+              f:conditions: {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:04+00:00
+        name: mynetwork-gj82w-big
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41788'
+        uid: c68d548a-bf85-4cbe-9aff-1fcdba1c5492
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              namespace: myconfig
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 2G
+                inMemoryStorage: 1G
+              namespace: myconfig
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: big
+              tolerations: []
+        managementPolicy: Default
+        providerConfigRef:
+          name: provider-kubernetes
+      status:
+        atProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"network.edgefarm.io/v1alpha1","kind":"EdgeNetwork","metadata":{"namespace":"myconfig"},"spec":{"connectionSecretRefs":{"sysAccountUserSecretRef":{"name":"mynetwork-gj82w-sys"},"systemUserSecretRef":{"name":"mynetwork-gj82w-system"}},"limits":{"fileStorage":"2G","inMemoryStorage":"1G"},"namespace":"myconfig","network":"mynetwork-gj82w","nodeSelectorTerm":{},"subNetwork":"big","tolerations":[]}}'
+              creationTimestamp: 2023-03-28 06:29:03+00:00
+              generation: 1
+              managedFields:
+              - apiVersion: network.edgefarm.io/v1alpha1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:metadata:
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef: {}
+                      f:systemUserSecretRef: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+                manager: crossplane-kubernetes-provider
+                operation: Update
+                time: 2023-03-28 06:29:03+00:00
+              - apiVersion: network.edgefarm.io/v1alpha1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:status:
+                    .: {}
+                    f:current: {}
+                    f:desired: {}
+                    f:ready: {}
+                manager: metacontroller
+                operation: Update
+                subresource: status
+                time: 2023-03-28 06:29:03+00:00
+              name: mynetwork-gj82w-big
+              namespace: myconfig
+              resourceVersion: '41584'
+              uid: 819ed02c-75b9-4268-8067-99cf2d05e4ff
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 2G
+                inMemoryStorage: 1G
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: big
+              tolerations: []
+            status:
+              current: '3'
+              desired: '3'
+              ready: '3'
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: get-network-base-config
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: get-network-base-config
+          crossplane.io/external-name: mynetwork-gj82w-t9qjq
+        creationTimestamp: 2023-03-28 06:29:03+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: mynetwork-gj82w-
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              f:managementPolicy: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:28:52+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:data:
+                    .: {}
+                    f:operator: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                    f:creationTimestamp: {}
+                    f:managedFields: {}
+                    f:name: {}
+                    f:namespace: {}
+                    f:resourceVersion: {}
+                    f:uid: {}
+              f:conditions: {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:04+00:00
+        name: mynetwork-gj82w-t9qjq
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41241'
+        uid: 712a15d2-86c9-4baa-a0b6-e2f90ac1addb
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          manifest:
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: network-base-config
+              namespace: crossplane-system
+        managementPolicy: Observe
+        providerConfigRef:
+          name: provider-kubernetes
+      status:
+        atProvider:
+          manifest:
+            apiVersion: v1
+            data:
+              operator: myoperator
+            kind: ConfigMap
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"v1","data":{"operator":"myoperator"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":null,"name":"network-base-config","namespace":"crossplane-system"}}
+
+                  '
+              creationTimestamp: 2023-03-27 20:24:32+00:00
+              managedFields:
+              - apiVersion: v1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:data:
+                    .: {}
+                    f:operator: {}
+                  f:metadata:
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                manager: kubectl-client-side-apply
+                operation: Update
+                time: 2023-03-27 20:24:32+00:00
+              name: network-base-config
+              namespace: crossplane-system
+              resourceVersion: '2365'
+              uid: ea75f14e-7321-44c4-8275-2b709d20f193
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-03-28 06:29:04+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+  - connectionDetails: []
+    name: stream-b-in-small
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-b-in-small
+          crossplane.io/external-create-failed: 2023-03-28 06:50:04+00:00
+          crossplane.io/external-create-pending: 2023-03-28 06:50:04+00:00
+          crossplane.io/external-name: b-in-small
+        creationTimestamp: 2023-03-28 06:29:46+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:46+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-failed: {}
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:46+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:lastSequence: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:46+00:00
+        name: b-in-small
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '46720'
+        uid: 76b95a16-5cff-4595-a961-6db1338e92b6
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker2
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ''
+            address: ''
+            userPublicKey: ''
+          state:
+            bytes: ''
+            consumerCount: 0
+            firstSequence: 0
+            lastSequence: 0
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:46+00:00
+          reason: Creating
+          status: 'False'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:47+00:00
+          message: 'create failed: nats: subjects overlap with an existing stream'
+          reason: ReconcileError
+          status: 'False'
+          type: Synced
+  - connectionDetails: []
+    name: stream-standardsmall
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-standardsmall
+          crossplane.io/external-create-pending: 2023-03-28 06:29:46+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:46+00:00
+          crossplane.io/external-name: standardsmall
+        creationTimestamp: 2023-03-28 06:29:45+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:45+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:46+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:domain: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:firstTimestamp: {}
+                  f:lastSequence: {}
+                  f:lastTimestamp: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:46+00:00
+        name: standardsmall
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41673'
+        uid: 7126b01b-8826-4196-9271-a0cc1ad93fbc
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: mynetwork-gj82w-small-network-operator-worker2
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+            address: nats://nats.nats:4222
+            userPublicKey: UCEO35GIDLTM22Z2JGOC2OMSU5PMIFGQWBZZNP7TXEVEENT4PAHEBGB5
+          domain: mynetwork-gj82w-small-network-operator-worker2
+          state:
+            bytes: 0 B
+            consumerCount: 0
+            firstSequence: 0
+            firstTimestamp: 0001-01-01 00:00:00+00:00
+            lastSequence: 0
+            lastTimestamp: 0001-01-01 00:00:00+00:00
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:46+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:46+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzN1JYM041SDRPRjNKTzJPMjdQNzNMNkVIRUpSQU5aN0xJNlNNNFNRNkxINEtGRU5NWjJRIiwiaWF0IjoxNjc5OTg0OTU2LCJpc3MiOiJPREdDTlUzSkdEVjZLQVhPQU5FV1ZUT0hZU1FVRFdCRExWV0hZSVRGTEJLNU83RTRDSkxaWFlWQyIsInN1YiI6IkFETE1TVEJOQjNYRUxGUkpRWDdHU1JRUENGUVZSRUU0TEZHUE1FTlBDRldFWEI1TVdYUlpPU1FMIiwibmF0cyI6eyJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMSwibWVtX3N0b3JhZ2UiOi0xLCJkaXNrX3N0b3JhZ2UiOi0xLCJzdHJlYW1zIjotMSwiY29uc3VtZXIiOi0xfSwiZGVmYXVsdF9wZXJtaXNzaW9ucyI6eyJwdWIiOnt9LCJzdWIiOnt9fSwidHlwZSI6ImFjY291bnQiLCJ2ZXJzaW9uIjoyfX0.TyeNMSJz-eMzG_l1BOY1H6FiUidO44JzMYD5HezgRIPwA1fFZW4FToBNo3lYUGySd_Ivrh2K8QVsQQLP7t6sAg
+    - name: pub
+      value: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+    name: account
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: Account
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: account
+          crossplane.io/external-create-pending: 2023-03-28 06:29:16+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:17+00:00
+          crossplane.io/external-name: mynetwork-gj82w
+        creationTimestamp: 2023-03-28 06:29:16+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: mynetwork-gj82w-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:claims:
+                  .: {}
+                  f:account:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:conn: {}
+                      f:consumer: {}
+                      f:data: {}
+                      f:diskMaxStreamBytes: {}
+                      f:diskStorage: {}
+                      f:exports: {}
+                      f:imports: {}
+                      f:leafNodeConn: {}
+                      f:memMaxStreamBytes: {}
+                      f:memStorage: {}
+                      f:payload: {}
+                      f:streams: {}
+                      f:subs: {}
+                      f:wildcardExports: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:account:
+                    f:defaultPermissions:
+                      .: {}
+                      f:pub: {}
+                      f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-03-28 06:29:17+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:lastPushed: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:pushed: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:17+00:00
+        name: mynetwork-gj82w
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41406'
+        uid: 705a96f7-2be0-4805-b046-56f730769092
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          claims:
+            account:
+              defaultPermissions:
+                pub: {}
+                sub: {}
+              limits:
+                conn: -1
+                consumer: -1
+                data: -1
+                diskMaxStreamBytes: 0
+                diskStorage: -1
+                exports: -1
+                imports: -1
+                leafNodeConn: -1
+                memMaxStreamBytes: 0
+                memStorage: -1
+                payload: -1
+                streams: -1
+                subs: -1
+                wildcardExports: true
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: mynetwork-gj82w-account
+          namespace: crossplane-system
+      status:
+        atProvider:
+          account: mynetwork-gj82w
+          issue: nats-secrets/issue/operator/myoperator/account/mynetwork-gj82w
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/mynetwork-gj82w
+          lastPushed: 2023-03-28 06:29:17+00:00
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/mynetwork-gj82w
+          operator: myoperator
+          pushed: 'true'
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: small
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: small
+          crossplane.io/external-create-pending: 2023-03-28 06:29:03+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:03+00:00
+          crossplane.io/external-name: mynetwork-gj82w-small
+        creationTimestamp: 2023-03-28 06:29:03+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:namespace: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef:
+                        .: {}
+                        f:name: {}
+                      f:systemUserSecretRef:
+                        .: {}
+                        f:name: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:namespace: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+              f:managementPolicy: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          time: 2023-03-28 06:29:03+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                    f:creationTimestamp: {}
+                    f:generation: {}
+                    f:managedFields: {}
+                    f:name: {}
+                    f:namespace: {}
+                    f:resourceVersion: {}
+                    f:uid: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef:
+                        .: {}
+                        f:name: {}
+                      f:systemUserSecretRef:
+                        .: {}
+                        f:name: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+                  f:status:
+                    .: {}
+                    f:current: {}
+                    f:desired: {}
+                    f:ready: {}
+              f:conditions: {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:04+00:00
+        name: mynetwork-gj82w-small
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41792'
+        uid: b39f97a3-bf9e-490b-88e1-950683ae5c4c
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              namespace: myconfig
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 100M
+                inMemoryStorage: 100M
+              namespace: myconfig
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: small
+              tolerations: []
+        managementPolicy: Default
+        providerConfigRef:
+          name: provider-kubernetes
+      status:
+        atProvider:
+          manifest:
+            apiVersion: network.edgefarm.io/v1alpha1
+            kind: EdgeNetwork
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"network.edgefarm.io/v1alpha1","kind":"EdgeNetwork","metadata":{"namespace":"myconfig"},"spec":{"connectionSecretRefs":{"sysAccountUserSecretRef":{"name":"mynetwork-gj82w-sys"},"systemUserSecretRef":{"name":"mynetwork-gj82w-system"}},"limits":{"fileStorage":"100M","inMemoryStorage":"100M"},"namespace":"myconfig","network":"mynetwork-gj82w","nodeSelectorTerm":{},"subNetwork":"small","tolerations":[]}}'
+              creationTimestamp: 2023-03-28 06:29:03+00:00
+              generation: 1
+              managedFields:
+              - apiVersion: network.edgefarm.io/v1alpha1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:metadata:
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                  f:spec:
+                    .: {}
+                    f:connectionSecretRefs:
+                      .: {}
+                      f:sysAccountUserSecretRef: {}
+                      f:systemUserSecretRef: {}
+                    f:limits:
+                      .: {}
+                      f:fileStorage: {}
+                      f:inMemoryStorage: {}
+                    f:network: {}
+                    f:nodeSelectorTerm: {}
+                    f:subNetwork: {}
+                    f:tolerations: {}
+                manager: crossplane-kubernetes-provider
+                operation: Update
+                time: 2023-03-28 06:29:03+00:00
+              - apiVersion: network.edgefarm.io/v1alpha1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:status:
+                    .: {}
+                    f:current: {}
+                    f:desired: {}
+                    f:ready: {}
+                manager: metacontroller
+                operation: Update
+                subresource: status
+                time: 2023-03-28 06:29:03+00:00
+              name: mynetwork-gj82w-small
+              namespace: myconfig
+              resourceVersion: '41588'
+              uid: ecc5a530-e906-4921-b817-f31e85a146da
+            spec:
+              connectionSecretRefs:
+                sysAccountUserSecretRef:
+                  name: mynetwork-gj82w-sys
+                systemUserSecretRef:
+                  name: mynetwork-gj82w-system
+              limits:
+                fileStorage: 100M
+                inMemoryStorage: 100M
+              network: mynetwork-gj82w
+              nodeSelectorTerm: {}
+              subNetwork: small
+              tolerations: []
+            status:
+              current: '2'
+              desired: '2'
+              ready: '2'
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:04+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-03-28 06:29:03+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: stream-z
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-z
+          crossplane.io/external-create-failed: 2023-03-28 06:50:26+00:00
+          crossplane.io/external-create-pending: 2023-03-28 06:50:26+00:00
+          crossplane.io/external-name: z
+        creationTimestamp: 2023-03-28 06:29:16+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:lastSequence: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-failed: {}
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:17+00:00
+        name: z
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '46810'
+        uid: f2df3616-b8aa-42d6-9b56-e2d485e0f2e8
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ''
+            address: ''
+            userPublicKey: ''
+          state:
+            bytes: ''
+            consumerCount: 0
+            firstSequence: 0
+            lastSequence: 0
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:30:25+00:00
+          message: 'create failed: nats: subjects overlap with an existing stream'
+          reason: ReconcileError
+          status: 'False'
+          type: Synced
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: Creating
+          status: 'False'
+          type: Ready
+  - connectionDetails: []
+    name: stream-standardmain1
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-standardmain1
+          crossplane.io/external-create-pending: 2023-03-28 06:29:17+00:00
+          crossplane.io/external-create-succeeded: 2023-03-28 06:29:17+00:00
+          crossplane.io/external-name: standardmain1
+        creationTimestamp: 2023-03-28 06:29:16+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:16+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:17+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:domain: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:firstTimestamp: {}
+                  f:lastSequence: {}
+                  f:lastTimestamp: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:17+00:00
+        name: standardmain1
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '41412'
+        uid: e5c62b9f-8c29-4c18-9e64-ef70d4af9723
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ADLMSTBNB3XELFRJQX7GSRQPCFQVREE4LFGPMENPCFWEXB5MWXRZOSQL
+            address: nats://nats.nats:4222
+            userPublicKey: UCEO35GIDLTM22Z2JGOC2OMSU5PMIFGQWBZZNP7TXEVEENT4PAHEBGB5
+          domain: main
+          state:
+            bytes: 0 B
+            consumerCount: 0
+            firstSequence: 0
+            firstTimestamp: 0001-01-01 00:00:00+00:00
+            lastSequence: 0
+            lastTimestamp: 0001-01-01 00:00:00+00:00
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-03-28 06:29:17+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+  - connectionDetails: []
+    name: stream-standardmain2
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: Stream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-standardmain2
+          crossplane.io/external-create-failed: 2023-03-28 06:50:05+00:00
+          crossplane.io/external-create-pending: 2023-03-28 06:50:05+00:00
+          crossplane.io/external-name: standardmain2
+        creationTimestamp: 2023-03-28 06:29:15+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 1
+        labels:
+          crossplane.io/claim-name: mynetwork
+          crossplane.io/claim-namespace: myconfig
+          crossplane.io/composite: mynetwork-gj82w
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"8d171fed-e6c9-46eb-a390-9c763a50962f"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-03-28 06:29:15+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:clusterInfo: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:lastSequence: {}
+                  f:messages: {}
+              f:conditions: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-03-28 06:29:15+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-failed: {}
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-03-28 06:29:32+00:00
+        name: standardmain2
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: mynetwork-gj82w
+          uid: 8d171fed-e6c9-46eb-a390-9c763a50962f
+        resourceVersion: '46729'
+        uid: 12aedc16-9003-4687-8c98-553b6ab5732f
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 102400
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - foo.>
+          domain: main
+        providerConfigRef:
+          name: mynetwork-gj82w
+      status:
+        atProvider:
+          clusterInfo: {}
+          connection:
+            accountPublicKey: ''
+            address: ''
+            userPublicKey: ''
+          state:
+            bytes: ''
+            consumerCount: 0
+            firstSequence: 0
+            lastSequence: 0
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-03-28 06:29:32+00:00
+          message: 'create failed: nats: subjects overlap with an existing stream'
+          reason: ReconcileError
+          status: 'False'
+          type: Synced
+        - lastTransitionTime: 2023-03-28 06:29:32+00:00
+          reason: Creating
+          status: 'False'
+          type: Ready

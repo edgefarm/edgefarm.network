@@ -1,0 +1,42 @@
+version: v2beta1
+name: network-resource-info
+
+functions:
+  wait_for: |-
+    #!/bin/bash
+    set -e
+    echo "wait for $1 $2 (ns: $3) for condition=$4"
+    until kubectl wait --for=condition=$4 $1 $2 -n $3 --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+
+deployments:
+  network-resource-info:
+    kubectl:
+      manifests:
+        - manifests/**/
+
+pipelines:
+  deploy: |-
+    #!/bin/bash
+    set -e
+    create_deployments network-resource-info
+    wait_for pod "-l app=network-resource-info" crossplane-system Ready
+
+dev:
+  network-resource-info:
+    labelSelector:
+      app: network-resource-info
+    devImage: ghcr.io/loft-sh/devspace-containers/go:1.20-alpine
+    namespace: crossplane-system
+    terminal: {}
+    ports:
+      - port: "2346"
+      - port: "9090"
+    sync:
+      - path: ./:/app
+        excludePaths:
+          - .git
+    patches:
+      - op: remove
+        path: spec.securityContext
+      - op: remove
+        path: spec.containers[0].resources

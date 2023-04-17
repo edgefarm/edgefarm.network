@@ -57,89 +57,13 @@ Follow those simple steps, to provision *edgefarm.network* in your local cluster
 
 ## ⚙️ Configuration
 
-Before deploying *edgefarm.network* you may need to check the `config.yaml`. The default configuration uses `10Gi ` as max file storage for streams on the main NATS server.
-
 ## 🎯 Installation
 
-To deploy *edgefarm.network* execute the following commands.
-The installation should only take a few moments.
+TODO
 
-Have a look at the `help` command to get an overview of all available commands.
+## 🧪 Testing
 
-```console
-$ devspace run help
-Usage of edgefarm.network:
- EdgeFarm related commands:
-  devspace run-pipeline deploy-network                Deploy edgefarm-network to the cluster
-  devspace run-pipeline purge-network                 Delete edgefarm-network from the cluster
-```
-
-And start the deployment:
-
-```console
-$ devspace run-pipeline deploy-network
-info Using namespace 'nats'
-info Using kube context 'kind-default'
-node/default-worker not labeled
-deploy:nats-main Deploying chart nats (nats-main) with helm...
-deploy:nats-main Deployed helm chart (Release revision: 1)
-deploy:nats-main Successfully deployed nats-main with helm
-wait for pod -l app.kubernetes.io/instance=nats-main,app.kubernetes.io/name=nats (ns: nats)
-pod/nats-main-0 condition met
-deploy:leaf-nats Deploying chart leaf-nats (leaf-nats) with helm...
-deploy:leaf-nats Deployed helm chart (Release revision: 1)
-deploy:leaf-nats Successfully deployed leaf-nats with helm
-Creating example jetstream in domain: main
-Stream example was created
-
-Information for Stream example created 2022-11-18 11:30:47
-
-             Subjects: example.>
-             Replicas: 1
-              Storage: File
-
-Options:
-
-            Retention: Limits
-     Acknowledgements: true
-       Discard Policy: Old
-     Duplicate Window: 2m0s
-    Allows Msg Delete: true
-         Allows Purge: true
-       Allows Rollups: false
-
-Limits:
-
-     Maximum Messages: unlimited
-  Maximum Per Subject: unlimited
-        Maximum Bytes: 10 MiB
-          Maximum Age: unlimited
- Maximum Message Size: unlimited
-    Maximum Consumers: unlimited
-
-
-State:
-
-             Messages: 0
-                Bytes: 0 B
-             FirstSeq: 1
-              LastSeq: 0
-     Active Consumers: 0
-```
-
-If you have any edge-nodes registered in your cluster, you can see the pods that are created for the leaf-nats server.
-
-```console
-kubectl get pods -n nats -o wide
-NAME                                          READY   STATUS    RESTARTS   AGE   IP            NODE               NOMINATED NODE   READINESS GATES
-leaf-nats-virtual-415d942c-6d759bf9c-qvzkx    1/1     Running   0          5s    172.17.0.2    virtual-415d942c   <none>           <none>
-leaf-nats-virtual-7aab209e-6fff88949d-fnkm7   1/1     Running   0          5s    172.17.0.2    virtual-7aab209e   <none>           <none>
-nats-main-0                                   3/3     Running   0          6s    10.244.1.43   default-worker     <none>           <none>
-```
-
-## 🧪 Testing edgefarm.network
-
-Follow the [Testing edgefarm.network](docs/testing/testing.md) readme to test *edgefarm.network* with a basic application of an edge component that produces data, the network that gets stored in the cloud and a consuming application that reads the data from the cloud.
+TODO
 
 # 💡 Usage
 

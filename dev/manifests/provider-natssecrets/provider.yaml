@@ -1,0 +1,11 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-natssecrets
+spec:
+  package: ghcr.io/edgefarm/provider-natssecrets/provider-natssecrets:v0.1.1-11.g5899f1f
+  packagePullPolicy: IfNotPresent
+  revisionActivationPolicy: Automatic
+  revisionHistoryLimit: 1
+  controllerConfigRef:
+    name: provider-natssecrets

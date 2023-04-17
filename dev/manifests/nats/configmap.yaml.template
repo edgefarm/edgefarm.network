@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nats-config
+  namespace: nats
+data:
+  nats.conf: |
+    operator: OPERATOR_JWT
+    system_account: SYS_ACCOUNT_PUBLIC_KEY
+    resolver {
+        type: full
+        dir: '/tmp/jwt'
+        allow_delete: true
+        interval: "2m"
+        timeout: "1.9s"
+    }
+    resolver_preload: {
+        SYS_ACCOUNT_PUBLIC_KEY: SYS_ACCOUNT_JWT
+    }
+    leafnodes {
+        port: 7422
+    }
+    jetstream {
+      domain: main
+      store_dir: /data/jetstream
+      max_mem: 1G
+      max_file: 1G
+    }

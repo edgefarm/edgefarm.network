@@ -1,0 +1,671 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xnetworks.streams.network.edgefarm.io
+spec:
+  group: streams.network.edgefarm.io
+  names:
+    kind: XNetwork
+    plural: xnetworks
+    singular: xnetwork
+  claimNames:
+    kind: Network
+    plural: networks
+    singular: network
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            status:
+              type: object
+              description: >
+                A Status represents the observed states
+              properties:
+                operator:
+                  description: >
+                    The operator for the NATS server
+                  type: string
+                system:
+                  description: >
+                    The UID of the secret user resource
+                  type: string
+                account:
+                  description: >
+                    The UID of the account resource
+                  type: string
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  properties:
+                    subNetworks:
+                      type: array
+                      description: >
+                        The subnetworks that are part of this network
+                      items:
+                        type: object
+                        description: Configuration for the sub network
+                        required:
+                          - name
+                          - limits
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the sub network
+                          limits:
+                            description: Hardware limits for the sub network
+                            properties:
+                              fileStorage:
+                                default: 1G
+                                description:
+                                  How much disk space is available for data that is
+                                  stored on disk
+                                pattern: ^\d+[GMKB]?$
+                                type: string
+                              inMemoryStorage:
+                                default: 1G
+                                description:
+                                  How much memory is available for data that is stored
+                                  in memory
+                                pattern: ^\d+[GMKB]?$
+                                type: string
+                            required:
+                              - fileStorage
+                              - inMemoryStorage
+                            type: object
+                          nodeSelectorTerm:
+                            description:
+                              Indicates the node selector to form the node pool. A
+                              pool's nodeSelectorTerm is not allowed to be updated.
+                            properties:
+                              matchExpressions:
+                                description: A list of node selector requirements by node's labels.
+                                items:
+                                  description:
+                                    A node selector requirement is a selector that
+                                    contains values, a key, and an operator that relates the key
+                                    and values.
+                                  properties:
+                                    key:
+                                      description: The label key that the selector applies to.
+                                      type: string
+                                    operator:
+                                      description:
+                                        Represents a key's relationship to a set of
+                                        values. Valid operators are In, NotIn, Exists, DoesNotExist.
+                                        Gt, and Lt.
+                                      type: string
+                                    values:
+                                      description:
+                                        An array of string values. If the operator
+                                        is In or NotIn, the values array must be non-empty. If
+                                        the operator is Exists or DoesNotExist, the values array
+                                        must be empty. If the operator is Gt or Lt, the values
+                                        array must have a single element, which will be interpreted
+                                        as an integer. This array is replaced during a strategic
+                                        merge patch.
+                                      items:
+                                        type: string
+                                      type: array
+                                  required:
+                                    - key
+                                    - operator
+                                  type: object
+                                type: array
+                              matchFields:
+                                description: A list of node selector requirements by node's fields.
+                                items:
+                                  description:
+                                    A node selector requirement is a selector that
+                                    contains values, a key, and an operator that relates the key
+                                    and values.
+                                  properties:
+                                    key:
+                                      description: The label key that the selector applies to.
+                                      type: string
+                                    operator:
+                                      description:
+                                        Represents a key's relationship to a set of
+                                        values. Valid operators are In, NotIn, Exists, DoesNotExist.
+                                        Gt, and Lt.
+                                      type: string
+                                    values:
+                                      description:
+                                        An array of string values. If the operator
+                                        is In or NotIn, the values array must be non-empty. If
+                                        the operator is Exists or DoesNotExist, the values array
+                                        must be empty. If the operator is Gt or Lt, the values
+                                        array must have a single element, which will be interpreted
+                                        as an integer. This array is replaced during a strategic
+                                        merge patch.
+                                      items:
+                                        type: string
+                                      type: array
+                                  required:
+                                    - key
+                                    - operator
+                                  type: object
+                                type: array
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          tolerations:
+                            description:
+                              Indicates the tolerations the pods under this pool have.
+                              A pool's tolerations is not allowed to be updated.
+                            items:
+                              description:
+                                The pod this Toleration is attached to tolerates any
+                                taint that matches the triple <key,value,effect> using the matching
+                                operator <operator>.
+                              properties:
+                                effect:
+                                  description:
+                                    Effect indicates the taint effect to match. Empty
+                                    means match all taint effects. When specified, allowed values
+                                    are NoSchedule, PreferNoSchedule and NoExecute.
+                                  type: string
+                                key:
+                                  description:
+                                    Key is the taint key that the toleration applies
+                                    to. Empty means match all taint keys. If the key is empty,
+                                    operator must be Exists; this combination means to match all
+                                    values and all keys.
+                                  type: string
+                                operator:
+                                  description:
+                                    Operator represents a key's relationship to the
+                                    value. Valid operators are Exists and Equal. Defaults to Equal.
+                                    Exists is equivalent to wildcard for value, so that a pod
+                                    can tolerate all taints of a particular category.
+                                  type: string
+                                tolerationSeconds:
+                                  description:
+                                    TolerationSeconds represents the period of time
+                                    the toleration (which must be of effect NoExecute, otherwise
+                                    this field is ignored) tolerates the taint. By default, it
+                                    is not set, which means tolerate the taint forever (do not
+                                    evict). Zero and negative values will be treated as 0 (evict
+                                    immediately) by the system.
+                                  format: int64
+                                  type: integer
+                                value:
+                                  description:
+                                    Value is the taint value the toleration matches
+                                    to. If the operator is Exists, the value should be empty,
+                                    otherwise just a regular string.
+                                  type: string
+                              type: object
+                            type: array
+                    nats:
+                      description: NATS config
+                      type: object
+                      required:
+                        - operator
+                        - address
+                      properties:
+                        operator:
+                          description: The name of the operator the account is created for
+                          type: string
+                        address:
+                          type: string
+                          description: >
+                            The address of the NATS server
+                    users:
+                      description: List of users to create
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: The name of the user
+                            type: string
+                          writeToSecret:
+                            type: object
+                            required:
+                              - name
+                            description: The secret to write the user credentials to
+                            properties:
+                              name:
+                                description: The name of the secret
+                                type: string
+                          limits:
+                            description: The limits for the user
+                            type: object
+                            properties:
+                              subscriptions:
+                                description: Specifies the maximum number of subscriptions
+                                format: int64
+                                type: integer
+
+                              payload:
+                                description: Specifies the maximum message payload
+                                format: int64
+                                type: integer
+
+                              data:
+                                description: Specifies the maximum number of bytes
+                                format: int64
+                                type: integer
+                          permissions:
+                            description: The pub/sub permissions for the user
+                            type: object
+                            properties:
+                              sub:
+                                description: Specifies the subscribe permissions
+                                properties:
+                                  allow:
+                                    description: Specifies allowed subjects
+                                    items:
+                                      type: string
+                                    type: array
+                                  deny:
+                                    description: Specifies denied subjects
+                                    items:
+                                      type: string
+                                    type: array
+                                type: object
+                              pub:
+                                description: Specifies the publish permissions
+                                properties:
+                                  allow:
+                                    description: Specifies allowed subjects
+                                    items:
+                                      type: string
+                                    type: array
+                                  deny:
+                                    description: Specifies denied subjects
+                                    items:
+                                      type: string
+                                    type: array
+                                type: object
+                    streams:
+                      type: array
+                      description: List of streams
+                      items:
+                        type: object
+                        description: Configuration for a stream
+                        properties:
+                          name:
+                            description: The name of the stream
+                            type: string
+                          subNetworkRef:
+                            description: The name of the sub network the stream is created for
+                            default: main
+                            type: string
+                          type:
+                            description: The type of the stream
+                            type: string
+                            default: Standard
+                            enum:
+                              - Standard
+                              - Aggregate
+                              - Mirror
+                          reference:
+                            description: When type is mirror, the name of the stream to mirror
+                            type: string
+                          references:
+                            description: When type is aggregate, the names of the streams to aggregate
+                            type: array
+                            items:
+                              type: string
+                          config:
+                            description: Config is the stream configuration.
+                            properties:
+                              allowDirect:
+                                description:
+                                  AllowDirect is a flag that if true and the stream
+                                  has more than one replica, each replica will respond to
+                                  direct get requests for individual messages, not only the
+                                  leader.
+                                type: boolean
+                              allowRollup:
+                                description:
+                                  AllowRollup is a flag to allow the use of the
+                                  Nats-Rollup header to replace all contents of a stream,
+                                  or subject in a stream, with a single new message.
+                                type: boolean
+                              denyDelete:
+                                description:
+                                  DenyDelete is a flag to restrict the ability
+                                  to delete messages from a stream via the API.
+                                type: boolean
+                              denyPurge:
+                                description:
+                                  DenyPurge is a flag to restrict the ability to
+                                  purge messages from a stream via the API.
+                                type: boolean
+                              description:
+                                description:
+                                  Description is a human readable description of
+                                  the stream.
+                                type: string
+                              discard:
+                                default: Old
+                                description:
+                                  "Discard defines the behavior of discarding messages
+                                  when any streams' limits have been reached. Old (default):
+                                  This policy will delete the oldest messages in order to
+                                  maintain the limit. For example, if MaxAge is set to one
+                                  minute, the server will automatically delete messages older
+                                  than one minute with this policy. New: This policy will
+                                  reject new messages from being appended to the stream if
+                                  it would exceed one of the limits. An extension to this
+                                  policy is DiscardNewPerSubject which will apply this policy
+                                  on a per-subject basis within the stream."
+                                enum:
+                                  - Old
+                                  - New
+                                type: string
+                              discardNewPerSubject:
+                                default: false
+                                description:
+                                  DiscardOldPerSubject will discard old messages
+                                  per subject.
+                                type: boolean
+                              duplicates:
+                                default: 2m0s
+                                description:
+                                  Duplicates defines the time window within which
+                                  to track duplicate messages.
+                                pattern: ^(([0-9]+[smh]){1,3})$
+                                type: string
+                              maxAge:
+                                default: 0s
+                                description:
+                                  MaxAge is the maximum age of a message in the
+                                  stream. Format is a string duration, e.g. 1h, 1m, 1s, 1h30m
+                                  or 2h3m4s.
+                                pattern: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
+                                type: string
+                              maxBytes:
+                                default: -1
+                                description:
+                                  MaxBytes defines how many bytes the Stream may
+                                  contain. Adheres to Discard Policy, removing oldest or refusing
+                                  new messages if the Stream exceeds this size.
+                                format: int64
+                                type: integer
+                              maxConsumers:
+                                default: -1
+                                description:
+                                  MaxConsumers defines how many Consumers can be
+                                  defined for a given Stream. Define -1 for unlimited.
+                                type: integer
+                              maxMsgSize:
+                                default: -1
+                                description:
+                                  MaxBytesPerSubject defines the largest message
+                                  that will be accepted by the Stream.
+                                format: int32
+                                minimum: -1
+                                type: integer
+                              maxMsgs:
+                                default: -1
+                                description:
+                                  MaxMsgs defines how many messages may be in a
+                                  Stream. Adheres to Discard Policy, removing oldest or refusing
+                                  new messages if the Stream exceeds this number of messages.
+                                format: int64
+                                type: integer
+                              maxMsgsPerSubject:
+                                default: -1
+                                description:
+                                  MaxMsgsPerSubject defines the limits how many
+                                  messages in the stream to retain per subject.
+                                format: int64
+                                minimum: -1
+                                type: integer
+                              mirror:
+                                description: Mirror is the mirror configuration for the stream.
+                                properties:
+                                  domain:
+                                    description:
+                                      Domain is the JetStream domain of where the
+                                      origin stream exists. This is commonly used between
+                                      a cluster/supercluster and a leaf node/cluster.
+                                    type: string
+                                  external:
+                                    description: External is the external stream configuration.
+                                    properties:
+                                      apiPrefix:
+                                        description:
+                                          APIPrefix is the prefix for the API of
+                                          the external stream.
+                                        type: string
+                                      deliverPrefix:
+                                        description:
+                                          DeliverPrefix is the prefix for the deliver
+                                          subject of the external stream.
+                                        type: string
+                                    required:
+                                      - apiPrefix
+                                    type: object
+                                  filterSubject:
+                                    description:
+                                      FilterSubject is an optional filter subject
+                                      which will include only messages that match the subject,
+                                      typically including a wildcard.
+                                    type: string
+                                  name:
+                                    description:
+                                      Name of the origin stream to source messages
+                                      from.
+                                    type: string
+                                  startSeq:
+                                    description:
+                                      StartSeq is an optional start sequence the
+                                      of the origin stream to start mirroring from.
+                                    format: int64
+                                    type: integer
+                                  startTime:
+                                    description:
+                                      StartTime is an optional message start time
+                                      to start mirroring from. Any messages that are equal
+                                      to or greater than the start time will be included.
+                                      The time format is RFC 3339, e.g. 2023-01-09T14:48:32Z
+                                    pattern: ^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|[\+-]\d{2}:\d{2})?)$
+                                    type: string
+                                required:
+                                  - name
+                                type: object
+                              mirrorDirect:
+                                description:
+                                  MirrorDirect is a flag that if true, and the
+                                  stream is a mirror, the mirror will participate in a serving
+                                  direct get requests for individual messages from origin
+                                  stream.
+                                type: boolean
+                              noAck:
+                                default: false
+                                description:
+                                  NoAck is a flag to disable acknowledging messages
+                                  that are received by the Stream.
+                                type: boolean
+                              placement:
+                                description: Placement is the placement policy for the stream.
+                                properties:
+                                  cluster:
+                                    description: Cluster is the name of the Jetstream cluster.
+                                    type: string
+                                  tags:
+                                    description: Tags defines a list of server tags.
+                                    items:
+                                      type: string
+                                    type: array
+                                required:
+                                  - cluster
+                                type: object
+                              rePublish:
+                                description:
+                                  Allow republish of the message after being sequenced
+                                  and stored.
+                                properties:
+                                  destination:
+                                    description:
+                                      Destination is the destination subject messages
+                                      will be re-published to. The source and destination
+                                      must be a valid subject mapping. For information on
+                                      subject mapping see https://docs.nats.io/jetstream/concepts/subjects#subject-mapping
+                                    type: string
+                                  headersOnly:
+                                    description:
+                                      HeadersOnly defines if true, that the message
+                                      data will not be included in the re-published message,
+                                      only an additional header Nats-Msg-Size indicating the
+                                      size of the message in bytes.
+                                    type: boolean
+                                  source:
+                                    default: ">"
+                                    description:
+                                      Source is an optional subject pattern which
+                                      is a subset of the subjects bound to the stream. It
+                                      defaults to all messages in the stream, e.g. >.
+                                    type: string
+                                required:
+                                  - destination
+                                  - source
+                                type: object
+                              replicas:
+                                default: 1
+                                description:
+                                  Replicas defines how many replicas to keep for
+                                  each message in a clustered JetStream.
+                                maximum: 5
+                                minimum: 1
+                                type: integer
+                              retention:
+                                default: Limits
+                                description:
+                                  Retention defines the retention policy for the
+                                  stream.
+                                enum:
+                                  - Limits
+                                  - Interest
+                                  - WorkQueue
+                                type: string
+                              sealed:
+                                description:
+                                  Sealed is a flag to prevent message deletion
+                                  from  the stream  via limits or API.
+                                type: boolean
+                              sources:
+                                description:
+                                  Sources is the list of one or more sources configurations
+                                  for the stream.
+                                items:
+                                  description:
+                                    StreamSource dictates how streams can source
+                                    from other streams.
+                                  properties:
+                                    domain:
+                                      description:
+                                        Domain is the JetStream domain of where
+                                        the origin stream exists. This is commonly used between
+                                        a cluster/supercluster and a leaf node/cluster.
+                                      type: string
+                                    external:
+                                      description: External is the external stream configuration.
+                                      properties:
+                                        apiPrefix:
+                                          description:
+                                            APIPrefix is the prefix for the API
+                                            of the external stream.
+                                          type: string
+                                        deliverPrefix:
+                                          description:
+                                            DeliverPrefix is the prefix for the
+                                            deliver subject of the external stream.
+                                          type: string
+                                      required:
+                                        - apiPrefix
+                                      type: object
+                                    filterSubject:
+                                      description:
+                                        FilterSubject is an optional filter subject
+                                        which will include only messages that match the subject,
+                                        typically including a wildcard.
+                                      type: string
+                                    name:
+                                      description:
+                                        Name of the origin stream to source messages
+                                        from.
+                                      type: string
+                                    startSeq:
+                                      description:
+                                        StartSeq is an optional start sequence
+                                        the of the origin stream to start mirroring from.
+                                      format: int64
+                                      type: integer
+                                    startTime:
+                                      description:
+                                        StartTime is an optional message start
+                                        time to start mirroring from. Any messages that are
+                                        equal to or greater than the start time will be included.
+                                        The time format is RFC 3339, e.g. 2023-01-09T14:48:32Z
+                                      pattern: ^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|[\+-]\d{2}:\d{2})?)$
+                                      type: string
+                                  required:
+                                    - name
+                                  type: object
+                                type: array
+                              storage:
+                                default: File
+                                description: Storage defines the storage type for stream data..
+                                enum:
+                                  - File
+                                  - Memory
+                                type: string
+                              subjects:
+                                description:
+                                  Subjects is a list of subjects to consume, supports
+                                  wildcards.
+                                items:
+                                  type: string
+                                type: array
+                              template:
+                                description:
+                                  Template is the owner of the template associated
+                                  with this stream.
+                                type: string
+                            required:
+                              - discard
+                              - maxBytes
+                              - maxConsumers
+                              - maxMsgs
+                              - retention
+                              - storage
+                            type: object
+                        required:
+                          - config
+
+                    resourceConfig:
+                      type: object
+                      description: Defines general properties for this resource.
+                      properties:
+                        accountSecret:
+                          description: Name of secret containing the account information
+                          type: string
+                        userSecret:
+                          description: Name of secret containing the user information
+                          type: string
+                        natssecrets:
+                          description: Config for provider natssecrets
+                          type: object
+                          properties:
+                            providerConfigName:
+                              description: Name of provider config to use for natssecrets
+                              type: string
+                        kubernetes:
+                          description: Config for provider kubernetes
+                          type: object
+                          properties:
+                            providerConfigName:
+                              description: Name of provider config to use for kubernetes
+                              type: string
+              required:
+                - parameters

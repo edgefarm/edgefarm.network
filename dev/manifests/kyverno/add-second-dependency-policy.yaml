@@ -1,0 +1,45 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/title: Add a Dependency object to track resource dependencies
+    policies.kyverno.io/category: Dependency Management
+    policies.kyverno.io/subject: Lifecycle Management
+    policies.kyverno.io/description: >-
+      Create a Dependency object for resources that declare dependencies on other objects.
+      Add an ownerReference that points at the object with the dependency so that the Dependency
+      gets deleted automatically when the dependent resource is deleted.
+  name: add-second-dependency
+spec:
+  background: false
+  failurePolicy: Fail
+  rules:
+    - generate:
+        apiVersion: dummy.crds.com/v1
+        data:
+          metadata:
+            labels:
+              dependsOn: "{{request.object.metadata.labels.dependsOnSecondUid}}"
+            ownerReferences:
+              - apiVersion: "{{request.object.apiVersion}}"
+                blockOwnerDeletion: true
+                kind: "{{request.kind.kind}}"
+                name: "{{request.name}}"
+                uid: "{{request.object.metadata.uid}}"
+        kind: Dependency
+        name: "{{request.name}}-{{request.object.metadata.labels.dependsOnSecondUid}}"
+      match:
+        any:
+          - resources:
+              kinds:
+                - "*"
+              selector:
+                matchLabels:
+                  dependsOnSecondUid: ?*
+      name: check-for-dependency-annotation
+      preconditions:
+        any:
+          - key: "{{ request.operation }}"
+            operator: Equals
+            value: CREATE
+  validationFailureAction: enforce

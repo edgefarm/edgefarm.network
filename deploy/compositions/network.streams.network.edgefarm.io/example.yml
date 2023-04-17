@@ -1,0 +1,139 @@
+apiVersion: streams.network.edgefarm.io/v1alpha1
+kind: Network
+metadata:
+  name: mynetwork
+  namespace: myconfig
+spec:
+  compositeDeletePolicy: Foreground
+  parameters:
+    users:
+      - name: mainonly
+        limits:
+          payload: 1000
+          data: -1
+          subscriptions: -1
+        permissions:
+          pub:
+            allow:
+              - main.>
+          sub:
+            allow:
+              - main.>
+      - name: smallonly
+        limits:
+          payload: 1000
+          data: 1000
+          subscriptions: 50
+        permissions:
+          pub:
+            allow:
+              - "*.small.>"
+          sub:
+            allow:
+              - "*.small.>"
+        # writeToSecret:
+        #   name: baz
+    streams:
+      # Standard streams
+      - name: firstinmain
+        config:
+          subjects:
+            - main.first.>
+            - foo.>
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 102400
+          sealed: false
+        type: Standard
+
+      - name: secondinmain
+        subNetworkRef: main
+        type: Standard
+        config:
+          subjects:
+            - main.second.>
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 202400
+
+      - name: firstinsmall
+        subNetworkRef: small
+        config:
+          subjects:
+            - small.first.>
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 302400
+        type: Standard
+
+      - name: secondinsmall
+        subNetworkRef: small
+        config:
+          subjects:
+            - small.second.>
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 402400
+        type: Standard
+
+      - name: firstinbig
+        subNetworkRef: big
+        config:
+          subjects:
+            - big.first.>
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 502400
+        type: Standard
+
+      - name: aggregate
+        type: Aggregate
+        config:
+          discard: Old
+          retention: Limits
+          storage: File
+          maxConsumers: -1
+          maxMsgSize: -1
+          maxMsgs: -1
+          maxMsgsPerSubject: -1
+          maxBytes: 602400
+        references:
+          - firstinsmall
+          - firstinbig
+
+    subNetworks:
+      - name: big
+        limits:
+          fileStorage: 1G
+          inMemoryStorage: 1G
+        tolerations: []
+      - name: small
+        limits:
+          fileStorage: 200M
+          inMemoryStorage: 200M
+        tolerations: []
