@@ -1,0 +1,15 @@
+apiVersion: streams.network.edgefarm.io/v1alpha1
+kind: EdgeNetwork
+metadata:
+  name: edge1
+spec:
+  network: mynetwork
+  subNetwork: foo
+  connectionSecretRefs:
+    sysAccountUserSecretRef:
+      name: sys-account-user
+    systemUserSecretRef:
+      name: myuser
+  limits:
+    fileStorage: 100M
+    inMemoryStorage: 100M

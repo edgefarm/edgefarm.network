@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: 0.1.0
-description: leaf-nats helm chart
-name: leaf-nats
-version: 0.1.0

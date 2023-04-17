@@ -1,0 +1,18 @@
+group: streams.network.edgefarm.io
+name: EdgeNetwork
+version: v1alpha1
+# ignore further generation. This composition is edited manually
+ignore: true
+provider:
+  baseURL: https://raw.githubusercontent.com/edgefarm/%s/%s/manifests/crds/%s
+  name: edgenetwork-operator
+  version: v1.0.0
+  crd:
+    file: network.edgefarm.io_edgenetworks.yaml
+    version: v1alpha1
+patchExternalName: true
+providerConfigRefOverride: provider-kubernetes
+compositions:
+  - name: edgenetworks
+    provider: provider-kubernetes
+    default: true

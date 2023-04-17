@@ -1,0 +1,1470 @@
+{
+  "config":
+    {
+      "apiVersion": "gotemplate.xfn.upbound.io/v1alpha1",
+      "kind": "Config",
+      "spec":
+        {
+          "requestBinURL": "https://webhook.site/a42d42c7-037d-4782-b3cd-beca09b61633",
+        },
+    },
+  "desired":
+    {
+      "composite":
+        {
+          "connectionDetails": [],
+          "resource":
+            {
+              "apiVersion": "edgefarm.io/v1alpha1",
+              "kind": "XNetwork",
+              "metadata":
+                {
+                  "annotations":
+                    {
+                      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"edgefarm.io/v1alpha1\",\"kind\":\"Network\",\"metadata\":{\"annotations\":{},\"name\":\"mynetwork\",\"namespace\":\"myconfig\"},\"spec\":{\"parameters\":{\"resourceConfig\":{\"kubernetes\":{\"providerConfigName\":\"kubernetes-provider\"},\"natssecrets\":{\"providerConfigName\":\"providerconfig-natssecrets\"}},\"streams\":[{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardMain1\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardMain2\",\"subNetworkRef\":\"main\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardSmall\",\"subNetworkRef\":\"small\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"B-in-Big\",\"subNetworkRef\":\"big\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"B-in-Small\",\"subNetworkRef\":\"small\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"AB-aggregate\",\"references\":[\"B-in-Big\",\"B-in-Small\"],\"type\":\"aggregate\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\",\"subjects\":[\"foo.\\u003e\"]},\"name\":\"Z\",\"subNetworkRef\":\"main\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"C\",\"reference\":\"Z\",\"subNetworkRef\":\"small\",\"type\":\"mirror\"}],\"subNetworks\":[{\"limits\":{\"fileStorage\":\"2G\",\"inMemoryStorage\":\"1G\"},\"name\":\"big\",\"nodeSelectorTerm\":{\"matchExpressions\":[{\"key\":\"foo\",\"operator\":\"In\",\"values\":[\"bar\"]}]},\"tolerations\":[]},{\"limits\":{\"fileStorage\":\"100M\",\"inMemoryStorage\":\"100M\"},\"name\":\"small\",\"tolerations\":[]}],\"users\":[{\"limits\":{\"data\":-1,\"payload\":-1,\"subscriptions\":-1},\"name\":\"myuser1\",\"permissions\":{\"pub\":{\"allow\":[\"allowed.\\u003e\",\"puballowed.\\u003e\"],\"deny\":[\"bar.\\u003e\"]},\"sub\":{\"allow\":[\"allowed.\\u003e\"],\"deny\":[\"baz.\\u003e\",\"puballowed.\\u003e\"]}}},{\"limits\":{\"data\":1000,\"payload\":1000,\"subscriptions\":50},\"name\":\"myuser2\",\"permissions\":{\"pub\":{\"allow\":[\"one.\\u003e\"]},\"sub\":{\"deny\":[\"two.\\u003e\"]}}}]},\"writeConnectionSecretToRef\":{\"name\":\"myconfig\"}}}\n",
+                    },
+                  "creationTimestamp": "2023-03-24T13:42:25Z",
+                  "finalizers": ["composite.apiextensions.crossplane.io"],
+                  "generateName": "mynetwork-",
+                  "generation": 5,
+                  "labels":
+                    {
+                      "crossplane.io/claim-name": "mynetwork",
+                      "crossplane.io/claim-namespace": "myconfig",
+                      "crossplane.io/composite": "mynetwork-z7tj9",
+                    },
+                  "managedFields":
+                    [
+                      {
+                        "apiVersion": "edgefarm.io/v1alpha1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1":
+                          {
+                            "f:metadata":
+                              {
+                                "f:annotations":
+                                  {
+                                    ".": {},
+                                    ? "f:kubectl.kubernetes.io/last-applied-configuration"
+                                    : {},
+                                  },
+                                "f:finalizers":
+                                  {
+                                    ".": {},
+                                    'v:"composite.apiextensions.crossplane.io"':
+                                      {},
+                                  },
+                                "f:generateName": {},
+                                "f:labels":
+                                  {
+                                    ".": {},
+                                    "f:crossplane.io/claim-name": {},
+                                    "f:crossplane.io/claim-namespace": {},
+                                    "f:crossplane.io/composite": {},
+                                  },
+                              },
+                            "f:spec":
+                              {
+                                ".": {},
+                                "f:claimRef":
+                                  {
+                                    ".": {},
+                                    "f:apiVersion": {},
+                                    "f:kind": {},
+                                    "f:name": {},
+                                    "f:namespace": {},
+                                  },
+                                "f:compositionRef": { ".": {}, "f:name": {} },
+                                "f:compositionRevisionRef":
+                                  { ".": {}, "f:name": {} },
+                                "f:compositionUpdatePolicy": {},
+                                "f:parameters":
+                                  {
+                                    ".": {},
+                                    "f:resourceConfig":
+                                      {
+                                        ".": {},
+                                        "f:kubernetes":
+                                          {
+                                            ".": {},
+                                            "f:providerConfigName": {},
+                                          },
+                                        "f:natssecrets":
+                                          {
+                                            ".": {},
+                                            "f:providerConfigName": {},
+                                          },
+                                      },
+                                    "f:streams": {},
+                                    "f:subNetworks": {},
+                                    "f:users": {},
+                                  },
+                                "f:resourceRefs": {},
+                                "f:writeConnectionSecretToRef":
+                                  { ".": {}, "f:name": {}, "f:namespace": {} },
+                              },
+                          },
+                        "manager": "crossplane",
+                        "operation": "Update",
+                        "time": "2023-03-24T13:42:30Z",
+                      },
+                    ],
+                  "name": "mynetwork-z7tj9",
+                  "resourceVersion": "1339284",
+                  "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                },
+              "spec":
+                {
+                  "claimRef":
+                    {
+                      "apiVersion": "edgefarm.io/v1alpha1",
+                      "kind": "Network",
+                      "name": "mynetwork",
+                      "namespace": "myconfig",
+                    },
+                  "compositionRef": { "name": "networks.edgefarm.io" },
+                  "compositionRevisionRef":
+                    { "name": "networks.edgefarm.io-a43986a" },
+                  "compositionUpdatePolicy": "Automatic",
+                  "parameters":
+                    {
+                      "resourceConfig":
+                        {
+                          "kubernetes":
+                            { "providerConfigName": "kubernetes-provider" },
+                          "natssecrets":
+                            {
+                              "providerConfigName": "providerconfig-natssecrets",
+                            },
+                        },
+                      "streams":
+                        [
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardMain1",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardMain2",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardSmall",
+                            "subNetworkRef": "small",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "B-in-Big",
+                            "subNetworkRef": "big",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "B-in-Small",
+                            "subNetworkRef": "small",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "AB-aggregate",
+                            "references": ["B-in-Big", "B-in-Small"],
+                            "subNetworkRef": "main",
+                            "type": "aggregate",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                                "subjects": ["foo.\u003e"],
+                              },
+                            "name": "Z",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "C",
+                            "reference": "Z",
+                            "subNetworkRef": "small",
+                            "type": "mirror",
+                          },
+                        ],
+                      "subNetworks":
+                        [
+                          {
+                            "limits":
+                              { "fileStorage": "2G", "inMemoryStorage": "1G" },
+                            "name": "big",
+                            "nodeSelectorTerm":
+                              {
+                                "matchExpressions":
+                                  [
+                                    {
+                                      "key": "foo",
+                                      "operator": "In",
+                                      "values": ["bar"],
+                                    },
+                                  ],
+                              },
+                            "tolerations": [],
+                          },
+                          {
+                            "limits":
+                              {
+                                "fileStorage": "100M",
+                                "inMemoryStorage": "100M",
+                              },
+                            "name": "small",
+                            "tolerations": [],
+                          },
+                        ],
+                      "users":
+                        [
+                          {
+                            "limits":
+                              {
+                                "data": -1,
+                                "payload": -1,
+                                "subscriptions": -1,
+                              },
+                            "name": "myuser1",
+                            "permissions":
+                              {
+                                "pub":
+                                  {
+                                    "allow":
+                                      ["allowed.\u003e", "puballowed.\u003e"],
+                                    "deny": ["bar.\u003e"],
+                                  },
+                                "sub":
+                                  {
+                                    "allow": ["allowed.\u003e"],
+                                    "deny": ["baz.\u003e", "puballowed.\u003e"],
+                                  },
+                              },
+                          },
+                          {
+                            "limits":
+                              {
+                                "data": 1000,
+                                "payload": 1000,
+                                "subscriptions": 50,
+                              },
+                            "name": "myuser2",
+                            "permissions":
+                              {
+                                "pub": { "allow": ["one.\u003e"] },
+                                "sub": { "deny": ["two.\u003e"] },
+                              },
+                          },
+                        ],
+                    },
+                  "resourceRefs":
+                    [
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "Account",
+                        "name": "mynetwork-z7tj9",
+                      },
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "User",
+                        "name": "mynetwork-z7tj9-sys",
+                      },
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "User",
+                        "name": "mynetwork-z7tj9-system",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-7flf8",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-big",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-small",
+                      },
+                      {
+                        "apiVersion": "nats.crossplane.io/v1alpha1",
+                        "kind": "ProviderConfig",
+                        "name": "mynetwork-z7tj9",
+                      },
+                    ],
+                  "writeConnectionSecretToRef":
+                    {
+                      "name": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                      "namespace": "crossplane-system",
+                    },
+                },
+              "status": { "operator": "myoperator" },
+            },
+        },
+      "resources":
+        [
+          {
+            "name": "sys-account-user",
+            "resource":
+              {
+                "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                "kind": "User",
+                "metadata":
+                  {
+                    "annotations":
+                      {
+                        "crossplane.io/composition-resource-name": "sys-account-user",
+                      },
+                    "generateName": "mynetwork-z7tj9-",
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "name": "mynetwork-z7tj9-sys",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                  },
+                "name": "system",
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "account": "sys",
+                        "claims":
+                          { "user": { "data": -1, "payload": -1, "subs": -1 } },
+                        "operator": "myoperator",
+                      },
+                    "providerConfigRef":
+                      { "name": "providerconfig-natssecrets" },
+                    "writeConnectionSecretToRef":
+                      {
+                        "name": "mynetwork-z7tj9-sys",
+                        "namespace": "myconfig",
+                      },
+                  },
+              },
+          },
+          {
+            "name": "system",
+            "resource":
+              {
+                "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                "kind": "User",
+                "metadata":
+                  {
+                    "annotations":
+                      { "crossplane.io/composition-resource-name": "system" },
+                    "generateName": "mynetwork-z7tj9-",
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "name": "mynetwork-z7tj9-system",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                  },
+                "name": "system",
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "account": "mynetwork-z7tj9",
+                        "claims":
+                          { "user": { "data": -1, "payload": -1, "subs": -1 } },
+                        "operator": "myoperator",
+                      },
+                    "providerConfigRef":
+                      { "name": "providerconfig-natssecrets" },
+                    "writeConnectionSecretToRef":
+                      {
+                        "name": "mynetwork-z7tj9-system",
+                        "namespace": "myconfig",
+                      },
+                  },
+              },
+          },
+          {
+            "name": "provider-nats-config",
+            "resource":
+              {
+                "apiVersion": "nats.crossplane.io/v1alpha1",
+                "kind": "ProviderConfig",
+                "metadata":
+                  {
+                    "annotations":
+                      {
+                        "crossplane.io/composition-resource-name": "provider-nats-config",
+                      },
+                    "generateName": "mynetwork-z7tj9-",
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "name": "mynetwork-z7tj9",
+                    "namespace": "myconfig",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                  },
+                "spec":
+                  {
+                    "credentials":
+                      {
+                        "secretRef":
+                          {
+                            "key": "provider-config-secret",
+                            "name": "mynetwork-z7tj9-system",
+                            "namespace": "myconfig",
+                          },
+                        "source": "Secret",
+                      },
+                  },
+              },
+          },
+          {
+            "name": "get-network-base-config",
+            "resource":
+              {
+                "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                "kind": "Object",
+                "metadata":
+                  {
+                    "annotations":
+                      {
+                        "crossplane.io/composition-resource-name": "get-network-base-config",
+                      },
+                    "generateName": "mynetwork-z7tj9-",
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "name": "mynetwork-z7tj9-7flf8",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                  },
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "manifest":
+                          {
+                            "apiVersion": "v1",
+                            "kind": "ConfigMap",
+                            "metadata":
+                              {
+                                "name": "network-base-config",
+                                "namespace": "crossplane-system",
+                              },
+                          },
+                      },
+                    "managementPolicy": "Observe",
+                    "providerConfigRef": { "name": "kubernetes-provider" },
+                  },
+              },
+          },
+          {
+            "name": "account",
+            "resource":
+              {
+                "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                "kind": "Account",
+                "metadata":
+                  {
+                    "annotations":
+                      { "crossplane.io/composition-resource-name": "account" },
+                    "generateName": "mynetwork-z7tj9-",
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "name": "mynetwork-z7tj9",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                  },
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "claims":
+                          {
+                            "account":
+                              {
+                                "limits":
+                                  {
+                                    "conn": -1,
+                                    "consumer": -1,
+                                    "data": -1,
+                                    "diskStorage": -1,
+                                    "exports": -1,
+                                    "imports": -1,
+                                    "leafNodeConn": -1,
+                                    "memStorage": -1,
+                                    "payload": -1,
+                                    "streams": -1,
+                                    "subs": -1,
+                                    "wildcardExports": true,
+                                  },
+                              },
+                          },
+                        "operator": "myoperator",
+                      },
+                    "providerConfigRef":
+                      { "name": "providerconfig-natssecrets" },
+                    "writeConnectionSecretToRef":
+                      {
+                        "name": "mynetwork-z7tj9-account",
+                        "namespace": "crossplane-system",
+                      },
+                  },
+              },
+          },
+          {
+            "name": "big",
+            "resource":
+              {
+                "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                "kind": "Object",
+                "metadata":
+                  { "name": "mynetwork-z7tj9-big", "namespace": "myconfig" },
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "manifest":
+                          {
+                            "apiVersion": "network.edgefarm.io/v1alpha1",
+                            "kind": "EdgeNetwork",
+                            "metadata": { "namespace": "myconfig" },
+                            "spec":
+                              {
+                                "connectionSecretRefs":
+                                  {
+                                    "sysAccountUserSecretRef":
+                                      { "name": "mynetwork-z7tj9-sys" },
+                                    "systemUserSecretRef":
+                                      { "name": "mynetwork-z7tj9-system" },
+                                  },
+                                "limits":
+                                  {
+                                    "fileStorage": "2G",
+                                    "inMemoryStorage": "1G",
+                                  },
+                                "namespace": "myconfig",
+                                "network": "mynetwork-z7tj9",
+                                "nodeSelectorTerm":
+                                  {
+                                    "matchExpressions":
+                                      [
+                                        {
+                                          "key": "foo",
+                                          "operator": "In",
+                                          "values": ["bar"],
+                                        },
+                                      ],
+                                  },
+                                "subNetwork": "big",
+                                "tolerations": [],
+                              },
+                          },
+                      },
+                    "providerConfigRef": { "name": "kubernetes-provider" },
+                  },
+              },
+          },
+          {
+            "name": "small",
+            "resource":
+              {
+                "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                "kind": "Object",
+                "metadata":
+                  { "name": "mynetwork-z7tj9-small", "namespace": "myconfig" },
+                "spec":
+                  {
+                    "forProvider":
+                      {
+                        "manifest":
+                          {
+                            "apiVersion": "network.edgefarm.io/v1alpha1",
+                            "kind": "EdgeNetwork",
+                            "metadata": { "namespace": "myconfig" },
+                            "spec":
+                              {
+                                "connectionSecretRefs":
+                                  {
+                                    "sysAccountUserSecretRef":
+                                      { "name": "mynetwork-z7tj9-sys" },
+                                    "systemUserSecretRef":
+                                      { "name": "mynetwork-z7tj9-system" },
+                                  },
+                                "limits":
+                                  {
+                                    "fileStorage": "100M",
+                                    "inMemoryStorage": "100M",
+                                  },
+                                "namespace": "myconfig",
+                                "network": "mynetwork-z7tj9",
+                                "nodeSelectorTerm": {},
+                                "subNetwork": "small",
+                                "tolerations": [],
+                              },
+                          },
+                      },
+                    "providerConfigRef": { "name": "kubernetes-provider" },
+                  },
+              },
+          },
+        ],
+    },
+  "observed":
+    {
+      "composite":
+        {
+          "resource":
+            {
+              "apiVersion": "edgefarm.io/v1alpha1",
+              "kind": "XNetwork",
+              "metadata":
+                {
+                  "annotations":
+                    {
+                      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"edgefarm.io/v1alpha1\",\"kind\":\"Network\",\"metadata\":{\"annotations\":{},\"name\":\"mynetwork\",\"namespace\":\"myconfig\"},\"spec\":{\"parameters\":{\"resourceConfig\":{\"kubernetes\":{\"providerConfigName\":\"kubernetes-provider\"},\"natssecrets\":{\"providerConfigName\":\"providerconfig-natssecrets\"}},\"streams\":[{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardMain1\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardMain2\",\"subNetworkRef\":\"main\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"standardSmall\",\"subNetworkRef\":\"small\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"B-in-Big\",\"subNetworkRef\":\"big\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"B-in-Small\",\"subNetworkRef\":\"small\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"AB-aggregate\",\"references\":[\"B-in-Big\",\"B-in-Small\"],\"type\":\"aggregate\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\",\"subjects\":[\"foo.\\u003e\"]},\"name\":\"Z\",\"subNetworkRef\":\"main\",\"type\":\"standard\"},{\"config\":{\"discard\":\"Old\",\"maxBytes\":102400,\"maxConsumers\":-1,\"maxMsgSize\":-1,\"maxMsgs\":-1,\"maxMsgsPerSubject\":-1,\"retention\":\"Limits\",\"storage\":\"File\"},\"name\":\"C\",\"reference\":\"Z\",\"subNetworkRef\":\"small\",\"type\":\"mirror\"}],\"subNetworks\":[{\"limits\":{\"fileStorage\":\"2G\",\"inMemoryStorage\":\"1G\"},\"name\":\"big\",\"nodeSelectorTerm\":{\"matchExpressions\":[{\"key\":\"foo\",\"operator\":\"In\",\"values\":[\"bar\"]}]},\"tolerations\":[]},{\"limits\":{\"fileStorage\":\"100M\",\"inMemoryStorage\":\"100M\"},\"name\":\"small\",\"tolerations\":[]}],\"users\":[{\"limits\":{\"data\":-1,\"payload\":-1,\"subscriptions\":-1},\"name\":\"myuser1\",\"permissions\":{\"pub\":{\"allow\":[\"allowed.\\u003e\",\"puballowed.\\u003e\"],\"deny\":[\"bar.\\u003e\"]},\"sub\":{\"allow\":[\"allowed.\\u003e\"],\"deny\":[\"baz.\\u003e\",\"puballowed.\\u003e\"]}}},{\"limits\":{\"data\":1000,\"payload\":1000,\"subscriptions\":50},\"name\":\"myuser2\",\"permissions\":{\"pub\":{\"allow\":[\"one.\\u003e\"]},\"sub\":{\"deny\":[\"two.\\u003e\"]}}}]},\"writeConnectionSecretToRef\":{\"name\":\"myconfig\"}}}\n",
+                    },
+                  "creationTimestamp": "2023-03-24T13:42:25Z",
+                  "finalizers": ["composite.apiextensions.crossplane.io"],
+                  "generateName": "mynetwork-",
+                  "generation": 5,
+                  "labels":
+                    {
+                      "crossplane.io/claim-name": "mynetwork",
+                      "crossplane.io/claim-namespace": "myconfig",
+                      "crossplane.io/composite": "mynetwork-z7tj9",
+                    },
+                  "managedFields":
+                    [
+                      {
+                        "apiVersion": "edgefarm.io/v1alpha1",
+                        "fieldsType": "FieldsV1",
+                        "fieldsV1":
+                          {
+                            "f:metadata":
+                              {
+                                "f:annotations":
+                                  {
+                                    ".": {},
+                                    ? "f:kubectl.kubernetes.io/last-applied-configuration"
+                                    : {},
+                                  },
+                                "f:finalizers":
+                                  {
+                                    ".": {},
+                                    'v:"composite.apiextensions.crossplane.io"':
+                                      {},
+                                  },
+                                "f:generateName": {},
+                                "f:labels":
+                                  {
+                                    ".": {},
+                                    "f:crossplane.io/claim-name": {},
+                                    "f:crossplane.io/claim-namespace": {},
+                                    "f:crossplane.io/composite": {},
+                                  },
+                              },
+                            "f:spec":
+                              {
+                                ".": {},
+                                "f:claimRef":
+                                  {
+                                    ".": {},
+                                    "f:apiVersion": {},
+                                    "f:kind": {},
+                                    "f:name": {},
+                                    "f:namespace": {},
+                                  },
+                                "f:compositionRef": { ".": {}, "f:name": {} },
+                                "f:compositionRevisionRef":
+                                  { ".": {}, "f:name": {} },
+                                "f:compositionUpdatePolicy": {},
+                                "f:parameters":
+                                  {
+                                    ".": {},
+                                    "f:resourceConfig":
+                                      {
+                                        ".": {},
+                                        "f:kubernetes":
+                                          {
+                                            ".": {},
+                                            "f:providerConfigName": {},
+                                          },
+                                        "f:natssecrets":
+                                          {
+                                            ".": {},
+                                            "f:providerConfigName": {},
+                                          },
+                                      },
+                                    "f:streams": {},
+                                    "f:subNetworks": {},
+                                    "f:users": {},
+                                  },
+                                "f:resourceRefs": {},
+                                "f:writeConnectionSecretToRef":
+                                  { ".": {}, "f:name": {}, "f:namespace": {} },
+                              },
+                          },
+                        "manager": "crossplane",
+                        "operation": "Update",
+                        "time": "2023-03-24T13:42:30Z",
+                      },
+                    ],
+                  "name": "mynetwork-z7tj9",
+                  "resourceVersion": "1339284",
+                  "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                },
+              "spec":
+                {
+                  "claimRef":
+                    {
+                      "apiVersion": "edgefarm.io/v1alpha1",
+                      "kind": "Network",
+                      "name": "mynetwork",
+                      "namespace": "myconfig",
+                    },
+                  "compositionRef": { "name": "networks.edgefarm.io" },
+                  "compositionRevisionRef":
+                    { "name": "networks.edgefarm.io-a43986a" },
+                  "compositionUpdatePolicy": "Automatic",
+                  "parameters":
+                    {
+                      "resourceConfig":
+                        {
+                          "kubernetes":
+                            { "providerConfigName": "kubernetes-provider" },
+                          "natssecrets":
+                            {
+                              "providerConfigName": "providerconfig-natssecrets",
+                            },
+                        },
+                      "streams":
+                        [
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardMain1",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardMain2",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "standardSmall",
+                            "subNetworkRef": "small",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "B-in-Big",
+                            "subNetworkRef": "big",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "B-in-Small",
+                            "subNetworkRef": "small",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "AB-aggregate",
+                            "references": ["B-in-Big", "B-in-Small"],
+                            "subNetworkRef": "main",
+                            "type": "aggregate",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                                "subjects": ["foo.\u003e"],
+                              },
+                            "name": "Z",
+                            "subNetworkRef": "main",
+                            "type": "standard",
+                          },
+                          {
+                            "config":
+                              {
+                                "discard": "Old",
+                                "discardNewPerSubject": false,
+                                "duplicates": "2m0s",
+                                "maxAge": "0s",
+                                "maxBytes": 102400,
+                                "maxConsumers": -1,
+                                "maxMsgSize": -1,
+                                "maxMsgs": -1,
+                                "maxMsgsPerSubject": -1,
+                                "noAck": false,
+                                "replicas": 1,
+                                "retention": "Limits",
+                                "storage": "File",
+                              },
+                            "name": "C",
+                            "reference": "Z",
+                            "subNetworkRef": "small",
+                            "type": "mirror",
+                          },
+                        ],
+                      "subNetworks":
+                        [
+                          {
+                            "limits":
+                              { "fileStorage": "2G", "inMemoryStorage": "1G" },
+                            "name": "big",
+                            "nodeSelectorTerm":
+                              {
+                                "matchExpressions":
+                                  [
+                                    {
+                                      "key": "foo",
+                                      "operator": "In",
+                                      "values": ["bar"],
+                                    },
+                                  ],
+                              },
+                            "tolerations": [],
+                          },
+                          {
+                            "limits":
+                              {
+                                "fileStorage": "100M",
+                                "inMemoryStorage": "100M",
+                              },
+                            "name": "small",
+                            "tolerations": [],
+                          },
+                        ],
+                      "users":
+                        [
+                          {
+                            "limits":
+                              {
+                                "data": -1,
+                                "payload": -1,
+                                "subscriptions": -1,
+                              },
+                            "name": "myuser1",
+                            "permissions":
+                              {
+                                "pub":
+                                  {
+                                    "allow":
+                                      ["allowed.\u003e", "puballowed.\u003e"],
+                                    "deny": ["bar.\u003e"],
+                                  },
+                                "sub":
+                                  {
+                                    "allow": ["allowed.\u003e"],
+                                    "deny": ["baz.\u003e", "puballowed.\u003e"],
+                                  },
+                              },
+                          },
+                          {
+                            "limits":
+                              {
+                                "data": 1000,
+                                "payload": 1000,
+                                "subscriptions": 50,
+                              },
+                            "name": "myuser2",
+                            "permissions":
+                              {
+                                "pub": { "allow": ["one.\u003e"] },
+                                "sub": { "deny": ["two.\u003e"] },
+                              },
+                          },
+                        ],
+                    },
+                  "resourceRefs":
+                    [
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "Account",
+                        "name": "mynetwork-z7tj9",
+                      },
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "User",
+                        "name": "mynetwork-z7tj9-sys",
+                      },
+                      {
+                        "apiVersion": "issue.natssecrets.crossplane.io/v1alpha1",
+                        "kind": "User",
+                        "name": "mynetwork-z7tj9-system",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-7flf8",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-big",
+                      },
+                      {
+                        "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                        "kind": "Object",
+                        "name": "mynetwork-z7tj9-small",
+                      },
+                      {
+                        "apiVersion": "nats.crossplane.io/v1alpha1",
+                        "kind": "ProviderConfig",
+                        "name": "mynetwork-z7tj9",
+                      },
+                    ],
+                  "writeConnectionSecretToRef":
+                    {
+                      "name": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                      "namespace": "crossplane-system",
+                    },
+                },
+            },
+        },
+      "resources":
+        [
+          {
+            "connectionDetails": [],
+            "name": "get-network-base-config",
+            "resource":
+              {
+                "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                "kind": "Object",
+                "metadata":
+                  {
+                    "annotations":
+                      {
+                        "crossplane.io/composition-resource-name": "get-network-base-config",
+                        "crossplane.io/external-name": "mynetwork-z7tj9-7flf8",
+                      },
+                    "creationTimestamp": "2023-03-24T13:42:30Z",
+                    "finalizers": ["finalizer.managedresource.crossplane.io"],
+                    "generateName": "mynetwork-z7tj9-",
+                    "generation": 1,
+                    "labels":
+                      {
+                        "crossplane.io/claim-name": "mynetwork",
+                        "crossplane.io/claim-namespace": "myconfig",
+                        "crossplane.io/composite": "mynetwork-z7tj9",
+                      },
+                    "managedFields":
+                      [
+                        {
+                          "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                          "fieldsType": "FieldsV1",
+                          "fieldsV1":
+                            {
+                              "f:metadata":
+                                {
+                                  "f:annotations":
+                                    {
+                                      ".": {},
+                                      ? "f:crossplane.io/composition-resource-name"
+                                      : {},
+                                    },
+                                  "f:generateName": {},
+                                  "f:labels":
+                                    {
+                                      ".": {},
+                                      "f:crossplane.io/claim-name": {},
+                                      "f:crossplane.io/claim-namespace": {},
+                                      "f:crossplane.io/composite": {},
+                                    },
+                                  "f:ownerReferences":
+                                    {
+                                      ".": {},
+                                      ? 'k:{"uid":"e1fae950-69da-40d5-8fc7-cd9ddb7ae628"}'
+                                      : {},
+                                    },
+                                },
+                              "f:spec":
+                                {
+                                  ".": {},
+                                  "f:deletionPolicy": {},
+                                  "f:forProvider":
+                                    {
+                                      ".": {},
+                                      "f:manifest":
+                                        {
+                                          ".": {},
+                                          "f:apiVersion": {},
+                                          "f:kind": {},
+                                          "f:metadata":
+                                            {
+                                              ".": {},
+                                              "f:name": {},
+                                              "f:namespace": {},
+                                            },
+                                        },
+                                    },
+                                  "f:managementPolicy": {},
+                                  "f:providerConfigRef":
+                                    { ".": {}, "f:name": {} },
+                                },
+                            },
+                          "manager": "crossplane",
+                          "operation": "Update",
+                          "time": "2023-03-24T13:42:25Z",
+                        },
+                        {
+                          "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                          "fieldsType": "FieldsV1",
+                          "fieldsV1":
+                            {
+                              "f:metadata":
+                                {
+                                  "f:annotations":
+                                    { "f:crossplane.io/external-name": {} },
+                                  "f:finalizers":
+                                    {
+                                      ".": {},
+                                      ? 'v:"finalizer.managedresource.crossplane.io"'
+                                      : {},
+                                    },
+                                },
+                            },
+                          "manager": "crossplane-kubernetes-provider",
+                          "operation": "Update",
+                          "time": "2023-03-24T13:42:30Z",
+                        },
+                        {
+                          "apiVersion": "kubernetes.crossplane.io/v1alpha1",
+                          "fieldsType": "FieldsV1",
+                          "fieldsV1":
+                            {
+                              "f:status":
+                                {
+                                  ".": {},
+                                  "f:atProvider":
+                                    {
+                                      ".": {},
+                                      "f:manifest":
+                                        {
+                                          ".": {},
+                                          "f:apiVersion": {},
+                                          "f:data":
+                                            { ".": {}, "f:operator": {} },
+                                          "f:kind": {},
+                                          "f:metadata":
+                                            {
+                                              ".": {},
+                                              "f:annotations":
+                                                {
+                                                  ".": {},
+                                                  ? "f:kubectl.kubernetes.io/last-applied-configuration"
+                                                  : {},
+                                                },
+                                              "f:creationTimestamp": {},
+                                              "f:managedFields": {},
+                                              "f:name": {},
+                                              "f:namespace": {},
+                                              "f:resourceVersion": {},
+                                              "f:uid": {},
+                                            },
+                                        },
+                                    },
+                                  "f:conditions": {},
+                                },
+                            },
+                          "manager": "crossplane-kubernetes-provider",
+                          "operation": "Update",
+                          "subresource": "status",
+                          "time": "2023-03-24T13:42:30Z",
+                        },
+                      ],
+                    "name": "mynetwork-z7tj9-7flf8",
+                    "ownerReferences":
+                      [
+                        {
+                          "apiVersion": "edgefarm.io/v1alpha1",
+                          "blockOwnerDeletion": true,
+                          "controller": true,
+                          "kind": "XNetwork",
+                          "name": "mynetwork-z7tj9",
+                          "uid": "e1fae950-69da-40d5-8fc7-cd9ddb7ae628",
+                        },
+                      ],
+                    "resourceVersion": "1339293",
+                    "uid": "21ce2b79-b133-485e-8ad3-02c3dcd1a24a",
+                  },
+                "spec":
+                  {
+                    "deletionPolicy": "Delete",
+                    "forProvider":
+                      {
+                        "manifest":
+                          {
+                            "apiVersion": "v1",
+                            "kind": "ConfigMap",
+                            "metadata":
+                              {
+                                "name": "network-base-config",
+                                "namespace": "crossplane-system",
+                              },
+                          },
+                      },
+                    "managementPolicy": "Observe",
+                    "providerConfigRef": { "name": "kubernetes-provider" },
+                  },
+                "status":
+                  {
+                    "atProvider":
+                      {
+                        "manifest":
+                          {
+                            "apiVersion": "v1",
+                            "data": { "operator": "myoperator" },
+                            "kind": "ConfigMap",
+                            "metadata":
+                              {
+                                "annotations":
+                                  {
+                                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"data\":{\"operator\":\"myoperator\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"name\":\"network-base-config\",\"namespace\":\"crossplane-system\"}}\n",
+                                  },
+                                "creationTimestamp": "2023-03-23T13:21:29Z",
+                                "managedFields":
+                                  [
+                                    {
+                                      "apiVersion": "v1",
+                                      "fieldsType": "FieldsV1",
+                                      "fieldsV1":
+                                        {
+                                          "f:data":
+                                            { ".": {}, "f:operator": {} },
+                                          "f:metadata":
+                                            {
+                                              "f:annotations":
+                                                {
+                                                  ".": {},
+                                                  ? "f:kubectl.kubernetes.io/last-applied-configuration"
+                                                  : {},
+                                                },
+                                            },
+                                        },
+                                      "manager": "kubectl-client-side-apply",
+                                      "operation": "Update",
+                                      "time": "2023-03-23T15:12:52Z",
+                                    },
+                                  ],
+                                "name": "network-base-config",
+                                "namespace": "crossplane-system",
+                                "resourceVersion": "1217181",
+                                "uid": "e6fa40d6-2e82-41f2-b7a9-b3092a213ba5",
+                              },
+                          },
+                      },
+                    "conditions":
+                      [
+                        {
+                          "lastTransitionTime": "2023-03-24T13:42:30Z",
+                          "reason": "ReconcileSuccess",
+                          "status": "True",
+                          "type": "Synced",
+                        },
+                        {
+                          "lastTransitionTime": "2023-03-24T13:42:30Z",
+                          "reason": "Available",
+                          "status": "True",
+                          "type": "Ready",
+                        },
+                      ],
+                  },
+              },
+          },
+        ],
+    },
+}

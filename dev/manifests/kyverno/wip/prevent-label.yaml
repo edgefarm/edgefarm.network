@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/title: Removes the label that is used to track dependencies for XStream resources
+    policies.kyverno.io/category: Dependency Management
+    policies.kyverno.io/subject: Lifecycle Management
+    policies.kyverno.io/description: >-
+      Removes the label that is used to track dependencies for XStream resources.
+  name: prevent-label
+spec:
+  background: false
+  failurePolicy: Fail
+  rules:
+    - mutate:
+        patchesJson6902: |-
+          - path: "/metadata/labels/dependsOnUid"
+            op: remove
+      match:
+        any:
+          - resources:
+              kinds:
+                - "streams.network.edgefarm.io/v1alpha1/XStream"
+              selector:
+                matchLabels:
+                  dependsOnUid: ?*
+      name: check-xstream-for-dependency-annotation
+      preconditions:
+        any:
+          - key: "{{ request.operation }}"
+            operator: Equals
+            value: CREATE
+          - key: "{{ request.operation }}"
+            operator: Equals
+            value: UPDATE
+  validationFailureAction: enforce

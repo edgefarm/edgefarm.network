@@ -1,16 +1,12 @@
 version: v2beta1
-name: edgefarm-network
-
-imports:
-  - path: ./config.yaml
+name: edgearm-network
 
 vars:
-  CLUSTER_IP:
-    command: |-
-      #!/bin/bash
-      set -e
-      IP=$(kubectl get secrets -n default cluster-ip -o jsonpath='{.data.clusterIP}' | base64 -d)
-      echo ${IP}
+  ca_root:
+    command: echo $HOME/.devspace/ca/
+  creds_dir:
+    command: echo .devspace/creds/
+  cluster_name: edgearm-network
 
 commands:
   help: |-
@@ -22,110 +18,428 @@ commands:
     GREY='\033[0;36m'
     BOLD='\033[1m'
     NC='\033[0m' # No Color
-    echo -e "${BGREEN}Usage of ${BRED}edgefarm.network:${NC}"
+    echo -e "${BGREEN}Usage of ${BRED}edgefarm.core:${NC}"
+    echo -e "${GREEN} General cluster commands:${NC}"
+    echo -e "${BOLD}  devspace run create-kind-cluster                    ${GREY}Creates a local running Kubernetes cluster with kind${NC}"
+    echo -e "${BOLD}  devspace run delete-kind-cluster                    ${GREY}Deletes the local running Kubernetes cluster with kind${NC}"
+    echo -e "${BOLD}  devspace run-pipeline init                          ${GREY}Deploy some basic resources to the cluster${NC}"
     echo -e "${GREEN} EdgeFarm related commands:${NC}"
-    echo -e "${BOLD}  devspace run-pipeline deploy-network                ${GREY}Deploy edgefarm-network to the cluster${NC}"
-    echo -e "${BOLD}  devspace run-pipeline purge-network                 ${GREY}Delete edgefarm-network from the cluster${NC}"
+    echo -e "${BOLD}  devspace run-pipeline deploy-all                    ${GREY}Deploy an local example edgefarm.network stack${NC}"
+
+  check-prerequisites: |-
+    #!/bin/bash
+    set -e
+    # Check if kubectl is installed
+    if ! command -v kubectl &> /dev/null
+    then
+        echo "kubectl could not be found. Please install kubectl."
+        exit
+    fi
+    # Check if jq is installed
+    if ! command -v jq &> /dev/null
+    then
+        echo "jq could not be found. Please install jq (https://stedolan.github.io/jq/)."
+        exit
+    fi
+    # Check if helm is installed
+    if ! command -v helm &> /dev/null
+    then
+        echo "helm could not be found. Please install helm (https://helm.sh/docs/intro/install/)."
+        exit
+    fi
+    # Check if kustomize is installed
+    if ! command -v kustomize &> /dev/null
+    then
+        echo "kustomize could not be found. Please install kustomize (https://kubectl.docs.kubernetes.io/installation/kustomize/)."
+        exit
+    fi
+    # Check if docker is installed
+    if ! command -v docker &> /dev/null
+    then
+        echo "docker could not be found. Please install docker (https://docs.docker.com/get-docker/)."
+        exit
+    fi
+
+  create-kind-cluster: |-
+    #!/bin/bash
+    set -e
+
+    devspace run check-prerequisites
+
+    # Check if kind is installed
+    if ! command -v kind &> /dev/null
+    then
+        echo "kind could not be found. Please install kind (https://kind.sigs.k8s.io/docs/user/quick-start/#installation)."
+        exit
+    fi
+
+    kind create cluster --name ${cluster_name} --image kindest/node:v1.24.7 --config dev/kind/config.yaml
+    kubectl config use-context kind-${cluster_name}
+    kubectl config set-context --current --namespace kind-${cluster_name}
+
+  delete-kind-cluster: |-
+    #!/bin/bash
+    set -e
+
+    kind delete cluster --name ${cluster_name} || true
+    kubectl config delete-context kind-${cluster_name} 2>/dev/null || true
+    kubectl config delete-cluster kind-${cluster_name} 2>/dev/null || true
+    kubectl config delete-user admin@kind-${cluster_name} 2>/dev/null || true
 
 functions:
+  wait_for_crd: |-
+    #!/bin/bash
+    set -e
+    echo "wait for crd/$1"
+    until kubectl wait --for=condition=established "crd/$1" --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+
+  wait_for_deployment: |-
+    #!/bin/bash
+    set -e
+    echo "wait for deployment/$1 (ns: $2)"
+    until kubectl wait --for=condition=available deployment/$1 -n $2 --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+
   wait_for_pod: |-
     #!/bin/bash
     set -e
     echo "wait for pod $1 (ns: $2)"
     until kubectl wait --for=condition=ready pod -n $2 $1 --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
 
+  wait_for_ressource: |-
+    #!/bin/bash
+    set -e
+    echo "wait for ressource $1 (ns: $2)"
+    until kubectl get $1 -n $2 2>/dev/null; do echo -n "." && sleep 2; done;
+
+  wait_for_secret_key: |-
+    #!/bin/bash
+    set -e
+    echo "wait for key $3 in secret $1 (ns: $2)"
+    until [[ $(kubectl get secret/$1 -n $2 -o yaml | grep $3 | wc -l) -ge 1 ]] ; do echo -n "." && sleep 2; done
+    echo " done"
+
+  import_root_ca: |-
+    # usage: import_root_ca <CAROOT> <secret name> <namespace>
+    #!/usr/bin/env bash
+    set -e
+    set -u
+    # Check if mkcert is installed
+    if ! command -v mkcert &> /dev/null
+    then
+        echo "mkcert could not be found. Please install mkcert (https://github.com/FiloSottile/mkcert)."
+        exit
+    fi
+    export CAROOT=${1}
+    if [ "$#" -ne 3 ]; then
+        echo "Illegal number of parameters"
+        echo "import_root_ca <CAROOT> <ca_secret_name> <ca_secret_namespace>"
+        exit 1
+    fi
+    if ! [ -d "${CAROOT}" ]; then
+        echo "Creating self-signed CA ${2}"
+        mkdir -p ${CAROOT}
+        mkcert || true
+    fi
+    kubectl -n ${3} create secret tls ${2} \
+        --key=${CAROOT}/rootCA-key.pem \
+        --cert=${CAROOT}/rootCA.pem \
+        --dry-run=client --output yaml | kubectl apply -f -
+
+  init_ca: |-
+    # usage init_ca <CAROOT>
+    #!/usr/bin/env bash
+    set -e
+    set -u
+    export CAROOT=${1}
+    # Check if mkcert is installed
+    if ! command -v mkcert &> /dev/null
+    then
+        echo "mkcert could not be found. Please install mkcert (https://github.com/FiloSottile/mkcert)."
+        exit
+    fi
+
+    if [ "$#" -ne 1 ]; then
+      echo "Illegal number of parameters"
+      echo "init_ca"
+      exit 1
+    fi
+    echo "installing ${CAROOT}"
+    mkcert -install || true
+
 pipelines:
-  deploy-network: |-
+  deploy-all: |-
+    run_pipelines deploy-vault 
+    run_pipelines deploy-crossplane
+    run_pipelines deploy-crossplane-providers
+    run_pipelines configure-network-base-config
+    run_pipelines deploy-nats
+    run_pipelines deploy-edgenetwork-operator
+    run_pipelines deploy-network-resource-info
+    run_pipelines deploy-compositions-definitions
+    run_pipelines deploy-compositions
+
+  init: |-
     #!/bin/bash
     set -e
-    COLOR='\033[0;93m'
-    NC='\033[0m'
-    kubectl label node default-worker edgefarm.io/nats-main=true --overwrite
+    devspace run check-prerequisites
+    # install cert-manager and nginx-ingress
+    create_deployments cert-manager nginx-ingress
+    wait_for_deployment cert-manager cert-manager
+    wait_for_deployment cert-manager-cainjector cert-manager
+    wait_for_deployment cert-manager-webhook cert-manager
+    wait_for_crd certificates.cert-manager.io
+    wait_for_pod "-l app.kubernetes.io/instance=ingress-nginx -l app.kubernetes.io/component=controller" ingress-nginx
+    # install root certificate for cert-manager
+    init_ca ${ca_root}
+    import_root_ca ${ca_root} root-ca cert-manager
+    create_deployments cert-manager-config
 
-    create_deployments servicemonitors-crd
-    create_deployments nats-main
-    wait_for_pod "-l app.kubernetes.io/instance=nats-main,app.kubernetes.io/name=nats" nats
-    create_deployments leaf-nats
-    echo -e "${COLOR}Creating example jetstream in domain: main${NC}"
-    docker run --rm \
-    --entrypoint /bin/sh \
-    -v $(pwd)/dev/config/example.json:/config/example.json \
-    natsio/nats-box:0.13.2 \
-    -c "/usr/local/bin/nats stream create \
-    --config /config/example.json \
-    --user ${NATS_TOKEN} \
-    -s nats://${CLUSTER_IP}:4222" \
-    --domain main
-
-  purge-network: |-
+  deploy-kyverno: |-
     #!/bin/bash
     set -e
+    create_deployments kyverno
+    wait_for_deployment kyverno kyverno
+    create_deployments kyverno-dependency-config
+    wait_for_crd dependencies.dummy.crd.com
+    create_deployments kyverno-dependency-policies
+
+  deploy-vault: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
     COLOR='\033[0;93m'
     NC='\033[0m'
-    purge_deployments nats-main
-    purge_deployments leaf-nats
+    create_deployments vault-operator
+    wait_for_pod "-l app.kubernetes.io/instance=vault-operator" vault
+    create_deployments vault-config
+    until kubectl wait --for=condition=ready pods -n vault -l vault_cr=vault --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+    wait_for_secret_key bank-vaults vault vault-root
+    echo "vault-root-token: $(kubectl get secrets bank-vaults -n vault -o jsonpath={.data.vault-root} | base64 --decode)"
+
+  deploy-crossplane: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments crossplane
+    wait_for_deployment crossplane crossplane-system
+    wait_for_deployment crossplane-rbac-manager crossplane-system
+
+  deploy-crossplane-providers: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments provider-natssecrets
+    wait_for_crd providerconfigs.natssecrets.crossplane.io
+    kubectl apply -f dev/manifests/provider-natssecrets/providerconfig.yaml
+    kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-natssecrets
+    VAULT_TOKEN=$(kubectl get secrets bank-vaults -n vault -o jsonpath={.data.vault-root} | base64 --decode)
+    TEMPLATE=$(sed "s/VAULT_TOKEN/$VAULT_TOKEN/g" dev/manifests/provider-natssecrets/providerconfigsecret.yaml.tmpl)
+    echo "$TEMPLATE" | kubectl apply -f -
+
+    create_deployments provider-kubernetes
+    wait_for_crd providerconfigs.kubernetes.crossplane.io
+    export SA=$(kubectl -n crossplane-system get sa -o name | grep provider-kubernetes | sed -e 's|serviceaccount\/|crossplane-system:|g')
+    kubectl create clusterrolebinding provider-kubernetes-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}" --dry-run=client -o yaml | kubectl apply -f -
+    kubectl apply -f dev/manifests/provider-kubernetes/providerconfig.yaml
+    kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-kubernetes
+
+    create_deployments provider-nats
+    wait_for_crd providerconfigs.nats.crossplane.io
+    kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-nats
+
+  configure-network-base-config: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    kubectl apply -f dev/manifests/resources/stage1 --recursive
+
+    OPERATOR=$(kubectl get operators -o jsonpath='{.items[0].metadata.name}')
+    kubectl create configmap -n crossplane-system network-base-config --from-literal=operator=${OPERATOR} --dry-run=client -o yaml | kubectl apply -f -
+
+  deploy-nats: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    OPERATOR=$(kubectl get operators -o jsonpath='{.items[0].metadata.name}')
+    OPERATOR_JWT=$(kubectl get secrets $OPERATOR -n crossplane-system -o jsonpath='{.data.jwt}' | base64 -d)
+    SYS_ACCOUNT_PUBLIC_KEY=$(kubectl get secrets sys -n crossplane-system -o jsonpath='{.data.pub}' | base64 -d)
+    SYS_ACCOUNT_JWT=$(kubectl get secrets sys -n crossplane-system -o jsonpath='{.data.jwt}' | base64 -d)
+    TEMPLATE=$(sed "s/OPERATOR_JWT/$OPERATOR_JWT/g" dev/manifests/nats/configmap.yaml.template)
+    TEMPLATE=$(sed "s/SYS_ACCOUNT_PUBLIC_KEY/$SYS_ACCOUNT_PUBLIC_KEY/g" <<< $TEMPLATE)
+    TEMPLATE=$(sed "s/SYS_ACCOUNT_JWT/$SYS_ACCOUNT_JWT/g" <<< $TEMPLATE)
+
+    echo "$TEMPLATE" > dev/manifests/nats/configmap.yaml
+    create_deployments nats
+    wait_for_deployment nats nats
+
+  deploy-edgenetwork-operator: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments metacontroller
+    wait_for_pod "-l app.kubernetes.io/name=metacontroller" metacontroller
+
+    create_deployments edgenetwork-operator
+    wait_for_pod "-l app=edgenetwork-operator" metacontroller
+
+  deploy-network-resource-info: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments network-resource-info
+    wait_for_deployment network-resource-info crossplane-system
+
+  deploy-compositions-definitions: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments compositions-definitions
+    wait_for_crd networks.streams.network.edgefarm.io
+    wait_for_crd streams.streams.network.edgefarm.io
+    wait_for_crd edgenetworks.streams.network.edgefarm.io
+
+  deploy-compositions: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments compositions
 
 deployments:
-  nats-main:
-    helm:
-      chart:
-        name: nats
-        repo: https://nats-io.github.io/k8s/helm/charts/
-      values:
-        nats:
-          # externalAccess is enabled because to give access to external devices through kind port mapping
-          externalAccess: true
-          advertise: false
-          serviceAccount:
-            create: false
-          jetstream:
-            enabled: true
-            domain: main
-            fileStorage:
-              size: ${MAIN_NATS_MAX_STORAGE}
-        exporter:
-          enabled: true
-          image: natsio/prometheus-nats-exporter:latest
-          pullPolicy: IfNotPresent
-          serviceMonitor:
-            enabled: true
-        namespaceOverride: "nats"
-        podDisruptionBudget:
-          enabled: false
-        nodeSelector: { edgefarm.io/nats-main: "true" }
-        cluster:
-          # cluster is disabled in local setup
-          enabled: false
-          #replicas: 3
-          noAdvertise: true
-        leafnodes:
-          enabled: true
-          noAdvertise: true
-        natsbox:
-          enabled: false
-        auth:
-          enabled: true
-          # fixed token to access the nats cluster
-          token: ${NATS_TOKEN}
-    namespace: nats
-
-  servicemonitors-crd:
+  local-path-provisioner:
     kubectl:
       manifests:
-        - https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_servicemonitors.yaml
+        - "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.22/deploy/local-path-storage.yaml"
+    namespace: kube-system
 
-  leaf-nats:
-    namespace: nats
+  cert-manager:
+    kubectl:
+      manifests:
+        - https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+    namespace: cert-manager
+
+  cert-manager-config:
+    kubectl:
+      manifests:
+        - dev/manifests/cert-manager/
+    namespace: cert-manager
+
+  nginx-ingress:
+    kubectl:
+      manifests:
+        - https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+    namespace: ingress-nginx
+
+  vault-operator:
     helm:
       chart:
-        name: leaf-nats
-        path: ./charts/leaf-nats
+        name: vault-operator
+        repo: https://kubernetes-charts.banzaicloud.com
+    namespace: vault
+
+  vault-config:
+    kubectl:
+      manifests:
+        - dev/manifests/vault/
+    namespace: vault
+
+  nats:
+    kubectl:
+      manifests:
+        - dev/manifests/nats/
+    namespace: nats
+
+  crossplane:
+    helm:
+      chart:
+        name: crossplane
+        repo: https://charts.crossplane.io/stable/
+        version: "1.11.3"
       values:
-        fullnameOverride: leaf-nats
-        config:
-          nats:
-            host: ${CLUSTER_IP}
-            token: ${NATS_TOKEN}
-          targetNodeGroupLabels:
-            - matchLabels:
-                network.edgefarm.io/edge: ""
+        args:
+          - --enable-composition-functions
+          - --debug
+        xfn:
+          enabled: true
+          args:
+            - --debug
+    namespace: crossplane-system
+
+  compositions-definitions:
+    kubectl:
+      manifests:
+        - deploy/compositions/edgenetwork.streams.network.edgefarm.io/definition.yaml
+        - deploy/compositions/stream.streams.network.edgefarm.io/definition.yaml
+        - deploy/compositions/network.streams.network.edgefarm.io/definition.yaml
+
+  compositions:
+    kubectl:
+      manifests:
+        - deploy/compositions/edgenetwork.streams.network.edgefarm.io/composition-edgenetworks.yaml
+        - deploy/compositions/stream.streams.network.edgefarm.io/composition-streams.yaml
+        - deploy/compositions/network.streams.network.edgefarm.io/composition.yaml
+
+  provider-natssecrets:
+    kubectl:
+      manifests:
+        - dev/manifests/provider-natssecrets/provider.yaml
+        - dev/manifests/provider-natssecrets/controllerconfig.yaml
+    namespace: crossplane-system
+
+  provider-nats:
+    kubectl:
+      manifests:
+        - dev/manifests/provider-nats/provider.yaml
+        - dev/manifests/provider-nats/controllerconfig.yaml
+    namespace: crossplane-system
+
+  provider-kubernetes:
+    kubectl:
+      manifests:
+        - dev/manifests/provider-kubernetes/provider.yaml
+    namespace: crossplane-system
+
+  metacontroller:
+    kubectl:
+      kustomize: true
+      manifests:
+        - https://github.com/metacontroller/metacontroller/manifests/production
+    namespace: metacontroller
+
+  edgenetwork-operator:
+    kubectl:
+      manifests:
+        - https://raw.githubusercontent.com/edgefarm/edgenetwork-operator/main/manifests/controller.yaml
+        - https://raw.githubusercontent.com/edgefarm/edgenetwork-operator/main/manifests/crds/network.edgefarm.io_edgenetworks.yaml
+    namespace: crossplane-system
+
+  network-resource-info:
+    kubectl:
+      manifests:
+        - deploy/network-resource-info
+    namespace: crossplane-system
+
+  kyverno:
+    helm:
+      chart:
+        name: kyverno
+        repo: https://kyverno.github.io/kyverno/
+        version: "2.6.1"
+      values:
+        generatecontrollerExtraResources:
+          - dependencies
+    namespace: kyverno
+
+  kyverno-dependency-config:
+    kubectl:
+      manifests:
+        - dev/manifests/kyverno/dependency_crd.yaml
+        - dev/manifests/kyverno/clusterrole.yaml
+    namespace: kyverno
+
+  kyverno-dependency-policies:
+    kubectl:
+      manifests:
+        - dev/manifests/kyverno/add-dependency-policy.yaml
+        - dev/manifests/kyverno/add-second-dependency-policy.yaml
+        - dev/manifests/kyverno/block-delete-policy.yaml
+    namespace: kyverno

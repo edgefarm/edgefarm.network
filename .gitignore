@@ -24,3 +24,5 @@ package.json
 
 # dev/gen
 dev/gen
+
+.vscode

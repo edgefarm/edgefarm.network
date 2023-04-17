@@ -1,0 +1,11 @@
+apiVersion: natssecrets.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: provider-natssecrets
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: provider-natssecrets
+      key: credentials

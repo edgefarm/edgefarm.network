@@ -1,0 +1,17 @@
+group: streams.network.edgefarm.io
+name: Stream
+version: v1alpha1
+provider:
+  baseURL: https://raw.githubusercontent.com/edgefarm/%s/%s/package/crds/%s
+  name: provider-nats
+  version: v0.1.0
+  crd:
+    file: nats.crossplane.io_streams.yaml
+    version: v1alpha1
+defaultConnectionSecretName: false
+patchExternalName: true
+keepExternalName: true
+compositions:
+  - name: streams
+    provider: provider-nats
+    default: true
