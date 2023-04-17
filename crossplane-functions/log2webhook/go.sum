@@ -1,5 +1,7 @@
 github.com/crossplane/crossplane v1.11.2 h1:YVj9Y2caO6gKf7WAlLe1X3w2GVp4u/nFvlTVuveZUfE=
 github.com/crossplane/crossplane v1.11.2/go.mod h1:Uf2DJIqlO2RyEqmDOqV1KrC+4oUcfezjLb6qEi3Agx0=
+github.com/crossplane/crossplane v1.11.3 h1:nvV8ivMZd98zSr7SLsu4IFNbQg4c+YvdgxwvbtxSnL8=
+github.com/crossplane/crossplane v1.11.3/go.mod h1:EV76e/7nJ8tJ+wrpx+2nKNMEic92iI13n4RwfI4Pgy0=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
