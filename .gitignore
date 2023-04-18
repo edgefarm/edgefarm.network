@@ -26,3 +26,5 @@ package.json
 dev/gen
 
 .vscode
+
+tmp
