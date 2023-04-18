@@ -10,8 +10,17 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
+    resourceNames: ["bank-vaults"]
     verbs: ["*"]
   - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["vault-unseal-keys"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: [""]
+    verbs: ["create"]
+  - apiGroups: ["v1"]
     resources: ["pods"]
     verbs: ["get", "update", "patch"]
 ---

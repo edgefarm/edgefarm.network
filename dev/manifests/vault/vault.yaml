@@ -175,23 +175,23 @@ spec:
   # If you are using a custom certificate and are setting the hostname in a custom way
   sidecarEnvsConfig:
     - name: VAULT_ADDR
-      value: https://vault.local:8200
+      value: https://vault.vault:8200
 
   # # https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   vaultPodSpec:
     hostAliases:
       - ip: "127.0.0.1"
         hostnames:
-          - "vault.local"
+          - "vault.vault"
 
   # Marks presence of Istio, which influences things like port namings
   resources:
     vault:
       limits:
-        cpu: 2
+        cpu: "0.5"
         memory: 1024Mi
       requests:
-        cpu: 1
+        cpu: "0.25"
         memory: 1024Mi
   istioEnabled: false
 

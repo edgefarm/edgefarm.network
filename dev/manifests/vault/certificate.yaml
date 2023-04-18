@@ -5,7 +5,6 @@ metadata:
 spec:
   secretName: vault-server-tls
   dnsNames:
-    - vault.local
     - vault
     - "*.nip.io"
     - vault.vault

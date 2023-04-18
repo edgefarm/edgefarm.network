@@ -8,6 +8,7 @@ vars:
     command: echo .devspace/creds/
   cluster_name: edgearm-network
 
+  namespaceVault: vault
 commands:
   help: |-
     #!/bin/bash
@@ -211,11 +212,11 @@ pipelines:
     COLOR='\033[0;93m'
     NC='\033[0m'
     create_deployments vault-operator
-    wait_for_pod "-l app.kubernetes.io/instance=vault-operator" vault
+    wait_for_pod "-l app.kubernetes.io/instance=vault-operator" $namespaceVault
     create_deployments vault-config
-    until kubectl wait --for=condition=ready pods -n vault -l vault_cr=vault --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
-    wait_for_secret_key bank-vaults vault vault-root
-    echo "vault-root-token: $(kubectl get secrets bank-vaults -n vault -o jsonpath={.data.vault-root} | base64 --decode)"
+    until kubectl wait --for=condition=ready pods -n $namespaceVault -l vault_cr=vault --timeout=60s 2>/dev/null; do echo -n "." && sleep 2; done
+    wait_for_secret_key bank-vaults $namespaceVault vault-root
+    echo "vault-root-token: $(kubectl get secrets bank-vaults -n $namespaceVault -o jsonpath={.data.vault-root} | base64 --decode)"
 
   deploy-crossplane: |-
     #!/bin/bash
@@ -233,7 +234,7 @@ pipelines:
     wait_for_crd providerconfigs.natssecrets.crossplane.io
     kubectl apply -f dev/manifests/provider-natssecrets/providerconfig.yaml
     kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-natssecrets
-    VAULT_TOKEN=$(kubectl get secrets bank-vaults -n vault -o jsonpath={.data.vault-root} | base64 --decode)
+    VAULT_TOKEN=$(kubectl get secrets bank-vaults -n $namespaceVault -o jsonpath={.data.vault-root} | base64 --decode)
     TEMPLATE=$(sed "s/VAULT_TOKEN/$VAULT_TOKEN/g" dev/manifests/provider-natssecrets/providerconfigsecret.yaml.tmpl)
     echo "$TEMPLATE" | kubectl apply -f -
 
@@ -244,9 +245,9 @@ pipelines:
     kubectl apply -f dev/manifests/provider-kubernetes/providerconfig.yaml
     kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-kubernetes
 
-    create_deployments provider-nats
-    wait_for_crd providerconfigs.nats.crossplane.io
-    kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-nats
+    # create_deployments provider-nats
+    # wait_for_crd providerconfigs.nats.crossplane.io
+    # kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-nats
 
   configure-network-base-config: |-
     #!/bin/bash
