@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nats
+  name: nats-colibri
   namespace: nats
 spec:
   selector:
-    app.kubernetes.io/name: nats
+    app.kubernetes.io/name: nats-colibri
+  type: LoadBalancer
   ports:
     - protocol: TCP
       name: client
