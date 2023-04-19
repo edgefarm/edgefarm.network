@@ -152,6 +152,7 @@ def addStandardStreams(stream: dict, network: str, domains: dict, fio: dict, dep
         network = item["network"]
         subnetwork = item["subnetwork"]
         domain = item["domain"]
+        subjects = []
         # Only prefix subjects that are not for domain main. 
         # Each stream running on a different node will have a different prefix.
         # If no prefix would be used, the subjects would be the same for all streams resulting in crosstraffic 
@@ -162,8 +163,8 @@ def addStandardStreams(stream: dict, network: str, domains: dict, fio: dict, dep
         else:
             subjects = stream["config"]["subjects"]
             domainInName = "%s-main" % (network)
-            
-        config = stream["config"]
+        
+        config = stream["config"].copy()
         config["subjects"] = subjects
 
         fio["resources"].append(
@@ -229,7 +230,8 @@ def getRequest(url: str, Functionio: dict) -> dict:
             if data:
                 return data
             else:
-                return {}
+                result_warning(Functionio, "Cannot read from network-resource-info service: {}".format(err))
+                write_Functionio(Functionio)
         except requests.exceptions.Timeout:
             tries += 1
             time.sleep(1)
