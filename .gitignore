@@ -28,3 +28,5 @@ dev/gen
 .vscode
 
 tmp
+
+dev/manifests/provider-natssecrets/providerconfigsecret-colibri.yaml
