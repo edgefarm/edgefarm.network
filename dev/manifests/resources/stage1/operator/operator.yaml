@@ -8,9 +8,9 @@ spec:
     claims:
       operator:
         systemAccount: sys
-        accountServerUrl: "nats://139-144-160-133.nip.io:4222"
+        accountServerUrl: "nats://nats.nats:4222"
         operatorServiceUrls:
-          - nats://139-144-160-133.nip.io:4222
+          - nats://nats.nats:4222
         strictSigningKeyUsage: false
   providerConfigRef:
     name: provider-natssecrets

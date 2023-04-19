@@ -245,9 +245,9 @@ pipelines:
     kubectl apply -f dev/manifests/provider-kubernetes/providerconfig.yaml
     kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-kubernetes
 
-    # create_deployments provider-nats
-    # wait_for_crd providerconfigs.nats.crossplane.io
-    # kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-nats
+    create_deployments provider-nats
+    wait_for_crd providerconfigs.nats.crossplane.io
+    kubectl wait --for=condition=installed --for=condition=healthy providers.pkg.crossplane.io provider-nats
 
   configure-network-base-config: |-
     #!/bin/bash
