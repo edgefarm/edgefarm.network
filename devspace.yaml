@@ -428,6 +428,7 @@ deployments:
       values:
         generatecontrollerExtraResources:
           - dependencies
+        replicaCount: 3
     namespace: kyverno
 
   kyverno-dependency-config:
