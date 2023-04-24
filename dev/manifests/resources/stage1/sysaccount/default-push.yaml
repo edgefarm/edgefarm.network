@@ -16,7 +16,7 @@ spec:
             - "$SYS.REQ.CLAIMS.LIST"
             - "$SYS.REQ.CLAIMS.UPDATE"
             - "$SYS.REQ.CLAIMS.DELETE"
-        resp:
+          resp:
         sub:
           allow:
             - _INBOX.>

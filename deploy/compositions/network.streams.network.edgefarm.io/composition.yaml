@@ -372,19 +372,6 @@ spec:
         - type: None
 
   functions:
-    - name: log2wehook
-      type: Container
-      config:
-        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
-        kind: Config
-        spec:
-          webhookURL: https://webhook.site/a42d42c7-037d-4782-b3cd-beca09b61633
-      container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook:1.0.0-beta.15
-        timeout: 60s
-        network:
-          policy: Runner
-
     - name: addStreams
       type: Container
       container:
@@ -397,7 +384,7 @@ spec:
     - name: addEdgeNetworks
       type: Container
       container:
-        image: siredmar/xfn-edgenetworks:v0.4.0
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.15
         timeout: 60s
         network:
           policy: Isolated

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: colibri
+  name: nats
   namespace: nats
   labels:
-    app.kubernetes.io/name: nats-colibri
+    app.kubernetes.io/name: nats
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: nats-colibri
+      app.kubernetes.io/name: nats
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: nats-colibri
+        app.kubernetes.io/name: nats
     spec:
       containers:
         - name: nats
@@ -25,8 +25,6 @@ spec:
           volumeMounts:
             - name: nats-config
               mountPath: /etc/nats-config
-            - mountPath: "/data"
-              name: colibri-pv
           resources:
             limits:
               cpu: 1m
@@ -38,6 +36,3 @@ spec:
         - name: nats-config
           configMap:
             name: nats-config
-        - name: colibri-pv
-          persistentVolumeClaim:
-            claimName: colibri-pvc
