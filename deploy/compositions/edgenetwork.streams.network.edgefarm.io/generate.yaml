@@ -6,7 +6,7 @@ ignore: true
 provider:
   baseURL: https://raw.githubusercontent.com/edgefarm/%s/%s/manifests/crds/%s
   name: edgenetwork-operator
-  version: v1.0.0
+  version: v2.0.0
   crd:
     file: network.edgefarm.io_edgenetworks.yaml
     version: v1alpha1

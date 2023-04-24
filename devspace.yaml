@@ -430,6 +430,8 @@ deployments:
         generatecontrollerExtraResources:
           - dependencies
         replicaCount: 3
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: ""
     namespace: kyverno
 
   kyverno-dependency-config:
