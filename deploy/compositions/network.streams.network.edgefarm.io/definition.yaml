@@ -78,36 +78,38 @@ spec:
                               - fileStorage
                               - inMemoryStorage
                             type: object
-                          nodeSelectorTerm:
+                          nodepoolSelector:
                             description:
-                              Indicates the node selector to form the node pool. A
-                              pool's nodeSelectorTerm is not allowed to be updated.
+                              NodePoolSelector is a label query over nodepool that
+                              should match the replica count. It must match the nodepool's labels.
                             properties:
                               matchExpressions:
-                                description: A list of node selector requirements by node's labels.
+                                description:
+                                  matchExpressions is a list of label selector requirements.
+                                  The requirements are ANDed.
                                 items:
                                   description:
-                                    A node selector requirement is a selector that
+                                    A label selector requirement is a selector that
                                     contains values, a key, and an operator that relates the key
                                     and values.
                                   properties:
                                     key:
-                                      description: The label key that the selector applies to.
+                                      description:
+                                        key is the label key that the selector applies
+                                        to.
                                       type: string
                                     operator:
                                       description:
-                                        Represents a key's relationship to a set of
-                                        values. Valid operators are In, NotIn, Exists, DoesNotExist.
-                                        Gt, and Lt.
+                                        operator represents a key's relationship to
+                                        a set of values. Valid operators are In, NotIn, Exists
+                                        and DoesNotExist.
                                       type: string
                                     values:
                                       description:
-                                        An array of string values. If the operator
-                                        is In or NotIn, the values array must be non-empty. If
-                                        the operator is Exists or DoesNotExist, the values array
-                                        must be empty. If the operator is Gt or Lt, the values
-                                        array must have a single element, which will be interpreted
-                                        as an integer. This array is replaced during a strategic
+                                        values is an array of string values. If the
+                                        operator is In or NotIn, the values array must be non-empty.
+                                        If the operator is Exists or DoesNotExist, the values
+                                        array must be empty. This array is replaced during a strategic
                                         merge patch.
                                       items:
                                         type: string
@@ -117,40 +119,16 @@ spec:
                                     - operator
                                   type: object
                                 type: array
-                              matchFields:
-                                description: A list of node selector requirements by node's fields.
-                                items:
-                                  description:
-                                    A node selector requirement is a selector that
-                                    contains values, a key, and an operator that relates the key
-                                    and values.
-                                  properties:
-                                    key:
-                                      description: The label key that the selector applies to.
-                                      type: string
-                                    operator:
-                                      description:
-                                        Represents a key's relationship to a set of
-                                        values. Valid operators are In, NotIn, Exists, DoesNotExist.
-                                        Gt, and Lt.
-                                      type: string
-                                    values:
-                                      description:
-                                        An array of string values. If the operator
-                                        is In or NotIn, the values array must be non-empty. If
-                                        the operator is Exists or DoesNotExist, the values array
-                                        must be empty. If the operator is Gt or Lt, the values
-                                        array must have a single element, which will be interpreted
-                                        as an integer. This array is replaced during a strategic
-                                        merge patch.
-                                      items:
-                                        type: string
-                                      type: array
-                                  required:
-                                    - key
-                                    - operator
-                                  type: object
-                                type: array
+                              matchLabels:
+                                additionalProperties:
+                                  type: string
+                                description:
+                                  matchLabels is a map of {key,value} pairs. A single
+                                  {key,value} in the matchLabels map is equivalent to an element
+                                  of matchExpressions, whose key field is "key", the operator
+                                  is "In", and the values array contains only "value". The requirements
+                                  are ANDed.
+                                type: object
                             type: object
                             x-kubernetes-map-type: atomic
                           tolerations:

@@ -37,9 +37,9 @@ def addEdgeNetwork(subNetwork: dict, network: str, composite: dict, dependsOnUid
             Functionio, "Cannot set name 'main' for subNetwork")
 
     try:
-        nodeSelectorTerm = subNetwork["nodeSelectorTerm"]
+        nodepoolSelector = subNetwork["nodepoolSelector"]
     except:
-        nodeSelectorTerm = {}
+        nodepoolSelector = {}
     try:
         tolerations = subNetwork["tolerations"]
     except:
@@ -80,7 +80,7 @@ def addEdgeNetwork(subNetwork: dict, network: str, composite: dict, dependsOnUid
                     "network": network,
                     "subNetwork": subNetworkName,
                     "namespace": namespace,
-                    "nodeSelectorTerm": nodeSelectorTerm,
+                    "nodepoolSelector": nodepoolSelector,
                     "tolerations": tolerations,
                     "connectionSecretRefs": {
                         "sysAccountUserSecretRef": {

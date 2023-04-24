@@ -397,7 +397,7 @@ spec:
     - name: addEdgeNetworks
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.15
+        image: siredmar/xfn-edgenetworks:v0.4.0
         timeout: 60s
         network:
           policy: Isolated

@@ -121,7 +121,7 @@ spec:
           maxMsgSize: -1
           maxMsgs: -1
           maxMsgsPerSubject: -1
-          maxBytes: 602400
+          maxBytes: 6024000
         references:
           # - firstinsmall
           - firstinbig
@@ -135,10 +135,9 @@ spec:
           - key: "edgefarm.io"
             operator: "Exists"
             effect: "NoSchedule"
-        nodeSelectorTerm:
-          matchExpressions:
-            - key: mynetwork-big
-              operator: Exists
+        nodepoolSelector:
+          matchLabels:
+            mynetwork-big: ""
       # - name: small
       #   limits:
       #     fileStorage: 200M
