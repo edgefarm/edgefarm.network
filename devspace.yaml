@@ -7,8 +7,8 @@ vars:
   creds_dir:
     command: echo .devspace/creds/
   cluster_name: edgearm-network
-
   namespaceVault: vault
+
 commands:
   help: |-
     #!/bin/bash
@@ -360,7 +360,28 @@ deployments:
         args:
           - --enable-composition-functions
           - --debug
+        resourcesCrossplane:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        resourcesRBACManager:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
         xfn:
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
           enabled: true
           args:
             - --debug
@@ -425,13 +446,20 @@ deployments:
       chart:
         name: kyverno
         repo: https://kyverno.github.io/kyverno/
-        version: "2.6.1"
+        version: "v2.5.5"
       values:
         generatecontrollerExtraResources:
           - dependencies
         replicaCount: 3
         nodeSelector:
           node-role.kubernetes.io/control-plane: ""
+        topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: kyverno
     namespace: kyverno
 
   kyverno-dependency-config:
