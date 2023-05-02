@@ -98,6 +98,11 @@ def addUser(user: dict, operator: str, account: str, networkclaim: str, secretNa
     parameterSubAllow = user["permissions"]["sub"]["allow"]
     parameterSubDeny = user["permissions"]["sub"]["deny"]
 
+    # Add "_INBOX.>" to parameterSubAllow if not already in list
+    parameterSubAllow.append("_INBOX.>")
+    # Remove duplicates
+    parameterSubAllow = list(dict.fromkeys(parameterSubAllow))
+
     try:
         user["writeToSecret"]["name"]
     except:
