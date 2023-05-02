@@ -237,8 +237,7 @@ desired:
                     - main.>
                   deny: []
                 sub:
-                  allow:
-                    - main.>
+                  allow: []
                   deny: []
             - limits:
                 data: 1000

@@ -239,7 +239,7 @@ desired:
                 deny: []
               sub:
                 allow:
-                - main.>
+                - _INBOX.>
                 deny: []
           - limits:
               data: 1000
@@ -254,6 +254,7 @@ desired:
               sub:
                 allow:
                 - '*.small.>'
+                - _INBOX.>
                 deny: []
         resourceRefs:
         - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
@@ -969,7 +970,7 @@ desired:
                 deny: []
               sub:
                 allow:
-                - main.>
+                - _INBOX.>
                 deny: []
               subs: -1
           operator: myoperator
@@ -1001,6 +1002,7 @@ desired:
               sub:
                 allow:
                 - '*.small.>'
+                - _INBOX.>
                 deny: []
               subs: 50
           operator: myoperator

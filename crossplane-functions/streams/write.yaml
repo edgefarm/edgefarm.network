@@ -136,7 +136,7 @@ desired:
               retention: Limits
               storage: File
               subjects:
-              - jakku-control-plane-1.jakku-control-plane-2.big.first.>
+              - big.first.>
             name: firstinbig
             subNetworkRef: big
             type: Standard
@@ -497,22 +497,27 @@ desired:
         forProvider:
           config:
             discard: Old
-            maxBytes: 204800
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 12024000
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
             retention: Limits
             sources:
             - external:
-                apiPrefix: $JS.mynetwork-myconfig-big-jakku-control-plane-1.API
-                deliverPrefix: ''
-              name: firstinbig
-            - external:
-                apiPrefix: $JS.mynetwork-myconfig-big-jakku-control-plane-2.API
+                apiPrefix: $JS.mynetwork-myconfig-big-jakku-worker-1.API
                 deliverPrefix: ''
               name: firstinbig
             storage: File
           domain: main
         providerConfigRef:
           name: mynetwork-myconfig
-  - name: stream-firstinbig-mynetwork-myconfig-big-jakku-control-plane-2
+  - name: stream-firstinbig-mynetwork-myconfig-big-jakku-worker-1
     resource:
       apiVersion: streams.network.edgefarm.io/v1alpha1
       kind: XStream
@@ -521,14 +526,14 @@ desired:
           crossplane.io/external-name: firstinbig
         labels:
           dependsOnUid: 6955d021-9fd5-4a27-8e57-1d19311ad1f3
-          streams.network.edgefarm.io/domain: mynetwork-myconfig-big-jakku-control-plane-2
+          streams.network.edgefarm.io/domain: mynetwork-myconfig-big-jakku-worker-1
           streams.network.edgefarm.io/namespace: myconfig
           streams.network.edgefarm.io/network: mynetwork-myconfig
-          streams.network.edgefarm.io/node: jakku-control-plane-2
+          streams.network.edgefarm.io/node: jakku-worker-1
           streams.network.edgefarm.io/stream: firstinbig
           streams.network.edgefarm.io/subnetwork: big
           streams.network.edgefarm.io/type: Standard
-        name: firstinbig-mynetwork-myconfig-big-jakku-control-plane-2
+        name: firstinbig-mynetwork-myconfig-big-jakku-worker-1
       spec:
         forProvider:
           config:
@@ -546,46 +551,8 @@ desired:
             retention: Limits
             storage: File
             subjects:
-            - jakku-control-plane-1.jakku-control-plane-2.big.first.>
-          domain: mynetwork-myconfig-big-jakku-control-plane-2
-        providerConfigRef:
-          name: mynetwork-myconfig
-  - name: stream-firstinbig-mynetwork-myconfig-big-jakku-control-plane-1
-    resource:
-      apiVersion: streams.network.edgefarm.io/v1alpha1
-      kind: XStream
-      metadata:
-        annotations:
-          crossplane.io/external-name: firstinbig
-        labels:
-          dependsOnUid: 6955d021-9fd5-4a27-8e57-1d19311ad1f3
-          streams.network.edgefarm.io/domain: mynetwork-myconfig-big-jakku-control-plane-1
-          streams.network.edgefarm.io/namespace: myconfig
-          streams.network.edgefarm.io/network: mynetwork-myconfig
-          streams.network.edgefarm.io/node: jakku-control-plane-1
-          streams.network.edgefarm.io/stream: firstinbig
-          streams.network.edgefarm.io/subnetwork: big
-          streams.network.edgefarm.io/type: Standard
-        name: firstinbig-mynetwork-myconfig-big-jakku-control-plane-1
-      spec:
-        forProvider:
-          config:
-            discard: Old
-            discardNewPerSubject: false
-            duplicates: 2m0s
-            maxAge: 0s
-            maxBytes: 5024000
-            maxConsumers: -1
-            maxMsgSize: -1
-            maxMsgs: -1
-            maxMsgsPerSubject: -1
-            noAck: false
-            replicas: 1
-            retention: Limits
-            storage: File
-            subjects:
-            - jakku-control-plane-1.jakku-control-plane-2.big.first.>
-          domain: mynetwork-myconfig-big-jakku-control-plane-1
+            - jakku-worker-1.big.first.>
+          domain: mynetwork-myconfig-big-jakku-worker-1
         providerConfigRef:
           name: mynetwork-myconfig
 observed:
