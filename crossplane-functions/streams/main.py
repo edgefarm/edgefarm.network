@@ -101,6 +101,9 @@ def addAggregateStreams(address: str, port: str, stream: dict, network: str, dom
         if domain == "main":
             domainInName = "%s-main" % (network)
 
+        config = stream["config"].copy()
+        config["sources"] = addAggregateSource(accumulatedDomains['domains'])
+
         ret["resources"].append(
             {
                 "name": "stream-"+name+"-"+domainInName,
@@ -127,13 +130,7 @@ def addAggregateStreams(address: str, port: str, stream: dict, network: str, dom
                     "spec": {
                         "forProvider": {
                             "domain": domain,
-                            "config": {
-                                "retention": "Limits",
-                                "storage": "File",
-                                "maxBytes": 204800,
-                                "discard": "Old",
-                                "sources": addAggregateSource(accumulatedDomains['domains'])
-                            }
+                            "config": config,
                         },
                         "providerConfigRef": {
                             "name": providerConfig
