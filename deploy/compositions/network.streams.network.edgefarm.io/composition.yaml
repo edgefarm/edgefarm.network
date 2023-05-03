@@ -375,7 +375,7 @@ spec:
     - name: addStreams
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-streams:1.0.0-beta.18
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-streams:1.0.0-beta.19
         imagePullPolicy: IfNotPresent
         timeout: 60s
         network:
@@ -384,7 +384,7 @@ spec:
     - name: addEdgeNetworks
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.18
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:1.0.0-beta.19
         timeout: 60s
         network:
           policy: Isolated
@@ -392,7 +392,7 @@ spec:
     - name: addUsers
       type: Container
       container:
-        image: ghcr.io/edgefarm/edgefarm.network/xfn-users:1.0.0-beta.18
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-users:1.0.0-beta.19
         timeout: 60s
         network:
           policy: Isolated
