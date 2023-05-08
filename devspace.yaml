@@ -177,7 +177,6 @@ pipelines:
     run_pipelines deploy-edgenetwork-operator
     run_pipelines deploy-network-resource-info
     run_pipelines deploy-kyverno
-    run_pipelines deploy-compositions-definitions
     run_pipelines deploy-compositions
 
   init: |-
@@ -289,20 +288,15 @@ pipelines:
     create_deployments network-resource-info
     wait_for_deployment network-resource-info crossplane-system
 
-  deploy-compositions-definitions: |-
-    #!/bin/bash
-    set -e
-    devspace run check-prerequisites
-    create_deployments compositions-definitions
-    wait_for_crd networks.streams.network.edgefarm.io
-    wait_for_crd streams.streams.network.edgefarm.io
-    wait_for_crd edgenetworks.streams.network.edgefarm.io
 
   deploy-compositions: |-
     #!/bin/bash
     set -e
     devspace run check-prerequisites
     create_deployments compositions
+    wait_for_crd networks.streams.network.edgefarm.io
+    wait_for_crd streams.streams.network.edgefarm.io
+    wait_for_crd edgenetworks.streams.network.edgefarm.io
 
 deployments:
   local-path-provisioner:
@@ -385,19 +379,11 @@ deployments:
             - --debug
     namespace: crossplane-system
 
-  compositions-definitions:
-    kubectl:
-      manifests:
-        - deploy/compositions/edgenetwork.streams.network.edgefarm.io/definition.yaml
-        - deploy/compositions/stream.streams.network.edgefarm.io/definition.yaml
-        - deploy/compositions/network.streams.network.edgefarm.io/definition.yaml
-
   compositions:
     kubectl:
+      kustomize: true
       manifests:
-        - deploy/compositions/edgenetwork.streams.network.edgefarm.io/composition-edgenetworks.yaml
-        - deploy/compositions/stream.streams.network.edgefarm.io/composition-streams.yaml
-        - deploy/compositions/network.streams.network.edgefarm.io/composition.yaml
+        - deploy/compositions
 
   provider-natssecrets:
     kubectl:

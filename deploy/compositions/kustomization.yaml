@@ -1,0 +1,4 @@
+resources:
+  - "edgenetwork.streams.network.edgefarm.io"
+  - "network.streams.network.edgefarm.io"
+  - "stream.streams.network.edgefarm.io"
