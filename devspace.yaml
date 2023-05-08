@@ -169,7 +169,7 @@ functions:
 
 pipelines:
   deploy-all: |-
-    run_pipelines deploy-vault 
+    run_pipelines deploy-vault
     run_pipelines deploy-crossplane
     run_pipelines deploy-crossplane-providers
     run_pipelines configure-network-base-config
@@ -201,9 +201,7 @@ pipelines:
     set -e
     create_deployments kyverno
     wait_for_deployment kyverno kyverno
-    create_deployments kyverno-dependency-config
-    wait_for_crd dependencies.dummy.crds.com
-    create_deployments kyverno-dependency-policies
+    create_deployments kyverno-dependency
 
   deploy-vault: |-
     #!/bin/bash
@@ -462,17 +460,9 @@ deployments:
                 app.kubernetes.io/name: kyverno
     namespace: kyverno
 
-  kyverno-dependency-config:
+  kyverno-dependency:
     kubectl:
+      kustomize: true
       manifests:
-        - dev/manifests/kyverno/dependency_crd.yaml
-        - dev/manifests/kyverno/clusterrole.yaml
-    namespace: kyverno
-
-  kyverno-dependency-policies:
-    kubectl:
-      manifests:
-        - dev/manifests/kyverno/add-dependency-policy.yaml
-        - dev/manifests/kyverno/add-second-dependency-policy.yaml
-        - dev/manifests/kyverno/block-delete-policy.yaml
+      - deploy/kyverno/
     namespace: kyverno
