@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nats
+  name: nats-naboo
   namespace: nats
   labels:
-    app.kubernetes.io/name: nats
+    app.kubernetes.io/name: nats-naboo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: nats
+      app.kubernetes.io/name: nats-naboo
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: nats
+        app.kubernetes.io/name: nats-naboo
     spec:
       containers:
         - name: nats
@@ -23,7 +23,7 @@ spec:
             - "-c"
             - "/etc/nats-config/nats.conf"
           volumeMounts:
-            - name: nats-config
+            - name: nats-naboo-config
               mountPath: /etc/nats-config
           resources:
             limits:
@@ -33,6 +33,6 @@ spec:
               cpu: 0.5m
               memory: 256Mi
       volumes:
-        - name: nats-config
+        - name: nats-naboo-config
           configMap:
-            name: nats-config
+            name: nats-naboo-config

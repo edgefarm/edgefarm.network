@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nats-config
+  name: nats-naboo-config
   namespace: nats
 data:
   nats.conf: |
