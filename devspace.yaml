@@ -6,7 +6,7 @@ vars:
     command: echo $HOME/.devspace/ca/
   creds_dir:
     command: echo .devspace/creds/
-  cluster_name: edgefarm-network
+  cluster_name: edgearm-network
   namespaceVault: vault
 
 commands:
@@ -174,10 +174,10 @@ pipelines:
     run_pipelines deploy-crossplane-providers
     run_pipelines configure-network-base-config
     run_pipelines deploy-nats
-    # run_pipelines deploy-edgenetwork-operator
-    # run_pipelines deploy-network-resource-info
-    # run_pipelines deploy-kyverno
-    # run_pipelines deploy-compositions
+    run_pipelines deploy-edgenetwork-operator
+    run_pipelines deploy-network-resource-info
+    run_pipelines deploy-kyverno
+    run_pipelines deploy-compositions
 
   init: |-
     #!/bin/bash
@@ -259,7 +259,8 @@ pipelines:
     #!/bin/bash
     set -e
     devspace run check-prerequisites
-    OPERATOR=$(kubectl get operators -o jsonpath='{.items[0].metadata.name}')
+    OPERATOR=naboo-core
+    #$(kubectl get operators -o jsonpath='{.items[0].metadata.name}')
     OPERATOR_JWT=$(kubectl get secrets $OPERATOR -n crossplane-system -o jsonpath='{.data.jwt}' | base64 -d)
     SYS_ACCOUNT_PUBLIC_KEY=$(kubectl get secrets sys -n crossplane-system -o jsonpath='{.data.pub}' | base64 -d)
     SYS_ACCOUNT_JWT=$(kubectl get secrets sys -n crossplane-system -o jsonpath='{.data.jwt}' | base64 -d)
