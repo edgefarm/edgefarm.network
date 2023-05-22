@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: network-dependencies-webhook
+  annotations:
+    cert-manager.io/inject-ca-from: crossplane-system/network-dependencies-webhook
+webhooks:
+  - name: network-dependencies-webhook.crossplane-system.svc
+    sideEffects: "None"
+    objectSelector:
+      matchLabels:
+        network.edgefarm.io/type: leaf
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: network-dependencies-webhook
+        namespace: crossplane-system
+        path: /validate
+      caBundle: Cg==
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["DELETE"]
+        resources: ["pods"]

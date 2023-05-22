@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-dependencies-webhook
+  namespace: crossplane-system
+  labels:
+    app: network-dependencies-webhook
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: network-dependencies-webhook
+  template:
+    metadata:
+      labels:
+        app: network-dependencies-webhook
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      serviceAccountName: network-dependencies-webhook
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1234
+      containers:
+        - name: server
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128M
+            requests:
+              cpu: 100m
+              memory: 64M
+          image: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+              name: tls
+          volumeMounts:
+            - name: webhook-tls-certs
+              mountPath: /etc/webhook/certs/
+              readOnly: true
+      volumes:
+        - name: webhook-tls-certs
+          secret:
+            secretName: network-dependencies-webhook-server-cert

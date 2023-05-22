@@ -6,7 +6,7 @@ vars:
     command: echo $HOME/.devspace/ca/
   creds_dir:
     command: echo .devspace/creds/
-  cluster_name: edgearm-network
+  cluster_name: edgefarm-network
   namespaceVault: vault
 
 commands:
@@ -288,7 +288,6 @@ pipelines:
     create_deployments network-resource-info
     wait_for_deployment network-resource-info crossplane-system
 
-
   deploy-compositions: |-
     #!/bin/bash
     set -e
@@ -450,5 +449,5 @@ deployments:
     kubectl:
       kustomize: true
       manifests:
-      - deploy/kyverno/
+        - deploy/kyverno/
     namespace: kyverno
