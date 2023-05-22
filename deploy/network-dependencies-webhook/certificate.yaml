@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: network-dependencies-selfsigned-issuer
+  namespace: crossplane-system
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: network-dependencies-webhook
+  namespace: crossplane-system
+spec:
+  commonName: network-dependencies-webhook.crossplane-system.svc
+  dnsNames:
+    - network-dependencies-webhook.crossplane-system.svc.cluster.local
+    - network-dependencies-webhook.crossplane-system.svc
+  issuerRef:
+    kind: Issuer
+    name: network-dependencies-selfsigned-issuer
+  secretName: network-dependencies-webhook-server-cert

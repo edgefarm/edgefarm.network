@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-dependencies-webhook
+  namespace: crossplane-system
+spec:
+  ports:
+    - port: 443
+      protocol: TCP
+      targetPort: tls
+      name: https-webhook
+  selector:
+    app: network-dependencies-webhook
+  sessionAffinity: None
+  type: ClusterIP

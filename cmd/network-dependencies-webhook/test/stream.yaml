@@ -1,0 +1,30 @@
+apiVersion: streams.network.edgefarm.io/v1alpha1
+kind: XStream
+metadata:
+  name: mystream
+  annotations:
+    crossplane.io/external-name: foo
+  labels:
+    streams.network.edgefarm.io/node: edgefarm-network-worker
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    config:
+      discard: Old
+      discardNewPerSubject: false
+      duplicates: 2m0s
+      maxAge: 0s
+      maxBytes: 102400
+      maxConsumers: -1
+      maxMsgSize: -1
+      maxMsgs: -1
+      maxMsgsPerSubject: -1
+      noAck: false
+      replicas: 1
+      retention: Limits
+      storage: File
+      subjects:
+        - foo.>
+    domain: main
+  providerConfigRef:
+    name: myconfig
