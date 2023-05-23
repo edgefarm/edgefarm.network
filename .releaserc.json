@@ -145,25 +145,25 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-users:.*#ghcr.io/edgefarm/edgefarm.network/xfn-users:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition.yaml"
+        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-users:.*#ghcr.io/edgefarm/edgefarm.network/xfn-users:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
       }
     ],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-streams:.*#ghcr.io/edgefarm/edgefarm.network/xfn-streams:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition.yaml"
+        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-streams:.*#ghcr.io/edgefarm/edgefarm.network/xfn-streams:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
       }
     ],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:.*#ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition.yaml"
+        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:.*#ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
       }
     ],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook:.*#ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition.yaml"
+        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook:.*#ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
       }
     ],
     [
@@ -176,7 +176,7 @@
       "@semantic-release/git",
       {
         "assets": [
-          "deploy/compositions/network.streams.network.edgefarm.io/composition.yaml",
+          "deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml",
           "deploy/network-resource-info/deployment.yaml",
           "deploy/network-dependencies-webhook/deployment.yaml"
         ],
