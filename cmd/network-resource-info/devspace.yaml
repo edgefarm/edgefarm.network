@@ -29,10 +29,10 @@ dev:
     namespace: crossplane-system
     terminal: {}
     ports:
-      - port: "2346"
+      - port: "2345"
       - port: "9090"
     sync:
-      - path: ./:/app
+      - path: ./../../:/app
         excludePaths:
           - .git
     patches:

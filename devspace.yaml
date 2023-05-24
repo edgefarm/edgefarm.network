@@ -176,6 +176,7 @@ pipelines:
     run_pipelines deploy-nats
     run_pipelines deploy-edgenetwork-operator
     run_pipelines deploy-network-resource-info
+    run_pipelines deploy-network-dependencies-webhook
     run_pipelines deploy-kyverno
     run_pipelines deploy-compositions
 
@@ -287,6 +288,13 @@ pipelines:
     devspace run check-prerequisites
     create_deployments network-resource-info
     wait_for_deployment network-resource-info crossplane-system
+
+  deploy-network-dependencies-webhook: |-
+    #!/bin/bash
+    set -e
+    devspace run check-prerequisites
+    create_deployments network-dependencies-webhook
+    wait_for_deployment network-dependencies-webhook crossplane-system
 
   deploy-compositions: |-
     #!/bin/bash
@@ -420,8 +428,16 @@ deployments:
 
   network-resource-info:
     kubectl:
+      kustomize: true
       manifests:
         - deploy/network-resource-info
+    namespace: crossplane-system
+
+  network-dependencies-webhook:
+    kubectl:
+      kustomize: true
+      manifests:
+        - deploy/network-dependencies-webhook
     namespace: crossplane-system
 
   kyverno:

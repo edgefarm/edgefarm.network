@@ -2,7 +2,7 @@ FROM golang:1.20-alpine as build
 
 WORKDIR /app
 COPY . .
-RUN cd /app/cmd/network-resource-info && CGO_ENABLED=0 GOOS=linux go build -o /webhook 
+RUN cd /app/cmd/network-dependencies-webhook && CGO_ENABLED=0 GOOS=linux go build -o /webhook 
 
 FROM alpine:3.17 as runtime
 
