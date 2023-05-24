@@ -13,6 +13,7 @@ rules:
     resources:
       - "pods"
     verbs:
+      - "update"
       - "get"
       - "watch"
       - "list"

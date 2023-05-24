@@ -7,7 +7,7 @@ spec:
   ports:
     - port: 443
       protocol: TCP
-      targetPort: tls
+      targetPort: 8443
       name: https-webhook
   selector:
     app: network-dependencies-webhook

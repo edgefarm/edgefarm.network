@@ -30,7 +30,6 @@ dev:
     terminal: {}
     ports:
       - port: "2346"
-      - port: "9090"
     sync:
       - path: ./../../:/app
         excludePaths:

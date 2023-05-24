@@ -11,6 +11,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/edgefarm/edgefarm.network/internal/common"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -93,6 +95,11 @@ func subNetworkDomains(ctx context.Context, c *kubernetes.Clientset, path *Path)
 			if strings.HasPrefix(l, "subnetwork.network.edgefarm.io/") {
 				sub = strings.TrimPrefix(l, "subnetwork.network.edgefarm.io/")
 			}
+		}
+
+		// only append pod to domains list of it doesn't have the label "marked for deletion"
+		if pod.Labels[common.MarkedForDeletionLabelKey] == common.MarkedForDeletionLabelValue {
+			continue
 		}
 
 		domains = append(domains, Domain{
