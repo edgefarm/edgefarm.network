@@ -1,0 +1,2389 @@
+config:
+  apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+  kind: Config
+  spec:
+    webhookURL: https://webhook.site/59bf2daa-dcbe-44d9-a34a-8f8fe7a19e21
+desired:
+  composite:
+    connectionDetails: []
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"accel","namespace":"accel"},"spec":{"compositeDeletePolicy":"Foreground","parameters":{"consumers":[{"config":{"ackPolicy":"Explicit","ackWait":"30s","deliverPolicy":"All","numReplicas":0,"pull":{},"replayPolicy":"Instant"},"name":"aggregate","streamRef":"aggregate"},{"config":{"ackPolicy":"Explicit","ackWait":"30s","deliverPolicy":"All","numReplicas":0,"pull":{},"replayPolicy":"Instant"},"name":"accel-stream","streamRef":"accel-stream"}],"streams":[{"config":{"discard":"Old","maxBytes":104857600,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["accel"]},"name":"accel-stream","subNetworkRef":"colibri","type":"Standard"},{"config":{"discard":"Old","maxBytes":524288000,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"aggregate","references":["accel-stream"],"type":"Aggregate"}],"subNetworks":[{"limits":{"fileStorage":"200M","inMemoryStorage":"100M"},"name":"colibri","nodepoolSelector":{"matchLabels":{"edge-device-type":"colibri"}},"tolerations":[{"effect":"NoSchedule","key":"edgefarm.io","operator":"Exists"}]}],"users":[{"limits":{"data":-1,"payload":-1,"subscriptions":-1},"name":"publish","permissions":{"pub":{"allow":["*.accel","$JS.API.CONSUMER.\u003e","$JS.ACK.\u003e"]},"sub":{"allow":["*.accel"]}}}]}}}
+
+            '
+        creationTimestamp: 2023-05-25 09:16:08+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generateName: accel-
+        generation: 21
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:kubectl.kubernetes.io/last-applied-configuration: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+            f:spec:
+              .: {}
+              f:claimRef:
+                .: {}
+                f:apiVersion: {}
+                f:kind: {}
+                f:name: {}
+                f:namespace: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:parameters:
+                .: {}
+                f:consumers: {}
+                f:streams: {}
+                f:subNetworks: {}
+                f:users: {}
+              f:resourceRefs: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:16:27+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:conditions: {}
+              f:connectionDetails:
+                .: {}
+                f:lastPublishedTime: {}
+              f:operator: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:16:44+00:00
+        name: accel-z2s8d
+        resourceVersion: '183137'
+        uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: accel
+          namespace: accel
+        compositionRef:
+          name: xnetworks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xnetworks.streams.network.edgefarm.io-ba6b955
+        compositionUpdatePolicy: Automatic
+        parameters:
+          consumers:
+          - config:
+              ackPolicy: Explicit
+              ackWait: 30s
+              deliverPolicy: All
+              maxAckPending: 1000
+              maxDeliver: -1
+              numReplicas: 0
+              pull:
+                maxWaiting: 512
+              replayPolicy: Instant
+            name: aggregate
+            streamRef: aggregate
+          - config:
+              ackPolicy: Explicit
+              ackWait: 30s
+              deliverPolicy: All
+              maxAckPending: 1000
+              maxDeliver: -1
+              numReplicas: 0
+              pull:
+                maxWaiting: 512
+              replayPolicy: Instant
+            name: accel-stream
+            streamRef: accel-stream
+          streams:
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 104857600
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - accel
+            name: accel-stream
+            subNetworkRef: colibri
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 524288000
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: aggregate
+            references:
+            - accel-stream
+            subNetworkRef: main
+            type: Aggregate
+          subNetworks:
+          - limits:
+              fileStorage: 200M
+              inMemoryStorage: 100M
+            name: colibri
+            nodepoolSelector:
+              matchLabels:
+                edge-device-type: colibri
+            tolerations:
+            - effect: NoSchedule
+              key: edgefarm.io
+              operator: Exists
+          users:
+          - limits:
+              data: -1
+              payload: -1
+              subscriptions: -1
+            name: publish
+            permissions:
+              pub:
+                allow:
+                - '*.accel'
+                - $JS.API.CONSUMER.>
+                - $JS.ACK.>
+                deny: []
+              sub:
+                allow:
+                - '*.accel'
+                - _INBOX.>
+                deny: []
+        resourceRefs:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: Account
+          name: accel-accel
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-publish
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-sys-account-user
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-system
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: accel-accel-get-network-base-config
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: ProviderConfig
+          name: accel-accel
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XEdgeNetwork
+          name: accel-accel-colibri
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XStream
+          name: accel-stream-accel-accel-colibri-openyurt-worker3
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XStream
+          name: aggregate-accel-accel-main
+        writeConnectionSecretToRef:
+          name: c47497c1-2c48-4dec-b402-6347f45e2564
+          namespace: crossplane-system
+      status:
+        account: 83437580-8b47-4c50-a8b8-37b97e52357c
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:16:44+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:16:44+00:00
+          reason: Creating
+          status: 'False'
+          type: Ready
+        connectionDetails:
+          lastPublishedTime: 2023-05-25 09:16:44+00:00
+        operator: myoperator
+        system: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+  resources:
+  - name: account
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: Account
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: account
+          crossplane.io/external-name: accel-accel
+        generateName: accel-z2s8d-
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          external-name: accel-accel
+        name: accel-accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        forProvider:
+          claims:
+            account:
+              limits:
+                conn: -1
+                consumer: -1
+                data: -1
+                diskStorage: -1
+                exports: -1
+                imports: -1
+                leafNodeConn: -1
+                memStorage: -1
+                payload: -1
+                streams: -1
+                subs: -1
+                wildcardExports: true
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-account
+          namespace: crossplane-system
+  - name: provider-nats-config
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: ProviderConfig
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: provider-nats-config
+        generateName: accel-z2s8d-
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+        name: accel-accel
+        namespace: accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        credentials:
+          secretRef:
+            key: provider-config-secret
+            name: accel-accel-system
+            namespace: accel
+          source: Secret
+  - name: sys-account-user
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: sys-account-user
+        generateName: accel-z2s8d-
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        name: accel-accel-sys-account-user
+        namespace: accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        forProvider:
+          account: sys
+          claims:
+            user:
+              data: -1
+              payload: -1
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-sys-account-user
+          namespace: accel
+  - name: system
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: system
+        generateName: accel-z2s8d-
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        name: accel-accel-system
+        namespace: accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        forProvider:
+          account: accel-accel
+          claims:
+            user:
+              data: -1
+              payload: -1
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-system
+          namespace: accel
+  - name: get-network-base-config
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: get-network-base-config
+        generateName: accel-z2s8d-
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+        name: accel-accel-get-network-base-config
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        forProvider:
+          manifest:
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: network-base-config
+              namespace: crossplane-system
+        managementPolicy: Observe
+        providerConfigRef:
+          name: provider-kubernetes
+  - name: stream-aggregate-accel-accel-main
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XStream
+      metadata:
+        annotations:
+          crossplane.io/external-name: aggregate
+        labels:
+          dependsOnUid: 7fa851df-3da0-4c11-b1a7-6a00a3ea34f7
+          streams.network.edgefarm.io/domain: main
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: ''
+          streams.network.edgefarm.io/stream: aggregate
+          streams.network.edgefarm.io/subnetwork: main
+          streams.network.edgefarm.io/type: Standard
+        name: aggregate-accel-accel-main
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 524288000
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            sources:
+            - external:
+                apiPrefix: $JS.accel-accel-colibri-openyurt-worker3.API
+                deliverPrefix: ''
+              name: accel-stream
+            storage: File
+          domain: main
+        providerConfigRef:
+          name: accel-accel
+  - name: stream-accel-stream-accel-accel-colibri-openyurt-worker3
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XStream
+      metadata:
+        annotations:
+          crossplane.io/external-name: accel-stream
+        labels:
+          dependsOnUid: 7fa851df-3da0-4c11-b1a7-6a00a3ea34f7
+          streams.network.edgefarm.io/domain: accel-accel-colibri-openyurt-worker3
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: openyurt-worker3
+          streams.network.edgefarm.io/stream: accel-stream
+          streams.network.edgefarm.io/subnetwork: colibri
+          streams.network.edgefarm.io/type: Standard
+        name: accel-stream-accel-accel-colibri-openyurt-worker3
+      spec:
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 104857600
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - openyurt-worker3.accel
+          domain: accel-accel-colibri-openyurt-worker3
+        providerConfigRef:
+          name: accel-accel
+  - name: colibri
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XEdgeNetwork
+      metadata:
+        labels:
+          dependsOnSecondUid: b98177fb-eb00-4791-afd0-35d5ccde67bf
+          dependsOnUid: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+        name: accel-accel-colibri
+      spec:
+        connectionSecretRefs:
+          sysAccountUserSecretRef:
+            name: accel-accel-sys-account-user
+          systemUserSecretRef:
+            name: accel-accel-system
+        limits:
+          fileStorage: 200M
+          inMemoryStorage: 100M
+        namespace: accel
+        network: accel-accel
+        nodepoolSelector:
+          matchLabels:
+            edge-device-type: colibri
+        subNetwork: colibri
+        tolerations:
+        - effect: NoSchedule
+          key: edgefarm.io
+          operator: Exists
+  - name: user-publish
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        labels:
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        name: accel-accel-publish
+      name: accel-accel-publish
+      spec:
+        forProvider:
+          account: accel-accel
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub:
+                allow:
+                - '*.accel'
+                - $JS.API.CONSUMER.>
+                - $JS.ACK.>
+                deny: []
+              sub:
+                allow:
+                - '*.accel'
+                - _INBOX.>
+                deny: []
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-publish
+          namespace: accel
+  - name: consumer-aggregate-aggregate-accel-accel-main
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XConsumer
+      metadata:
+        annotations:
+          crossplane.io/external-name: aggregate
+        labels:
+          dependsOnUid: 3ca4b61b-fd82-452e-8ee8-b2443f9efc66
+          streams.network.edgefarm.io/domain: main
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: ''
+          streams.network.edgefarm.io/stream: aggregate
+          streams.network.edgefarm.io/subnetwork: main
+        name: aggregate-aggregate-accel-accel-main
+      spec:
+        forProvider:
+          config:
+            ackPolicy: Explicit
+            ackWait: 30s
+            deliverPolicy: All
+            maxAckPending: 1000
+            maxDeliver: -1
+            numReplicas: 0
+            pull:
+              maxWaiting: 512
+            replayPolicy: Instant
+          domain: main
+          stream: aggregate
+        providerConfigRef:
+          name: accel-accel
+  - name: consumer-accel-stream-accel-stream-accel-accel-colibri-openyurt-worker3
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XConsumer
+      metadata:
+        annotations:
+          crossplane.io/external-name: accel-stream
+        labels:
+          dependsOnUid: 3287e611-2a64-4760-a318-78f53b9b61a4
+          streams.network.edgefarm.io/domain: accel-accel-colibri-openyurt-worker3
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: openyurt-worker3
+          streams.network.edgefarm.io/stream: accel-stream
+          streams.network.edgefarm.io/subnetwork: colibri
+        name: accel-stream-accel-stream-accel-accel-colibri-openyurt-worker3
+      spec:
+        forProvider:
+          config:
+            ackPolicy: Explicit
+            ackWait: 30s
+            deliverPolicy: All
+            maxAckPending: 1000
+            maxDeliver: -1
+            numReplicas: 0
+            pull:
+              maxWaiting: 512
+            replayPolicy: Instant
+          domain: accel-accel-colibri-openyurt-worker3
+          stream: accel-stream
+        providerConfigRef:
+          name: accel-accel
+observed:
+  composite:
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XNetwork
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"streams.network.edgefarm.io/v1alpha1","kind":"Network","metadata":{"annotations":{},"name":"accel","namespace":"accel"},"spec":{"compositeDeletePolicy":"Foreground","parameters":{"consumers":[{"config":{"ackPolicy":"Explicit","ackWait":"30s","deliverPolicy":"All","numReplicas":0,"pull":{},"replayPolicy":"Instant"},"name":"aggregate","streamRef":"aggregate"},{"config":{"ackPolicy":"Explicit","ackWait":"30s","deliverPolicy":"All","numReplicas":0,"pull":{},"replayPolicy":"Instant"},"name":"accel-stream","streamRef":"accel-stream"}],"streams":[{"config":{"discard":"Old","maxBytes":104857600,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File","subjects":["accel"]},"name":"accel-stream","subNetworkRef":"colibri","type":"Standard"},{"config":{"discard":"Old","maxBytes":524288000,"maxConsumers":-1,"maxMsgSize":-1,"maxMsgs":-1,"maxMsgsPerSubject":-1,"retention":"Limits","storage":"File"},"name":"aggregate","references":["accel-stream"],"type":"Aggregate"}],"subNetworks":[{"limits":{"fileStorage":"200M","inMemoryStorage":"100M"},"name":"colibri","nodepoolSelector":{"matchLabels":{"edge-device-type":"colibri"}},"tolerations":[{"effect":"NoSchedule","key":"edgefarm.io","operator":"Exists"}]}],"users":[{"limits":{"data":-1,"payload":-1,"subscriptions":-1},"name":"publish","permissions":{"pub":{"allow":["*.accel","$JS.API.CONSUMER.\u003e","$JS.ACK.\u003e"]},"sub":{"allow":["*.accel"]}}}]}}}
+
+            '
+        creationTimestamp: 2023-05-25 09:16:08+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generateName: accel-
+        generation: 21
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:kubectl.kubernetes.io/last-applied-configuration: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+            f:spec:
+              .: {}
+              f:claimRef:
+                .: {}
+                f:apiVersion: {}
+                f:kind: {}
+                f:name: {}
+                f:namespace: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:parameters:
+                .: {}
+                f:consumers: {}
+                f:streams: {}
+                f:subNetworks: {}
+                f:users: {}
+              f:resourceRefs: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:16:27+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:conditions: {}
+              f:connectionDetails:
+                .: {}
+                f:lastPublishedTime: {}
+              f:operator: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:16:44+00:00
+        name: accel-z2s8d
+        resourceVersion: '183137'
+        uid: c47497c1-2c48-4dec-b402-6347f45e2564
+      spec:
+        claimRef:
+          apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: Network
+          name: accel
+          namespace: accel
+        compositionRef:
+          name: xnetworks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xnetworks.streams.network.edgefarm.io-ba6b955
+        compositionUpdatePolicy: Automatic
+        parameters:
+          consumers:
+          - config:
+              ackPolicy: Explicit
+              ackWait: 30s
+              deliverPolicy: All
+              maxAckPending: 1000
+              maxDeliver: -1
+              numReplicas: 0
+              pull:
+                maxWaiting: 512
+              replayPolicy: Instant
+            name: aggregate
+            streamRef: aggregate
+          - config:
+              ackPolicy: Explicit
+              ackWait: 30s
+              deliverPolicy: All
+              maxAckPending: 1000
+              maxDeliver: -1
+              numReplicas: 0
+              pull:
+                maxWaiting: 512
+              replayPolicy: Instant
+            name: accel-stream
+            streamRef: accel-stream
+          streams:
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 104857600
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+              subjects:
+              - accel
+            name: accel-stream
+            subNetworkRef: colibri
+            type: Standard
+          - config:
+              discard: Old
+              discardNewPerSubject: false
+              duplicates: 2m0s
+              maxAge: 0s
+              maxBytes: 524288000
+              maxConsumers: -1
+              maxMsgSize: -1
+              maxMsgs: -1
+              maxMsgsPerSubject: -1
+              noAck: false
+              replicas: 1
+              retention: Limits
+              storage: File
+            name: aggregate
+            references:
+            - accel-stream
+            subNetworkRef: main
+            type: Aggregate
+          subNetworks:
+          - limits:
+              fileStorage: 200M
+              inMemoryStorage: 100M
+            name: colibri
+            nodepoolSelector:
+              matchLabels:
+                edge-device-type: colibri
+            tolerations:
+            - effect: NoSchedule
+              key: edgefarm.io
+              operator: Exists
+          users:
+          - limits:
+              data: -1
+              payload: -1
+              subscriptions: -1
+            name: publish
+            permissions:
+              pub:
+                allow:
+                - '*.accel'
+                - $JS.API.CONSUMER.>
+                - $JS.ACK.>
+              sub:
+                allow:
+                - '*.accel'
+        resourceRefs:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: Account
+          name: accel-accel
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-publish
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-sys-account-user
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          kind: User
+          name: accel-accel-system
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: accel-accel-get-network-base-config
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: ProviderConfig
+          name: accel-accel
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XEdgeNetwork
+          name: accel-accel-colibri
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XStream
+          name: accel-stream-accel-accel-colibri-openyurt-worker3
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          kind: XStream
+          name: aggregate-accel-accel-main
+        writeConnectionSecretToRef:
+          name: c47497c1-2c48-4dec-b402-6347f45e2564
+          namespace: crossplane-system
+      status:
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:16:44+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:16:44+00:00
+          reason: Creating
+          status: 'False'
+          type: Ready
+        connectionDetails:
+          lastPublishedTime: 2023-05-25 09:16:44+00:00
+        operator: myoperator
+  resources:
+  - connectionDetails:
+    - name: address
+      value: nats://nats.nats:4222
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiI0SDRDNzQ2WFZDRUhONUNXUVM2VEFSRlhCSlNKQ1hJQ0Q0TldJQUk3RkxBQUpXUUFESkFBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQzU2UkxQSDNNNTZXWkE1VVNXVlZEV0JHUU9CRE5JNlJHTVZYVlZBUVAzWUE3RzVRSlhJSElaTyIsInN1YiI6IlVCTzZES0pIWFA2T0xHM0pPQVJWSkZWT0I1Q0U2N1VWVFM3SkM2TE1UNjc1WTJEVTJHNk5RTkQyIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.WGABfLTsxeSHg3lK21xXf58ZTyvHFZ8oiniFDfC6vNtY4OL0ZIcG4TDlKSWPRZrNBl0RYcJxPbpYuiv8xya4Dw
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUANT5LV2256SZXDVTF25UWR7I2764SBC4Y65CIAWE5CYCXWHJBU5RDCEA
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: operator-jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJNUE1EM1ZHNUlKVk1PRkhJWkg0RldUN0U2VUJOWEFVVzQ3QllMR0ZRU1hSVUlGRkI3N0tRIiwiaWF0IjoxNjg0OTU3MzExLCJpc3MiOiJPQzJPV0RMQTdNNVpJRUhBVTVUU1lOQkxDWkhGUjdFQkg2VFNCMkRIQktST0NJT05aWUQ0VkhGRyIsInN1YiI6Ik9DMk9XRExBN001WklFSEFVNVRTWU5CTENaSEZSN0VCSDZUU0IyREhCS1JPQ0lPTlpZRDRWSEZHIiwibmF0cyI6eyJhY2NvdW50X3NlcnZlcl91cmwiOiJuYXRzOi8vbmF0cy5uYXRzOjQyMjIiLCJvcGVyYXRvcl9zZXJ2aWNlX3VybHMiOlsibmF0czovL25hdHMubmF0czo0MjIyIl0sInN5c3RlbV9hY2NvdW50IjoiQUM1NlJMUEgzTTU2V1pBNVVTV1ZWRFdCR1FPQkROSTZSR01WWFZWQVFQM1lBN0c1UUpYSUhJWk8iLCJ0eXBlIjoib3BlcmF0b3IiLCJ2ZXJzaW9uIjoyfX0.1vRXIDqMZ7AlkvyVy8JkdEZQaO8l0Ch9geXprbXTxQkjhdd_UXVo9vFHD2KqVBSB6DU4LKUOrH3pNAHZzjBBBQ
+    - name: sys-account-jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJFMlFYSjVBTEtER1IyNU1LRURUSE5GSzVTRFI0RlFRSTM2WTVNMkVFUkNXM0Q2RUEzWE5RIiwiaWF0IjoxNjg1MDA1OTQ2LCJpc3MiOiJPQzJPV0RMQTdNNVpJRUhBVTVUU1lOQkxDWkhGUjdFQkg2VFNCMkRIQktST0NJT05aWUQ0VkhGRyIsInN1YiI6IkFDNTZSTFBIM001NldaQTVVU1dWVkRXQkdRT0JETkk2UkdNVlhWVkFRUDNZQTdHNVFKWElISVpPIiwibmF0cyI6eyJleHBvcnRzIjpbeyJuYW1lIjoiYWNjb3VudC1tb25pdG9yaW5nLXNlcnZpY2VzIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLioiLCJ0eXBlIjoic2VydmljZSIsInJlc3BvbnNlX3R5cGUiOiJTdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjo0LCJkZXNjcmlwdGlvbiI6IlJlcXVlc3QgYWNjb3VudCBzcGVjaWZpYyBtb25pdG9yaW5nIHNlcnZpY2VzIGZvcjogU1VCU1osIENPTk5aLCBMRUFGWiwgSlNaIGFuZCBJTkZPIiwiaW5mb191cmwiOiJodHRwczovL2RvY3MubmF0cy5pby9uYXRzLXNlcnZlci9jb25maWd1cmF0aW9uL3N5c19hY2NvdW50cyJ9LHsibmFtZSI6ImFjY291bnQtbW9uaXRvcmluZy1zdHJlYW1zIiwic3ViamVjdCI6IiRTWVMuQUNDT1VOVC4qLlx1MDAzZSIsInR5cGUiOiJzdHJlYW0iLCJhY2NvdW50X3Rva2VuX3Bvc2l0aW9uIjozLCJkZXNjcmlwdGlvbiI6IkFjY291bnQgc3BlY2lmaWMgbW9uaXRvcmluZyBzdHJlYW0iLCJpbmZvX3VybCI6Imh0dHBzOi8vZG9jcy5uYXRzLmlvL25hdHMtc2VydmVyL2NvbmZpZ3VyYXRpb24vc3lzX2FjY291bnRzIn1dLCJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMX0sImRlZmF1bHRfcGVybWlzc2lvbnMiOnsicHViIjp7fSwic3ViIjp7fX0sInR5cGUiOiJhY2NvdW50IiwidmVyc2lvbiI6Mn19.Yl3Fm34hqQ4e5TMh7pae9J6N5nm-bpGXQC9_rQDeCtuaZKaJI_Q3zAMgHuwwV6sOMpBlH5Nh3dqch6NKNC2OAA
+    - name: sys-account-public-key
+      value: AC56RLPH3M56WZA5USWVVDWBGQOBDNI6RGMVXVVAQP3YA7G5QJXIHIZO
+    - name: account-public-key
+      value: AC56RLPH3M56WZA5USWVVDWBGQOBDNI6RGMVXVVAQP3YA7G5QJXIHIZO
+    name: sys-account-user
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: sys-account-user
+          crossplane.io/external-create-pending: 2023-05-25 09:17:01+00:00
+          crossplane.io/external-create-succeeded: 2023-05-25 09:17:02+00:00
+          crossplane.io/external-name: accel-accel-sys-account-user
+        creationTimestamp: 2023-05-25 09:17:01+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: accel-z2s8d-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:01+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:user:
+                    f:pub: {}
+                    f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-05-25 09:17:02+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:03+00:00
+        name: accel-accel-sys-account-user
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181431'
+        uid: b98177fb-eb00-4791-afd0-35d5ccde67bf
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: sys
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub: {}
+              sub: {}
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-sys-account-user
+          namespace: accel
+      status:
+        atProvider:
+          account: sys
+          creds: nats-secrets/creds/operator/myoperator/account/sys/user/accel-accel-sys-account-user
+          issue: nats-secrets/issue/operator/myoperator/account/sys/user/accel-accel-sys-account-user
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/sys/user/accel-accel-sys-account-user
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/sys/user/accel-accel-sys-account-user
+          operator: myoperator
+          user: accel-accel-sys-account-user
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:03+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-05-25 09:17:02+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: address
+      value: nats://nats.nats:4222
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIySVdONkpGWFg0T1gzQkhYREVQRVVVUUNVM1FSNldPMklFTFNQQkhHUzJNSVdVU1JHNkRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVDU1VURlhLUE9TS0NVVEhQQ0gyWVBMV0JHWVY0UlBDS1M0TExVUjY2Qk42QzRVTjJOV0RVUU9EIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.8iEsu1NE0BScDLvG3zjRfqlBXhqXiaFn2Z1XJYN1u0t8sDPd8mxho32eTATFUPgTpOEuqDJHNNgrofYp_OJrAA
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAIEHUX5OM52LIAUEATURT5OPAT27UXPBYI72OO7SZ2HZXWX4EJFR2N2I
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIySVdONkpGWFg0T1gzQkhYREVQRVVVUUNVM1FSNldPMklFTFNQQkhHUzJNSVdVU1JHNkRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVDU1VURlhLUE9TS0NVVEhQQ0gyWVBMV0JHWVY0UlBDS1M0TExVUjY2Qk42QzRVTjJOV0RVUU9EIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.8iEsu1NE0BScDLvG3zjRfqlBXhqXiaFn2Z1XJYN1u0t8sDPd8mxho32eTATFUPgTpOEuqDJHNNgrofYp_OJrAA\"\
+        \n  - name: seedKey\n    value: \"SUAIEHUX5OM52LIAUEATURT5OPAT27UXPBYI72OO7SZ2HZXWX4EJFR2N2I\""
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIySVdONkpGWFg0T1gzQkhYREVQRVVVUUNVM1FSNldPMklFTFNQQkhHUzJNSVdVU1JHNkRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVDU1VURlhLUE9TS0NVVEhQQ0gyWVBMV0JHWVY0UlBDS1M0TExVUjY2Qk42QzRVTjJOV0RVUU9EIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.8iEsu1NE0BScDLvG3zjRfqlBXhqXiaFn2Z1XJYN1u0t8sDPd8mxho32eTATFUPgTpOEuqDJHNNgrofYp_OJrAA
+    - name: provider-config-secret
+      value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIySVdONkpGWFg0T1gzQkhYREVQRVVVUUNVM1FSNldPMklFTFNQQkhHUzJNSVdVU1JHNkRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVDU1VURlhLUE9TS0NVVEhQQ0gyWVBMV0JHWVY0UlBDS1M0TExVUjY2Qk42QzRVTjJOV0RVUU9EIiwibmF0cyI6eyJwdWIiOnt9LCJzdWIiOnt9LCJzdWJzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.8iEsu1NE0BScDLvG3zjRfqlBXhqXiaFn2Z1XJYN1u0t8sDPd8mxho32eTATFUPgTpOEuqDJHNNgrofYp_OJrAA","seed_key":"SUAIEHUX5OM52LIAUEATURT5OPAT27UXPBYI72OO7SZ2HZXWX4EJFR2N2I","address":"nats://nats.nats:4222"}'
+    - name: seed
+      value: SUAIEHUX5OM52LIAUEATURT5OPAT27UXPBYI72OO7SZ2HZXWX4EJFR2N2I
+    - name: account-public-key
+      value: ACD5EYQEWUEZXQPQ4NC3O7DDX75HSOKJSKQDHGP2K6UMSHVCNYYH26US
+    name: system
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: system
+          crossplane.io/external-create-pending: 2023-05-25 09:17:01+00:00
+          crossplane.io/external-create-succeeded: 2023-05-25 09:17:02+00:00
+          crossplane.io/external-name: accel-accel-system
+        creationTimestamp: 2023-05-25 09:17:01+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: accel-z2s8d-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:01+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:user:
+                    f:pub: {}
+                    f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-05-25 09:17:02+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:02+00:00
+        name: accel-accel-system
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181415'
+        uid: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: accel-accel
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub: {}
+              sub: {}
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-system
+          namespace: accel
+      status:
+        atProvider:
+          account: accel-accel
+          creds: nats-secrets/creds/operator/myoperator/account/accel-accel/user/accel-accel-system
+          issue: nats-secrets/issue/operator/myoperator/account/accel-accel/user/accel-accel-system
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/accel-accel/user/accel-accel-system
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/accel-accel/user/accel-accel-system
+          operator: myoperator
+          user: accel-accel-system
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:02+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-05-25 09:17:02+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: get-network-base-config
+    resource:
+      apiVersion: kubernetes.crossplane.io/v1alpha1
+      kind: Object
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: get-network-base-config
+          crossplane.io/external-name: accel-accel-get-network-base-config
+        creationTimestamp: 2023-05-25 09:16:27+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: accel-z2s8d-
+        generation: 1
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+        managedFields:
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:name: {}
+                    f:namespace: {}
+              f:managementPolicy: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:16:27+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          time: 2023-05-25 09:16:27+00:00
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:manifest:
+                  .: {}
+                  f:apiVersion: {}
+                  f:data:
+                    .: {}
+                    f:operator: {}
+                  f:kind: {}
+                  f:metadata:
+                    .: {}
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                    f:creationTimestamp: {}
+                    f:managedFields: {}
+                    f:name: {}
+                    f:namespace: {}
+                    f:resourceVersion: {}
+                    f:uid: {}
+              f:conditions: {}
+          manager: crossplane-kubernetes-provider
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:16:28+00:00
+        name: accel-accel-get-network-base-config
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181051'
+        uid: 26e07fd1-3cb1-41d8-8ab5-0be0710a154f
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          manifest:
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: network-base-config
+              namespace: crossplane-system
+        managementPolicy: Observe
+        providerConfigRef:
+          name: provider-kubernetes
+      status:
+        atProvider:
+          manifest:
+            apiVersion: v1
+            data:
+              operator: myoperator
+            kind: ConfigMap
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"v1","data":{"operator":"myoperator"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":null,"name":"network-base-config","namespace":"crossplane-system"}}
+
+                  '
+              creationTimestamp: 2023-05-24 19:41:51+00:00
+              managedFields:
+              - apiVersion: v1
+                fieldsType: FieldsV1
+                fieldsV1:
+                  f:data:
+                    .: {}
+                    f:operator: {}
+                  f:metadata:
+                    f:annotations:
+                      .: {}
+                      f:kubectl.kubernetes.io/last-applied-configuration: {}
+                manager: kubectl-client-side-apply
+                operation: Update
+                time: 2023-05-24 19:41:51+00:00
+              name: network-base-config
+              namespace: crossplane-system
+              resourceVersion: '5152'
+              uid: b2724a97-f7eb-4be4-94f7-b127b44dfd8b
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:16:28+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:16:28+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+  - connectionDetails:
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJFSTJLUUIzVk5QTTcyWFFMQUdFTFpCV0JRWkVRNkQzNURMNTJENldPSlZMRUNEWlFGWkNBIiwiaWF0IjoxNjg1MDA2MjA0LCJpc3MiOiJPQzJPV0RMQTdNNVpJRUhBVTVUU1lOQkxDWkhGUjdFQkg2VFNCMkRIQktST0NJT05aWUQ0VkhGRyIsInN1YiI6IkFDRDVFWVFFV1VFWlhRUFE0TkMzTzdERFg3NUhTT0tKU0tRREhHUDJLNlVNU0hWQ05ZWUgyNlVTIiwibmF0cyI6eyJsaW1pdHMiOnsic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaW1wb3J0cyI6LTEsImV4cG9ydHMiOi0xLCJ3aWxkY2FyZHMiOnRydWUsImNvbm4iOi0xLCJsZWFmIjotMSwibWVtX3N0b3JhZ2UiOi0xLCJkaXNrX3N0b3JhZ2UiOi0xLCJzdHJlYW1zIjotMSwiY29uc3VtZXIiOi0xfSwiZGVmYXVsdF9wZXJtaXNzaW9ucyI6eyJwdWIiOnt9LCJzdWIiOnt9fSwidHlwZSI6ImFjY291bnQiLCJ2ZXJzaW9uIjoyfX0.XMWe7dDW7Q5aOoOxO3YchxPCzWUEgb6nmPnVSe3v5vQWQ4K4UoEP4d_0YqI1whANXaTB3oUzPNmOvR3tjy9OAA
+    - name: pub
+      value: ACD5EYQEWUEZXQPQ4NC3O7DDX75HSOKJSKQDHGP2K6UMSHVCNYYH26US
+    name: account
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: Account
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: account
+          crossplane.io/external-create-pending: 2023-05-25 09:16:44+00:00
+          crossplane.io/external-create-succeeded: 2023-05-25 09:16:45+00:00
+          crossplane.io/external-name: accel-accel
+        creationTimestamp: 2023-05-25 09:16:44+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generateName: accel-z2s8d-
+        generation: 2
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          external-name: accel-accel
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+                f:crossplane.io/external-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:external-name: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:claims:
+                  .: {}
+                  f:account:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:conn: {}
+                      f:consumer: {}
+                      f:data: {}
+                      f:diskMaxStreamBytes: {}
+                      f:diskStorage: {}
+                      f:exports: {}
+                      f:imports: {}
+                      f:leafNodeConn: {}
+                      f:memMaxStreamBytes: {}
+                      f:memStorage: {}
+                      f:payload: {}
+                      f:streams: {}
+                      f:subs: {}
+                      f:wildcardExports: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:16:44+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+            f:spec:
+              f:forProvider:
+                f:claims:
+                  f:account:
+                    f:defaultPermissions:
+                      .: {}
+                      f:pub: {}
+                      f:sub: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-05-25 09:16:45+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:lastPushed: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:pushed: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:16:45+00:00
+        name: accel-accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '183050'
+        uid: 83437580-8b47-4c50-a8b8-37b97e52357c
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          claims:
+            account:
+              defaultPermissions:
+                pub: {}
+                sub: {}
+              limits:
+                conn: -1
+                consumer: -1
+                data: -1
+                diskMaxStreamBytes: 0
+                diskStorage: -1
+                exports: -1
+                imports: -1
+                leafNodeConn: -1
+                memMaxStreamBytes: 0
+                memStorage: -1
+                payload: -1
+                streams: -1
+                subs: -1
+                wildcardExports: true
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-accel-account
+          namespace: crossplane-system
+      status:
+        atProvider:
+          account: accel-accel
+          issue: nats-secrets/issue/operator/myoperator/account/accel-accel
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/accel-accel
+          lastPushed: 2023-05-25 09:18:53+00:00
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/accel-accel
+          operator: myoperator
+          pushed: 'true'
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:16:45+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-05-25 09:16:45+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails:
+    - name: creds
+      value: '-----BEGIN NATS USER JWT-----
+
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJVRUxNTkdHSUZDUUFKUFBRVlk1REIzWFFCS0JONklNRk8zQ0RKSlRRQVpIRVpPWlFGTzRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVBU1ozRUlMSzVGUTNDR09XSEdQUVFSWE1DVVdVNlZTVU42VFpGWEVVWk1FN0lVSzVMTU5NVzZMIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5hY2NlbCIsIiRKUy5BUEkuQ09OU1VNRVIuXHUwMDNlIiwiJEpTLkFDSy5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLmFjY2VsIiwiX0lOQk9YLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.-Ttp2asoHPna8gkt4coEo30tUiOzaDGyBUE9gSGIAYfJfrF5NSJ0P3oHWyQkPcaEREBPc_VlPpaJ4a6HWGjyBg
+
+        ------END NATS USER JWT------
+
+
+        ************************* IMPORTANT *************************
+
+        NKEY Seed printed below can be used to sign and prove identity.
+
+        NKEYs are sensitive and should be treated as secrets.
+
+
+        -----BEGIN USER NKEY SEED-----
+
+        SUAFPURNRNV4TWDGQCDPFMB7ZWBFU6U7CJ4XV2EOP4FPE6EDXRLRS24XDA
+
+        ------END USER NKEY SEED------
+
+
+        *************************************************************
+
+        '
+    - name: dapr
+      value: "apiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: streams\n\
+        spec:\n  type: pubsub.jetstream\n  version: v1\n  metadata:\n  - name: natsURL\n\
+        \    value: \"nats://localhost:4222\"\n  - name: jwt\n    value: \"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJVRUxNTkdHSUZDUUFKUFBRVlk1REIzWFFCS0JONklNRk8zQ0RKSlRRQVpIRVpPWlFGTzRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVBU1ozRUlMSzVGUTNDR09XSEdQUVFSWE1DVVdVNlZTVU42VFpGWEVVWk1FN0lVSzVMTU5NVzZMIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5hY2NlbCIsIiRKUy5BUEkuQ09OU1VNRVIuXHUwMDNlIiwiJEpTLkFDSy5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLmFjY2VsIiwiX0lOQk9YLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.-Ttp2asoHPna8gkt4coEo30tUiOzaDGyBUE9gSGIAYfJfrF5NSJ0P3oHWyQkPcaEREBPc_VlPpaJ4a6HWGjyBg\"\
+        \n  - name: seedKey\n    value: \"SUAFPURNRNV4TWDGQCDPFMB7ZWBFU6U7CJ4XV2EOP4FPE6EDXRLRS24XDA\""
+    - name: jwt
+      value: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJVRUxNTkdHSUZDUUFKUFBRVlk1REIzWFFCS0JONklNRk8zQ0RKSlRRQVpIRVpPWlFGTzRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVBU1ozRUlMSzVGUTNDR09XSEdQUVFSWE1DVVdVNlZTVU42VFpGWEVVWk1FN0lVSzVMTU5NVzZMIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5hY2NlbCIsIiRKUy5BUEkuQ09OU1VNRVIuXHUwMDNlIiwiJEpTLkFDSy5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLmFjY2VsIiwiX0lOQk9YLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.-Ttp2asoHPna8gkt4coEo30tUiOzaDGyBUE9gSGIAYfJfrF5NSJ0P3oHWyQkPcaEREBPc_VlPpaJ4a6HWGjyBg
+    - name: provider-config-secret
+      value: '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJVRUxNTkdHSUZDUUFKUFBRVlk1REIzWFFCS0JONklNRk8zQ0RKSlRRQVpIRVpPWlFGTzRBIiwiaWF0IjoxNjg1MDA2MjIyLCJpc3MiOiJBQ0Q1RVlRRVdVRVpYUVBRNE5DM083RERYNzVIU09LSlNLUURIR1AySzZVTVNIVkNOWVlIMjZVUyIsInN1YiI6IlVBU1ozRUlMSzVGUTNDR09XSEdQUVFSWE1DVVdVNlZTVU42VFpGWEVVWk1FN0lVSzVMTU5NVzZMIiwibmF0cyI6eyJwdWIiOnsiYWxsb3ciOlsiKi5hY2NlbCIsIiRKUy5BUEkuQ09OU1VNRVIuXHUwMDNlIiwiJEpTLkFDSy5cdTAwM2UiXX0sInN1YiI6eyJhbGxvdyI6WyIqLmFjY2VsIiwiX0lOQk9YLlx1MDAzZSJdfSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.-Ttp2asoHPna8gkt4coEo30tUiOzaDGyBUE9gSGIAYfJfrF5NSJ0P3oHWyQkPcaEREBPc_VlPpaJ4a6HWGjyBg","seed_key":"SUAFPURNRNV4TWDGQCDPFMB7ZWBFU6U7CJ4XV2EOP4FPE6EDXRLRS24XDA","address":"nats://nats.nats:4222"}'
+    - name: seed
+      value: SUAFPURNRNV4TWDGQCDPFMB7ZWBFU6U7CJ4XV2EOP4FPE6EDXRLRS24XDA
+    - name: account-public-key
+      value: ACD5EYQEWUEZXQPQ4NC3O7DDX75HSOKJSKQDHGP2K6UMSHVCNYYH26US
+    - name: address
+      value: nats://nats.nats:4222
+    name: user-publish
+    resource:
+      apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+      kind: User
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: user-publish
+          crossplane.io/external-create-pending: 2023-05-25 09:17:02+00:00
+          crossplane.io/external-create-succeeded: 2023-05-25 09:17:02+00:00
+          crossplane.io/external-name: accel-accel-publish
+        creationTimestamp: 2023-05-25 09:17:01+00:00
+        finalizers:
+        - finalizer.managedresource.crossplane.io
+        generation: 3
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 83437580-8b47-4c50-a8b8-37b97e52357c
+        managedFields:
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                f:crossplane.io/external-create-pending: {}
+                f:crossplane.io/external-create-succeeded: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"finalizer.managedresource.crossplane.io": {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          time: 2023-05-25 09:17:02+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:account: {}
+                f:creds: {}
+                f:issue: {}
+                f:jwt: {}
+                f:jwtPath: {}
+                f:nkey: {}
+                f:nkeyPath: {}
+                f:operator: {}
+                f:user: {}
+              f:conditions: {}
+          manager: crossplane-natssecrets-provider
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:04+00:00
+        - apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:account: {}
+                f:claims:
+                  .: {}
+                  f:user:
+                    .: {}
+                    f:data: {}
+                    f:payload: {}
+                    f:pub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:sub:
+                      .: {}
+                      f:allow: {}
+                      f:deny: {}
+                    f:subs: {}
+                f:operator: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:writeConnectionSecretToRef:
+                .: {}
+                f:name: {}
+                f:namespace: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:20+00:00
+        name: accel-accel-publish
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181577'
+        uid: d4019a57-0081-4fcc-8f9b-26823b5f32e3
+      spec:
+        deletionPolicy: Delete
+        forProvider:
+          account: accel-accel
+          claims:
+            user:
+              data: -1
+              payload: -1
+              pub:
+                allow:
+                - '*.accel'
+                - $JS.API.CONSUMER.>
+                - $JS.ACK.>
+                deny: []
+              sub:
+                allow:
+                - '*.accel'
+                - _INBOX.>
+                deny: []
+              subs: -1
+          operator: myoperator
+        providerConfigRef:
+          name: provider-natssecrets
+        writeConnectionSecretToRef:
+          name: accel-publish
+          namespace: accel
+      status:
+        atProvider:
+          account: accel-accel
+          creds: nats-secrets/creds/operator/myoperator/account/accel-accel/user/accel-accel-publish
+          issue: nats-secrets/issue/operator/myoperator/account/accel-accel/user/accel-accel-publish
+          jwt: 'true'
+          jwtPath: nats-secrets/jwt/operator/myoperator/account/accel-accel/user/accel-accel-publish
+          nkey: 'true'
+          nkeyPath: nats-secrets/nkey/operator/myoperator/account/accel-accel/user/accel-accel-publish
+          operator: myoperator
+          user: accel-accel-publish
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:03+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        - lastTransitionTime: 2023-05-25 09:17:03+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+  - connectionDetails: []
+    name: provider-nats-config
+    resource:
+      apiVersion: nats.crossplane.io/v1alpha1
+      kind: ProviderConfig
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: provider-nats-config
+        creationTimestamp: 2023-05-25 09:17:21+00:00
+        finalizers:
+        - in-use.crossplane.io
+        generateName: accel-z2s8d-
+        generation: 1
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+        managedFields:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:generateName: {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:credentials:
+                .: {}
+                f:secretRef:
+                  .: {}
+                  f:key: {}
+                  f:name: {}
+                  f:namespace: {}
+                f:source: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:21+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:finalizers:
+                .: {}
+                v:"in-use.crossplane.io": {}
+          manager: provider-nats
+          operation: Update
+          time: 2023-05-25 09:17:21+00:00
+        - apiVersion: nats.crossplane.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:users: {}
+          manager: provider-nats
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:46+00:00
+        name: accel-accel
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181966'
+        uid: 7fa851df-3da0-4c11-b1a7-6a00a3ea34f7
+      spec:
+        credentials:
+          secretRef:
+            key: provider-config-secret
+            name: accel-accel-system
+            namespace: accel
+          source: Secret
+      status:
+        users: 2
+  - connectionDetails: []
+    name: colibri
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XEdgeNetwork
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: colibri
+        creationTimestamp: 2023-05-25 09:17:21+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generation: 4
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnSecondUid: b98177fb-eb00-4791-afd0-35d5ccde67bf
+          dependsOnUid: a0e92d6e-1b3d-44f2-8890-f3b6fa1656b2
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnSecondUid: {}
+                f:dependsOnUid: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:connectionSecretRefs:
+                .: {}
+                f:sysAccountUserSecretRef: {}
+                f:systemUserSecretRef: {}
+              f:limits:
+                .: {}
+                f:fileStorage: {}
+                f:inMemoryStorage: {}
+              f:network: {}
+              f:nodepoolSelector: {}
+              f:resourceRefs: {}
+              f:subNetwork: {}
+              f:tolerations: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:22+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:conditions: {}
+              f:observed:
+                .: {}
+                f:conditions: {}
+              f:uid: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:28+00:00
+        name: accel-accel-colibri
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '181741'
+        uid: 93999f65-762d-4c2c-b5a8-f44b958bf9ac
+      spec:
+        compositionRef:
+          name: xedgenetworks.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xedgenetworks.streams.network.edgefarm.io-a643cd4
+        compositionUpdatePolicy: Automatic
+        connectionSecretRefs:
+          sysAccountUserSecretRef:
+            name: accel-accel-sys-account-user
+          systemUserSecretRef:
+            name: accel-accel-system
+        limits:
+          fileStorage: 200M
+          inMemoryStorage: 100M
+        network: accel-accel
+        nodepoolSelector:
+          matchLabels:
+            edge-device-type: colibri
+        resourceRefs:
+        - apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          name: accel-z2s8d-6pkg2
+        subNetwork: colibri
+        tolerations:
+        - effect: NoSchedule
+          key: edgefarm.io
+          operator: Exists
+      status:
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:25+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:17:27+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        observed:
+          conditions:
+          - lastTransitionTime: 2023-05-25 09:17:26+00:00
+            reason: Available
+            status: 'True'
+            type: Ready
+          - lastTransitionTime: 2023-05-25 09:17:25+00:00
+            reason: ReconcileSuccess
+            status: 'True'
+            type: Synced
+        uid: accel
+  - connectionDetails: []
+    name: stream-accel-stream-accel-accel-colibri-openyurt-worker3
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XStream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-accel-stream-accel-accel-colibri-openyurt-worker3
+          crossplane.io/external-name: accel-stream
+        creationTimestamp: 2023-05-25 09:17:44+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generation: 4
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 7fa851df-3da0-4c11-b1a7-6a00a3ea34f7
+          streams.network.edgefarm.io/domain: accel-accel-colibri-openyurt-worker3
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: openyurt-worker3
+          streams.network.edgefarm.io/stream: accel-stream
+          streams.network.edgefarm.io/subnetwork: colibri
+          streams.network.edgefarm.io/type: Standard
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+                f:streams.network.edgefarm.io/domain: {}
+                f:streams.network.edgefarm.io/namespace: {}
+                f:streams.network.edgefarm.io/network: {}
+                f:streams.network.edgefarm.io/node: {}
+                f:streams.network.edgefarm.io/stream: {}
+                f:streams.network.edgefarm.io/subnetwork: {}
+                f:streams.network.edgefarm.io/type: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:storage: {}
+                  f:subjects: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:resourceRefs: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:46+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:domain: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:firstTimestamp: {}
+                  f:lastSequence: {}
+                  f:lastTimestamp: {}
+                  f:messages: {}
+              f:conditions: {}
+              f:observed:
+                .: {}
+                f:conditions: {}
+              f:uid: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:17:54+00:00
+        name: accel-stream-accel-accel-colibri-openyurt-worker3
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '183109'
+        uid: 3287e611-2a64-4760-a318-78f53b9b61a4
+      spec:
+        compositionRef:
+          name: xstreams.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xstreams.streams.network.edgefarm.io-db43e50
+        compositionUpdatePolicy: Automatic
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 104857600
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            storage: File
+            subjects:
+            - openyurt-worker3.accel
+          domain: accel-accel-colibri-openyurt-worker3
+        providerConfigRef:
+          name: accel-accel
+        resourceRefs:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: accel-z2s8d-5r8qz
+      status:
+        atProvider:
+          connection:
+            accountPublicKey: ACD5EYQEWUEZXQPQ4NC3O7DDX75HSOKJSKQDHGP2K6UMSHVCNYYH26US
+            address: nats://nats.nats:4222
+            userPublicKey: UCSUTFXKPOSKCUTHPCH2YPLWBGYV4RPCKS4LLUR66BN6C4UN2NWDUQOD
+          domain: accel-accel-colibri-openyurt-worker3
+          state:
+            bytes: 0 B
+            consumerCount: 0
+            firstSequence: 0
+            firstTimestamp: 0001-01-01 00:00:00+00:00
+            lastSequence: 0
+            lastTimestamp: 0001-01-01 00:00:00+00:00
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:49+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:17:52+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        observed:
+          conditions:
+          - lastTransitionTime: 2023-05-25 09:19:25+00:00
+            reason: Available
+            status: 'True'
+            type: Ready
+          - lastTransitionTime: 2023-05-25 09:19:25+00:00
+            reason: ReconcileSuccess
+            status: 'True'
+            type: Synced
+        uid: accel-stream
+  - connectionDetails: []
+    name: stream-aggregate-accel-accel-main
+    resource:
+      apiVersion: streams.network.edgefarm.io/v1alpha1
+      kind: XStream
+      metadata:
+        annotations:
+          crossplane.io/composition-resource-name: stream-aggregate-accel-accel-main
+          crossplane.io/external-name: aggregate
+        creationTimestamp: 2023-05-25 09:17:45+00:00
+        finalizers:
+        - composite.apiextensions.crossplane.io
+        generation: 5
+        labels:
+          crossplane.io/claim-name: accel
+          crossplane.io/claim-namespace: accel
+          crossplane.io/composite: accel-z2s8d
+          dependsOnUid: 7fa851df-3da0-4c11-b1a7-6a00a3ea34f7
+          streams.network.edgefarm.io/domain: main
+          streams.network.edgefarm.io/namespace: accel
+          streams.network.edgefarm.io/network: accel-accel
+          streams.network.edgefarm.io/node: ''
+          streams.network.edgefarm.io/stream: aggregate
+          streams.network.edgefarm.io/subnetwork: main
+          streams.network.edgefarm.io/type: Standard
+        managedFields:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:crossplane.io/composition-resource-name: {}
+                f:crossplane.io/external-name: {}
+              f:finalizers:
+                .: {}
+                v:"composite.apiextensions.crossplane.io": {}
+              f:labels:
+                .: {}
+                f:crossplane.io/claim-name: {}
+                f:crossplane.io/claim-namespace: {}
+                f:crossplane.io/composite: {}
+                f:dependsOnUid: {}
+                f:streams.network.edgefarm.io/domain: {}
+                f:streams.network.edgefarm.io/namespace: {}
+                f:streams.network.edgefarm.io/network: {}
+                f:streams.network.edgefarm.io/node: {}
+                f:streams.network.edgefarm.io/stream: {}
+                f:streams.network.edgefarm.io/subnetwork: {}
+                f:streams.network.edgefarm.io/type: {}
+              f:ownerReferences:
+                .: {}
+                k:{"uid":"c47497c1-2c48-4dec-b402-6347f45e2564"}: {}
+            f:spec:
+              .: {}
+              f:compositionRef:
+                .: {}
+                f:name: {}
+              f:compositionRevisionRef:
+                .: {}
+                f:name: {}
+              f:compositionUpdatePolicy: {}
+              f:deletionPolicy: {}
+              f:forProvider:
+                .: {}
+                f:config:
+                  .: {}
+                  f:discard: {}
+                  f:discardNewPerSubject: {}
+                  f:duplicates: {}
+                  f:maxAge: {}
+                  f:maxBytes: {}
+                  f:maxConsumers: {}
+                  f:maxMsgSize: {}
+                  f:maxMsgs: {}
+                  f:maxMsgsPerSubject: {}
+                  f:noAck: {}
+                  f:replicas: {}
+                  f:retention: {}
+                  f:sources: {}
+                  f:storage: {}
+                f:domain: {}
+              f:providerConfigRef:
+                .: {}
+                f:name: {}
+              f:resourceRefs: {}
+          manager: crossplane
+          operation: Update
+          time: 2023-05-25 09:17:47+00:00
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          fieldsType: FieldsV1
+          fieldsV1:
+            f:status:
+              .: {}
+              f:atProvider:
+                .: {}
+                f:connection:
+                  .: {}
+                  f:accountPublicKey: {}
+                  f:address: {}
+                  f:userPublicKey: {}
+                f:domain: {}
+                f:state:
+                  .: {}
+                  f:bytes: {}
+                  f:consumerCount: {}
+                  f:firstSequence: {}
+                  f:firstTimestamp: {}
+                  f:lastSequence: {}
+                  f:lastTimestamp: {}
+                  f:messages: {}
+              f:conditions: {}
+              f:observed:
+                .: {}
+                f:conditions: {}
+              f:uid: {}
+          manager: crossplane
+          operation: Update
+          subresource: status
+          time: 2023-05-25 09:18:16+00:00
+        name: aggregate-accel-accel-main
+        ownerReferences:
+        - apiVersion: streams.network.edgefarm.io/v1alpha1
+          blockOwnerDeletion: true
+          controller: true
+          kind: XNetwork
+          name: accel-z2s8d
+          uid: c47497c1-2c48-4dec-b402-6347f45e2564
+        resourceVersion: '182787'
+        uid: 3ca4b61b-fd82-452e-8ee8-b2443f9efc66
+      spec:
+        compositionRef:
+          name: xstreams.streams.network.edgefarm.io
+        compositionRevisionRef:
+          name: xstreams.streams.network.edgefarm.io-db43e50
+        compositionUpdatePolicy: Automatic
+        deletionPolicy: Delete
+        forProvider:
+          config:
+            discard: Old
+            discardNewPerSubject: false
+            duplicates: 2m0s
+            maxAge: 0s
+            maxBytes: 524288000
+            maxConsumers: -1
+            maxMsgSize: -1
+            maxMsgs: -1
+            maxMsgsPerSubject: -1
+            noAck: false
+            replicas: 1
+            retention: Limits
+            sources:
+            - external:
+                apiPrefix: $JS.accel-accel-colibri-openyurt-worker3.API
+                deliverPrefix: ''
+              name: accel-stream
+            storage: File
+          domain: main
+        providerConfigRef:
+          name: accel-accel
+        resourceRefs:
+        - apiVersion: nats.crossplane.io/v1alpha1
+          kind: Stream
+          name: accel-z2s8d-8w2j2
+      status:
+        atProvider:
+          connection:
+            accountPublicKey: ACD5EYQEWUEZXQPQ4NC3O7DDX75HSOKJSKQDHGP2K6UMSHVCNYYH26US
+            address: nats://nats.nats:4222
+            userPublicKey: UCSUTFXKPOSKCUTHPCH2YPLWBGYV4RPCKS4LLUR66BN6C4UN2NWDUQOD
+          domain: main
+          state:
+            bytes: 0 B
+            consumerCount: 0
+            firstSequence: 0
+            firstTimestamp: 0001-01-01 00:00:00+00:00
+            lastSequence: 0
+            lastTimestamp: 0001-01-01 00:00:00+00:00
+            messages: 0
+        conditions:
+        - lastTransitionTime: 2023-05-25 09:17:51+00:00
+          reason: ReconcileSuccess
+          status: 'True'
+          type: Synced
+        - lastTransitionTime: 2023-05-25 09:18:16+00:00
+          reason: Available
+          status: 'True'
+          type: Ready
+        observed:
+          conditions:
+          - lastTransitionTime: 2023-05-25 09:19:07+00:00
+            reason: Available
+            status: 'True'
+            type: Ready
+          - lastTransitionTime: 2023-05-25 09:19:07+00:00
+            reason: ReconcileSuccess
+            status: 'True'
+            type: Synced
+        uid: aggregate

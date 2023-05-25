@@ -261,6 +261,257 @@ spec:
                                       type: string
                                     type: array
                                 type: object
+                    consumers:
+                      type: array
+                      description: List of consumers
+                      items:
+                        type: object
+                        description: Configuration for a consumer
+                        properties:
+                          name:
+                            description: The name of the consumer
+                            type: string
+                          streamRef:
+                            description: The name of the stream the consumer is created for
+                            default: main
+                            type: string
+                          config:
+                            description: Config is the consumer configuration.
+                            properties:
+                              ackPolicy:
+                                default: Explicit
+                                description:
+                                  AckPolicy describes the requirement of client
+                                  acknowledgements, either Explicit, None, or All. For more
+                                  information see https://docs.nats.io/nats-concepts/jetstream/consumers#ackpolicy
+                                enum:
+                                  - Explicit
+                                  - None
+                                  - All
+                                type: string
+                              ackWait:
+                                default: 30s
+                                description:
+                                  AckWait is the duration that the server will
+                                  wait for an ack for any individual message once it has been
+                                  delivered to a consumer. If an ack is not received in time,
+                                  the message will be redelivered. Format is a string duration,
+                                  e.g. 1h, 1m, 1s, 1h30m or 2h3m4s.
+                                pattern: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
+                                type: string
+                              backoff:
+                                description:
+                                  "Backoff is a list of time durations that represent
+                                  the time to delay based on delivery count. Format of the
+                                  durations is a string duration, e.g. 1h, 1m, 1s, 1h30m or
+                                  2h3m4s where multiple durations are separated by commas.
+                                  Example: `1s,2s,3s,4s,5s`."
+                                pattern: ^(([0-9]+h)?([0-9]+m)?([0-9]+s)?)(?:,\s*(([0-9]+h)?([0-9]+m)?([0-9]+s)?))*$
+                                type: string
+                              deliverPolicy:
+                                default: All
+                                description:
+                                  DeliverPolicy defines the point in the stream
+                                  to receive messages from, either All, Last, New, ByStartSequence,
+                                  ByStartTime, or LastPerSubject. Fore more information see
+                                  https://docs.nats.io/jetstream/concepts/consumers#deliverpolicy
+                                enum:
+                                  - All
+                                  - Last
+                                  - New
+                                  - ByStartSequence
+                                  - ByStartTime
+                                  - LastPerSubject
+                                type: string
+                              description:
+                                description:
+                                  Description is a human readable description of
+                                  the consumer. This can be particularly useful for ephemeral
+                                  consumers to indicate their purpose since the durable name
+                                  cannot be provided.
+                                type: string
+                              filterSubject:
+                                description:
+                                  FilterSubject defines an overlapping subject
+                                  with the subjects bound to the stream which will filter
+                                  the set of messages received by the consumer.
+                                type: string
+                              inactiveThreshold:
+                                description:
+                                  InactiveThreshold defines the duration that instructs
+                                  the server to cleanup consumers that are inactive for that
+                                  long. Format is a string duration, e.g. 1h, 1m, 1s, 1h30m
+                                  or 2h3m4s.
+                                pattern: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
+                                type: string
+                              maxAckPending:
+                                default: 1000
+                                description:
+                                  MaxAckPending sets the number of outstanding
+                                  acks that are allowed before message delivery is halted.
+                                type: integer
+                              maxDeliver:
+                                default: -1
+                                description:
+                                  MaxDeliver is the maximum number of times a specific
+                                  message delivery will be attempted. Applies to any message
+                                  that is re-sent due to ack policy (i.e. due to a negative
+                                  ack, or no ack sent by the client).
+                                type: integer
+                              memStorage:
+                                description:
+                                  MemoryStorage if set, forces the consumer state
+                                  to be kept in memory rather than inherit the storage type
+                                  of the stream (file in this case).
+                                type: boolean
+                              numReplicas:
+                                default: 0
+                                description:
+                                  Replicas sets the number of replicas for the
+                                  consumer's state. By default, when the value is set to zero,
+                                  consumers inherit the number of replicas from the stream.
+                                type: integer
+                              optStartSeq:
+                                description:
+                                  OptStartSeq is an optional start sequence number
+                                  and is used with the DeliverByStartSequence deliver policy.
+                                format: int64
+                                type: integer
+                              optStartTime:
+                                description:
+                                  OptStartTime is an optional start time and is
+                                  used with the DeliverByStartTime deliver policy. The time
+                                  format is RFC 3339, e.g. 2023-01-09T14:48:32Z
+                                pattern: ^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|[\+-]\d{2}:\d{2})?)$
+                                type: string
+                              pull:
+                                description:
+                                  PullConsumer defines the pull-based consumer
+                                  configuration.
+                                properties:
+                                  maxBatch:
+                                    description:
+                                      MaxRequestBatch defines th maximum batch
+                                      size a single pull request can make. When set with MaxRequestMaxBytes,
+                                      the batch size will be constrained by whichever limit
+                                      is hit first. This is a pull consumer specific setting.
+                                    type: integer
+                                  maxBytes:
+                                    description:
+                                      MaxRequestMaxBytes defines the  maximum total
+                                      bytes that can be requested in a given batch. When set
+                                      with MaxRequestBatch, the batch size will be constrained
+                                      by whichever limit is hit first. This is a pull consumer
+                                      specific setting.
+                                    type: integer
+                                  maxExpires:
+                                    description:
+                                      MaxRequestExpires defines the maximum duration
+                                      a single pull request will wait for messages to be available
+                                      to pull. This is a pull consumer specific setting.
+                                    pattern: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
+                                    type: string
+                                  maxWaiting:
+                                    default: 512
+                                    description:
+                                      MaxWaiting defines the maximum number of
+                                      waiting pull requests. This is a pull consumer specific
+                                      setting.
+                                    type: integer
+                                type: object
+                              push:
+                                description:
+                                  PushConsumer defines the push-based consumer
+                                  configuration.
+                                properties:
+                                  deliverGroup:
+                                    description:
+                                      DeliverGroup defines the queue group name
+                                      which, if specified, is then used to distribute the
+                                      messages between the subscribers to the consumer. This
+                                      is analogous to a queue group in core NATS. See https://docs.nats.io/nats-concepts/core-nats/queue
+                                      for more information on queue groups. This is a push
+                                      consumer specific setting.
+                                    type: string
+                                  deliverSubject:
+                                    description:
+                                      DeliverSubject defines the subject to deliver
+                                      messages to. Note, setting this field implicitly decides
+                                      whether the consumer is push or pull-based. With a deliver
+                                      subject, the server will push messages to client subscribed
+                                      to this subject. This is a push consumer specific setting.
+                                    type: string
+                                  flowControl:
+                                    description:
+                                      FlowControl enables per-subscription flow
+                                      control using a sliding-window protocol. This protocol
+                                      relies on the server and client exchanging messages
+                                      to regulate when and how many messages are pushed to
+                                      the client. This one-to-one flow control mechanism works
+                                      in tandem with the one-to-many flow control imposed
+                                      by MaxAckPending across all subscriptions bound to a
+                                      consumer. This is a push consumer specific setting.
+                                    type: boolean
+                                  headersOnly:
+                                    description:
+                                      HeadersOnly delivers, if set, only the headers
+                                      of messages in the stream and not the bodies. Additionally
+                                      adds Nats-Msg-Size header to indicate the size of the
+                                      removed payload.
+                                    type: boolean
+                                  idleHeartbeat:
+                                    description:
+                                      IdleHeartbeat defines, if set, that the server
+                                      will regularly send a status message to the client (i.e.
+                                      when the period has elapsed) while there are no new
+                                      messages to send. This lets the client know that the
+                                      JetStream service is still up and running, even when
+                                      there is no activity on the stream. The message status
+                                      header will have a code of 100. Unlike FlowControl,
+                                      it will have no reply to address. It may have a description
+                                      such "Idle Heartbeat". Note that this heartbeat mechanism
+                                      is all handled transparently by supported clients and
+                                      does not need to be handled by the application. Format
+                                      is a string duration, e.g. 1h, 1m, 1s, 1h30m or 2h3m4s.
+                                      This is a push consumer specific setting.
+                                    pattern: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
+                                    type: string
+                                  rateLimitBps:
+                                    description:
+                                      RateLimit is used to throttle the delivery
+                                      of messages to the consumer, in bits per second.
+                                    format: int64
+                                    type: integer
+                                type: object
+                              replayPolicy:
+                                default: Instant
+                                description:
+                                  ReplayPolicy is used to define the mode of message
+                                  replay. If the policy is Instant, the messages will be pushed
+                                  to the client as fast as possible while adhering to the
+                                  Ack Policy, Max Ack Pending and the client's ability to
+                                  consume those messages. If the policy is Original, the messages
+                                  in the stream will be pushed to the client at the same rate
+                                  that they were originally received, simulating the original
+                                  timing of messages.
+                                enum:
+                                  - Instant
+                                  - Original
+                                type: string
+                              sampleFreq:
+                                description:
+                                  SampleFrequency sets the percentage of acknowledgements
+                                  that should be sampled for observability.
+                                pattern: ^([1-9][0-9]?|100)%?$
+                                type: string
+                            required:
+                              - ackPolicy
+                              - ackWait
+                              - deliverPolicy
+                              - numReplicas
+                              - replayPolicy
+                            type: object
+
                     streams:
                       type: array
                       description: List of streams

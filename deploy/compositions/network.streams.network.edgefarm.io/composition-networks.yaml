@@ -406,3 +406,11 @@ spec:
         timeout: 60s
         network:
           policy: Isolated
+
+    - name: addConsumers
+      type: Container
+      container:
+        image: ghcr.io/edgefarm/edgefarm.network/xfn-consumers:1.0.0-beta.22
+        timeout: 60s
+        network:
+          policy: Isolated

@@ -43,6 +43,12 @@
     [
       "@semantic-release/exec",
       {
+        "prepareCmd": "cd crossplane-functions/consumers/ && docker build -t xfn-consumers ."
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
         "prepareCmd": "cd crossplane-functions/log2webhook/ && docker build -t xfn-log2webhook ."
       }
     ],
@@ -91,6 +97,20 @@
     [
       "@eclass/semantic-release-docker",
       {
+        "baseImageName": "xfn-consumers",
+        "registries": [
+          {
+            "url": "ghcr.io",
+            "imageName": "ghcr.io/edgefarm/edgefarm.network/xfn-consumers",
+            "user": "GITHUB_USER",
+            "password": "GITHUB_TOKEN"
+          }
+        ]
+      }
+    ],
+    [
+      "@eclass/semantic-release-docker",
+      {
         "baseImageName": "xfn-streams",
         "registries": [
           {
@@ -127,6 +147,9 @@
             "user": "GITHUB_USER",
             "password": "GITHUB_TOKEN"
           }
+        ],
+        "additionalTags": [
+          "latest"
         ]
       }
     ],
@@ -146,6 +169,12 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-users:.*#ghcr.io/edgefarm/edgefarm.network/xfn-users:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "sed -i \"s#ghcr.io/edgefarm/edgefarm.network/xfn-consumers:.*#ghcr.io/edgefarm/edgefarm.network/xfn-consumers:${nextRelease.version}#g\" deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml"
       }
     ],
     [
