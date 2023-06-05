@@ -19,37 +19,37 @@ spec:
           sub:
             allow:
               - main.>
-      - name: bigonly
-        limits:
-          payload: -1
-          data: -1
-          subscriptions: -1
-        permissions:
-          pub:
-            allow:
-              - "*.big.>"
-          sub:
-            allow:
-              - "*.big.>"
+#      - name: bigonly
+#        limits:
+#          payload: -1
+#          data: -1
+#          subscriptions: -1
+#        permissions:
+#          pub:
+#            allow:
+#              - "*.big.>"
+#          sub:
+#            allow:
+#              - "*.big.>"
         # writeToSecret:
         #   name: baz
-    streams:
-      # Standard streams
-      - name: firstinmain
-        config:
-          subjects:
-            - main.first.>
-            - foo.>
-          discard: Old
-          retention: Limits
-          storage: File
-          maxConsumers: -1
-          maxMsgSize: -1
-          maxMsgs: -1
-          maxMsgsPerSubject: -1
-          maxBytes: 1024000
-          sealed: false
-        type: Standard
+#    streams:
+#      # Standard streams
+#      - name: firstinmain
+#        config:
+#          subjects:
+#            - main.first.>
+#            - foo.>
+#          discard: Old
+#          retention: Limits
+#          storage: File
+#          maxConsumers: -1
+#          maxMsgSize: -1
+#          maxMsgs: -1
+#          maxMsgsPerSubject: -1
+#          maxBytes: 1024000
+#          sealed: false
+#        type: Standard
 
       # - name: secondinmain
       #   subNetworkRef: main
@@ -96,35 +96,35 @@ spec:
       #     maxBytes: 402400
       #   type: Standard
 
-      - name: firstinbig
-        subNetworkRef: big
-        config:
-          subjects:
-            - big.first.>
-          discard: Old
-          retention: Limits
-          storage: File
-          maxConsumers: -1
-          maxMsgSize: -1
-          maxMsgs: -1
-          maxMsgsPerSubject: -1
-          maxBytes: 502400
-        type: Standard
+ #     - name: firstinbig
+ #       subNetworkRef: big
+ #       config:
+ #         subjects:
+ #           - big.first.>
+ #         discard: Old
+ #         retention: Limits
+ #         storage: File
+ #         maxConsumers: -1
+ #         maxMsgSize: -1
+ #         maxMsgs: -1
+ #         maxMsgsPerSubject: -1
+ #         maxBytes: 502400
+ #       type: Standard
 
-      - name: aggregate
-        type: Aggregate
-        config:
-          discard: Old
-          retention: Limits
-          storage: File
-          maxConsumers: -1
-          maxMsgSize: -1
-          maxMsgs: -1
-          maxMsgsPerSubject: -1
-          maxBytes: 6024000
-        references:
-          # - firstinsmall
-          - firstinbig
+ #     - name: aggregate
+ #       type: Aggregate
+ #       config:
+ #         discard: Old
+ #         retention: Limits
+ #         storage: File
+ #         maxConsumers: -1
+ #         maxMsgSize: -1
+ #         maxMsgs: -1
+ #         maxMsgsPerSubject: -1
+ #         maxBytes: 6024000
+ #       references:
+ #         # - firstinsmall
+ #         - firstinbig
 
     subNetworks:
       - name: big
