@@ -8,17 +8,19 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/edgefarm/edgefarm.network/internal/common"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/util/homedir"
 )
 
 type DomainsReponse struct {
@@ -135,7 +137,7 @@ func streamDomains(ctx context.Context, client *dynamic.DynamicClient, path *Pat
 		labelSelector += fmt.Sprintf(",streams.network.edgefarm.io/stream=%s", *path.Stream)
 	}
 
-	streams, err := client.Resource(gvr).List(context.Background(), v1.ListOptions{LabelSelector: labelSelector})
+	streams, err := client.Resource(gvr).List(context.Background(), metav1.ListOptions{LabelSelector: labelSelector})
 	if err != nil {
 		return nil, err
 	}
@@ -200,12 +202,36 @@ type Clients struct {
 }
 
 func main() {
-	// Create a Kubernetes client with an incluster config.
-	config, err := rest.InClusterConfig()
-	if err != nil {
-		fmt.Printf("Error creating incluster config: %v\n", err)
-		os.Exit(1)
+	useKubeConfig := os.Getenv("USE_KUBECONFIG")
+	kubeConfigFilePath := os.Getenv("KUBECONFIG")
+	var config *rest.Config
+	if len(useKubeConfig) == 0 {
+		// default to service account in cluster token
+		c, err := rest.InClusterConfig()
+		if err != nil {
+			fmt.Printf("Error creating incluster config: %v\n", err)
+			os.Exit(1)
+		}
+		config = c
+	} else {
+		//load from a kube config
+		var kubeconfig string
+
+		if kubeConfigFilePath == "" {
+			if home := homedir.HomeDir(); home != "" {
+				kubeconfig = filepath.Join(home, ".kube", "config")
+			}
+		} else {
+			kubeconfig = kubeConfigFilePath
+		}
+
+		c, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
+		if err != nil {
+			panic(err.Error())
+		}
+		config = c
 	}
+
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		fmt.Printf("Error creating clientset: %v\n", err)
