@@ -1,0 +1,84 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crossplane:provider:provider-kubernetes:system
+  labels: {{- include "provider-kubernetes.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - kubernetes.crossplane.io
+    resources:
+      - objects
+      - objects/status
+      - providerconfigs
+      - providerconfigs/status
+      - providerconfigusages
+      - providerconfigusages/status
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - create
+  - apiGroups:
+      - ""
+      - coordination.k8s.io
+    resources:
+      - secrets
+      - configmaps
+      - events
+      - leases
+    verbs:
+      - "*"
+  - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - nonResourceURLs:
+      - "*"
+    verbs:
+      - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.crossplane.io/aggregate-to-admin: "true"
+    rbac.crossplane.io/aggregate-to-crossplane: "true"
+    rbac.crossplane.io/aggregate-to-edit: "true"
+  name: crossplane:provider:provider-kubernetes:aggregate-to-edit
+rules:
+  - apiGroups:
+      - kubernetes.crossplane.io
+    resources:
+      - objects
+      - objects/status
+      - providerconfigs
+      - providerconfigs/status
+      - providerconfigusages
+      - providerconfigusages/status
+    verbs:
+      - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.crossplane.io/aggregate-to-view: "true"
+  name: crossplane:provider:provider-kubernetes:aggregate-to-view
+rules:
+  - apiGroups:
+      - kubernetes.crossplane.io
+    resources:
+      - objects
+      - objects/status
+      - providerconfigs
+      - providerconfigs/status
+      - providerconfigusages
+      - providerconfigusages/status
+    verbs:
+      - get
+      - list
+      - watch

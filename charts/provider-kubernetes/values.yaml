@@ -1,0 +1,6 @@
+provider:
+  package: crossplanecontrib/provider-kubernetes
+  version: v0.7.0
+  packagePullPolicy: IfNotPresent
+  replicas: 1
+  args: []
