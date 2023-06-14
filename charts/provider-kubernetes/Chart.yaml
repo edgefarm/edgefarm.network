@@ -4,7 +4,7 @@ description: A Helm chart for provider-kubernetes. Note that you need to have cr
 
 type: application
 version: 0.1.0
-appVersion: 0.7.0
+appVersion: "v0.7.0"
 
 keywords:
   - crossplane

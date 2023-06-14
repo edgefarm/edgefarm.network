@@ -1,6 +1,7 @@
 provider:
   package: ghcr.io/edgefarm/provider-nats/provider-nats
-  version: v0.2.0
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   packagePullPolicy: IfNotPresent
   replicas: 1
   args:

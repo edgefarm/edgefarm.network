@@ -4,9 +4,10 @@ description: A Helm chart for provider-natssecrets. Note that you need to have c
 
 type: application
 version: 0.1.0
-appVersion: 0.2.2
+appVersion: "v0.2.2"
 
 keywords:
+  - edgefarm.network
   - crossplane
   - provider
   - crd
