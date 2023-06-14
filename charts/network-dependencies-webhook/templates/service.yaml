@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "network-dependencies-webhook.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "network-dependencies-webhook.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: tls
+  selector:
+    {{- include "network-dependencies-webhook.selectorLabels" . | nindent 4 }}

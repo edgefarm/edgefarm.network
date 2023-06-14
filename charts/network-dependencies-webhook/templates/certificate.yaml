@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "network-dependencies-webhook.name" . }}-selfsigned-issuer
+  namespace: {{ .Release.Namespace }}
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "network-dependencies-webhook.name" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  commonName: {{ include "network-dependencies-webhook.name" . }}.{{ .Release.Namespace }}.svc
+  dnsNames:
+    - {{ include "network-dependencies-webhook.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
+    - {{ include "network-dependencies-webhook.name" . }}.{{ .Release.Namespace }}.svc
+  issuerRef:
+    kind: Issuer
+    name: {{ include "network-dependencies-webhook.name" . }}-selfsigned-issuer
+  secretName: {{ include "network-dependencies-webhook.name" . }}-server-cert

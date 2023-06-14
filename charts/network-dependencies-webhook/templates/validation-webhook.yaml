@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "network-dependencies-webhook.name" . }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "network-dependencies-webhook.name" . }}
+webhooks:
+  - name: {{ include "network-dependencies-webhook.name" . }}.{{ .Release.Namespace }}.svc
+    sideEffects: "None"
+    objectSelector:
+      matchLabels:
+        network.edgefarm.io/type: leaf
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validate
+      caBundle: Cg==
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["DELETE"]
+        resources: ["pods"]
