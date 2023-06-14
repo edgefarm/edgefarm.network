@@ -1,0 +1,12 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-natssecrets
+  labels: {{- include "provider-natssecrets.labels" . | nindent 4 }}
+spec:
+  package: {{ .Values.provider.package }}:{{ .Values.provider.version }}
+  packagePullPolicy: {{ .Values.provider.packagePullPolicy }}
+  revisionActivationPolicy: Automatic
+  revisionHistoryLimit: 1
+  controllerConfigRef:
+    name: provider-natssecrets

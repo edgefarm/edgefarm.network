@@ -1,0 +1,21 @@
+apiVersion: v2
+name: provider-natssecrets
+description: A Helm chart for provider-natssecrets. Note that you need to have crossplane installed to be able to install this chart.
+
+type: application
+version: 0.1.0
+appVersion: 0.2.2
+
+keywords:
+  - crossplane
+  - provider
+  - crd
+  - nats
+  - vault
+
+sources:
+  - https://github.com/edgefarm/provider-natssecrets
+
+maintainers:
+  - name: Armin Schlegel
+    email: armin.schlegel@gmx.de

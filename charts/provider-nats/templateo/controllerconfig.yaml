@@ -1,0 +1,9 @@
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: provider-nats
+spec:
+  replicas: 1
+  args:
+    - "--debug"
+    - "--poll=10s"

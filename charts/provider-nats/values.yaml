@@ -1,0 +1,7 @@
+provider:
+  package: ghcr.io/edgefarm/provider-nats/provider-nats
+  version: v0.2.0
+  packagePullPolicy: IfNotPresent
+  replicas: 1
+  args:
+    - "--poll=10s"

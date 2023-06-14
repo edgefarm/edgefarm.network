@@ -1,0 +1,12 @@
+apiVersion: natssecrets.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: provider-natssecrets
+  labels: {{- include "provider-natssecrets.labels" . | nindent 4 }}
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: {{ .Values.vault.token.secretRef.namespace }}
+      name: {{ .Values.vault.token.secretRef.name }}
+      key: {{ .Values.vault.token.secretRef.key }}
