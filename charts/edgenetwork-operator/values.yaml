@@ -1,0 +1,46 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/edgefarm/edgenetwork-operator/edgenetwork-operator
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 128M
+  requests:
+    cpu: 100m
+    memory: 64M
+
+service:
+  port: 80
+  targetPort: 8080
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

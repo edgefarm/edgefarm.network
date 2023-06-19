@@ -1,0 +1,28 @@
+apiVersion: metacontroller.k8s.io/v1alpha1
+kind: CompositeController
+metadata:
+  name: edgenetwork-operator
+  labels:
+    {{- include "edgenetwork-operator.labels" . | nindent 4 }}
+spec:
+  generateSelector: true
+  parentResource:
+    apiVersion: network.edgefarm.io/v1alpha1
+    resource: edgenetworks
+  childResources:
+    - apiVersion: v1
+      resource: configmaps
+      updateStrategy:
+        method: Recreate
+    - apiVersion: apps.openyurt.io/v1alpha1
+      resource: yurtappdaemons
+      updateStrategy:
+        method: Recreate
+    - apiVersion: v1
+      resource: services
+      updateStrategy:
+        method: Recreate
+  hooks:
+    sync:
+      webhook:
+        url: http://edgenetwork-operator.metacontroller/sync

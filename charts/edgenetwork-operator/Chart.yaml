@@ -1,0 +1,19 @@
+apiVersion: v2
+name: edgenetwork-operator
+description: A Helm chart for edgenetwork-operator. Note that you need to have metacontroller installed to be able to install this chart.
+
+type: application
+version: 0.1.0
+appVersion: "2.1.0"
+
+keywords:
+  - edgefarm.network
+  - crd
+  - metacontroller
+
+sources:
+  - https://github.com/edgefarm/edgenetwork-operator
+
+maintainers:
+  - name: Armin Schlegel
+    email: armin.schlegel@gmx.de
