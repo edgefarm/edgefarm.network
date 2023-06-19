@@ -1,0 +1,55 @@
+networkComposition:
+  # The order of functions execution is fixed and cannot be changed.
+  # The order is:
+  # 1. addStreams
+  # 2. addEdgeNetworks
+  # 3. addUsers
+  # 4. addConsumers
+  functions:
+    addStreams:
+      image: ghcr.io/edgefarm/edgefarm.network/xfn-streams
+      tag: 1.0.0-beta.23
+      imagePullPolicy: IfNotPresent
+      timeout: 60s
+      network:
+        policy: Runner
+
+    addEdgeNetworks:
+      image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks
+      tag: 1.0.0-beta.23
+      imagePullPolicy: IfNotPresent
+      timeout: 60s
+      network:
+        policy: Isolated
+
+    addUsers:
+      image: ghcr.io/edgefarm/edgefarm.network/xfn-users
+      tag: 1.0.0-beta.23
+      imagePullPolicy: IfNotPresent
+      timeout: 60s
+      network:
+        policy: Isolated
+
+    addConsumers:
+      image: ghcr.io/edgefarm/edgefarm.network/xfn-consumers
+      tag: 1.0.0-beta.23
+      imagePullPolicy: IfNotPresent
+      timeout: 60s
+      network:
+        policy: Isolated
+
+  # Log the output of the composition functions to a webhook.
+  log2webhook:
+    # Define the stages where the log2webhook function should be used
+    # You can define several stages
+    enabled:
+      initial: false
+      afterAddStreams: false
+      afterAddEdgeNetworks: false
+      afterAddUsers: false
+      afterAddConsumers: false
+    # Use a webhook service like https://webhook.site/ to test the log2webhook function.
+    webhookURL: https://webhook.site/<your ID>
+    image: ghcr.io/edgefarm/edgefarm.network/xfn-log2webhook
+    tag: latest
+    imagePullPolicy: IfNotPresent

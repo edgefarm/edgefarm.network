@@ -1,0 +1,495 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xnetworks.streams.network.edgefarm.io
+  labels:
+    crossplane.io/xrd: xnetworks.streams.network.edgefarm.io
+    {{- include "network-compositions.labels" . | nindent 4 }}
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: streams.network.edgefarm.io/v1alpha1
+    kind: XNetwork
+  patchSets:
+    - name: Common
+      patches:
+        - fromFieldPath: metadata.labels['crossplane.io/claim-name']
+          policy:
+            fromFieldPath: Optional
+          toFieldPath: metadata.labels['crossplane.io/claim-name']
+          type: FromCompositeFieldPath
+        - fromFieldPath: metadata.labels['crossplane.io/claim-namespace']
+          policy:
+            fromFieldPath: Optional
+          toFieldPath: metadata.labels['crossplane.io/claim-namespace']
+          type: FromCompositeFieldPath
+        - fromFieldPath: metadata.labels['crossplane.io/composite']
+          policy:
+            fromFieldPath: Optional
+          toFieldPath: metadata.labels['crossplane.io/composite']
+          type: FromCompositeFieldPath
+        - fromFieldPath: metadata.labels['external-name']
+          policy:
+            fromFieldPath: Optional
+          toFieldPath: metadata.labels['external-name']
+          type: fromcompositefieldpath
+
+    - name: provider-natssecrets-common-fields
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.operator
+          toFieldPath: spec.forProvider.operator
+
+        - fromFieldPath: spec.writeConnectionSecretToRef.namespace
+          toFieldPath: spec.writeConnectionSecretToRef.namespace
+
+  resources:
+    - name: get-network-base-config
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
+        metadata:
+          name: network-base-config
+        spec:
+          managementPolicy: Observe
+          forProvider:
+            manifest:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: network-base-config
+                namespace: crossplane-system
+          providerConfigRef:
+            name: provider-kubernetes
+      patches:
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-get-network-base-config"
+          toFieldPath: metadata.name
+          policy:
+            fromFieldPath: Required
+
+        - type: ToCompositeFieldPath
+          fromFieldPath: status.atProvider.manifest.data[operator]
+          toFieldPath: status.operator
+          policy:
+            fromFieldPath: Required
+      readinessChecks:
+        - type: None
+
+    - name: account
+      base:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: Account
+        metadata:
+          name: #patched
+          # labels:
+          #   dependsOnUid: #patched
+        spec:
+          writeConnectionSecretToRef:
+            namespace: #patched
+            name: #patched
+            uid: #patched
+          forProvider:
+            operator: #patched
+            claims:
+              account:
+                limits:
+                  streams: -1
+                  consumer: -1
+                  memStorage: -1
+                  diskStorage: -1
+                  subs: -1
+                  conn: -1
+                  leafNodeConn: -1
+                  data: -1
+                  payload: -1
+                  wildcardExports: true
+                  imports: -1
+                  exports: -1
+          providerConfigRef:
+            name: provider-natssecrets
+      patches:
+        - patchSetName: Common
+          type: PatchSet
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s"
+          toFieldPath: metadata.labels['external-name']
+          policy:
+            fromFieldPath: Required
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s"
+          toFieldPath: metadata.annotations['crossplane.io/external-name']
+          policy:
+            fromFieldPath: Required
+
+        - fromFieldPath: status.operator
+          toFieldPath: spec.forProvider.operator
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: spec.writeConnectionSecretToRef.namespace
+          toFieldPath: spec.writeConnectionSecretToRef.namespace
+          type: FromCompositeFieldPath
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: metadata.name
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-account"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: spec.writeConnectionSecretToRef.name
+
+        - type: ToCompositeFieldPath
+          fromFieldPath: metadata.uid
+          toFieldPath: status.account
+          policy:
+            fromFieldPath: Required
+
+    - name: sys-account-user
+      base:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          name: #patched
+          namespace: #patched
+        spec:
+          writeConnectionSecretToRef:
+            namespace: #patched
+            name: #patched
+          forProvider:
+            operator: #patched
+            account: sys
+            claims:
+              user:
+                data: -1
+                payload: -1
+                subs: -1
+          providerConfigRef:
+            name: provider-natssecrets
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.account
+          toFieldPath: metadata.labels['dependsOnUid']
+          policy:
+            fromFieldPath: Required
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-sys-account-user"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: metadata.name
+
+        - fromFieldPath: status.operator
+          toFieldPath: spec.forProvider.operator
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: spec.writeConnectionSecretToRef.namespace
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: metadata.namespace
+          type: FromCompositeFieldPath
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-sys-account-user"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: spec.writeConnectionSecretToRef.name
+
+    - name: system
+      base:
+        apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+        kind: User
+        metadata:
+          name: #patched
+          namespace: #patched
+        spec:
+          writeConnectionSecretToRef:
+            namespace: #patched
+            name: #patched
+          forProvider:
+            operator: #patched
+            account: #patched
+            claims:
+              user:
+                data: -1
+                payload: -1
+                subs: -1
+          providerConfigRef:
+            name: provider-natssecrets
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.account
+          toFieldPath: metadata.labels['dependsOnUid']
+          policy:
+            fromFieldPath: Required
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-system"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: metadata.name
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s"
+          toFieldPath: spec.forProvider.account
+          policy:
+            fromFieldPath: Required
+
+        - fromFieldPath: status.operator
+          toFieldPath: spec.forProvider.operator
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: spec.writeConnectionSecretToRef.namespace
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: metadata.namespace
+          type: FromCompositeFieldPath
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-system"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: spec.writeConnectionSecretToRef.name
+
+        - type: ToCompositeFieldPath
+          fromFieldPath: metadata.uid
+          toFieldPath: status.system
+          policy:
+            fromFieldPath: Required
+
+    - name: provider-nats-config
+      base:
+        apiVersion: nats.crossplane.io/v1alpha1
+        kind: ProviderConfig
+        metadata:
+          name: #patched
+          namespace: #patched
+          # labels:
+          #   dependsOnUid: #patched
+        spec:
+          credentials:
+            source: Secret
+            secretRef:
+              name: #patched
+              key: provider-config-secret
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.system
+          toFieldPath: metadata.labels['dependsOnUid']
+          policy:
+            fromFieldPath: Required
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: metadata.namespace
+          type: FromCompositeFieldPath
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: metadata.name
+
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: metadata.labels["crossplane.io/claim-name"]
+              - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+            strategy: string
+            string:
+              fmt: "%s-%s-system"
+          policy:
+            fromFieldPath: Required
+          toFieldPath: spec.credentials.secretRef.name
+
+        - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]
+          toFieldPath: spec.credentials.secretRef.namespace
+          type: FromCompositeFieldPath
+      readinessChecks:
+        - type: None
+
+  functions:
+{{- if .Values.networkComposition.log2webhook.enabled.initial }}
+    - name: log2webhook
+      type: Container
+      config:
+        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+        kind: Config
+        spec: 
+          webhookURL: {{ .Values.networkComposition.log2webhook.webhookURL }}
+      container:
+        image: {{ .Values.networkComposition.log2webhook.image }}:{{ .Values.networkComposition.log2webhook.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.log2webhook.imagePullPolicy }}
+        network:
+          policy: Runner
+{{- end }}
+    - name: addStreams
+      type: Container
+      container:
+        image: {{ .Values.networkComposition.functions.addStreams.image }}:{{ .Values.networkComposition.functions.addStreams.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.functions.addStreams.imagePullPolicy }}
+        timeout: {{ .Values.networkComposition.functions.addStreams.timeout }}
+        network:
+          policy: {{ .Values.networkComposition.functions.addStreams.network.policy }}
+
+{{- if .Values.networkComposition.log2webhook.enabled.afterAddStreams }}
+    - name: log2webhook
+      type: Container
+      config:
+        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+        kind: Config
+        spec: 
+          webhookURL: {{ .Values.networkComposition.log2webhook.webhookURL }}
+      container:
+        image: {{ .Values.networkComposition.log2webhook.image }}:{{ .Values.networkComposition.log2webhook.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.log2webhook.imagePullPolicy }}
+        network:
+          policy: Runner
+{{- end }}
+
+    - name: addEdgeNetworks
+      type: Container
+      container:
+        image: {{ .Values.networkComposition.functions.addEdgeNetworks.image }}:{{ .Values.networkComposition.functions.addEdgeNetworks.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.functions.addEdgeNetworks.imagePullPolicy }}
+        timeout: {{ .Values.networkComposition.functions.addEdgeNetworks.timeout }}
+        network:
+          policy: {{ .Values.networkComposition.functions.addEdgeNetworks.network.policy }}
+
+{{- if .Values.networkComposition.log2webhook.enabled.afterAddEdgeNetworks }}
+    - name: log2webhook
+      type: Container
+      config:
+        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+        kind: Config
+        spec: 
+          webhookURL: {{ .Values.networkComposition.log2webhook.webhookURL }}
+      container:
+        image: {{ .Values.networkComposition.log2webhook.image }}:{{ .Values.networkComposition.log2webhook.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.log2webhook.imagePullPolicy }}
+        network:
+          policy: Runner
+{{- end }}
+
+    - name: addUsers
+      type: Container
+      container:
+        image: {{ .Values.networkComposition.functions.addUsers.image }}:{{ .Values.networkComposition.functions.addUsers.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.functions.addUsers.imagePullPolicy }}
+        timeout: {{ .Values.networkComposition.functions.addUsers.timeout }}
+        network:
+          policy: {{ .Values.networkComposition.functions.addUsers.network.policy }}
+
+
+{{- if .Values.networkComposition.log2webhook.enabled.afterAddUsers }}
+    - name: log2webhook
+      type: Container
+      config:
+        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+        kind: Config
+        spec: 
+          webhookURL: {{ .Values.networkComposition.log2webhook.webhookURL }}
+      container:
+        image: {{ .Values.networkComposition.log2webhook.image }}:{{ .Values.networkComposition.log2webhook.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.log2webhook.imagePullPolicy }}
+        network:
+          policy: Runner
+{{- end }}
+
+    - name: addConsumers
+      type: Container
+      container:
+        image: {{ .Values.networkComposition.functions.addConsumers.image }}:{{ .Values.networkComposition.functions.addConsumers.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.functions.addConsumers.imagePullPolicy }}
+        timeout: {{ .Values.networkComposition.functions.addConsumers.timeout }}
+        network:
+          policy: {{ .Values.networkComposition.functions.addConsumers.network.policy }}
+    
+{{- if .Values.networkComposition.log2webhook.enabled.afterAddConsumers }}
+    - name: log2webhook
+      type: Container
+      config:
+        apiVersion: log2webhook.xfn.edgefarm.io/v1alpha1
+        kind: Config
+        spec: 
+          webhookURL: {{ .Values.networkComposition.log2webhook.webhookURL }}
+      container:
+        image: {{ .Values.networkComposition.log2webhook.image }}:{{ .Values.networkComposition.log2webhook.tag }}
+        imagePullPolicy: {{ .Values.networkComposition.log2webhook.imagePullPolicy }}
+        network:
+          policy: Runner
+{{- end }}

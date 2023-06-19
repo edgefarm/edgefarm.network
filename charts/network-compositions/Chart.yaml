@@ -1,0 +1,19 @@
+apiVersion: v2
+name: network-compositions
+description: A Helm chart for edgefarm.network crossplane compositions. Note that you need to have crossplane, provider-nats, provider-natssecrets and edgenetwork-operator installed to be able to install this chart.
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+  - edgefarm.network
+  - crd
+  - metacontroller
+
+sources:
+  - https://github.com/edgefarm/edgefarm.network
+
+maintainers:
+  - name: Armin Schlegel
+    email: armin.schlegel@gmx.de
