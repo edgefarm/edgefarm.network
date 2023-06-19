@@ -1,0 +1,21 @@
+apiVersion: v2
+name: kyverno-dependency
+description: A Helm chart for kyverno-dependency - to manage dependencies between resources. Note that you need to have kyverno installed to be able to install this chart.
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+  - edgefarm.network
+  - crd
+  - kyverno
+  - dependency
+  - dependencies
+
+sources:
+  - https://github.com/edgefarm/edgefarm.network
+
+maintainers:
+  - name: Armin Schlegel
+    email: armin.schlegel@gmx.de

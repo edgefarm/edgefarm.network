@@ -1,0 +1,69 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: block-delete-on-dependencies
+  annotations:
+    policies.kyverno.io/title: Block Delete when a Dependency exists
+    policies.kyverno.io/category: Dependency Management
+    policies.kyverno.io/subject: Lifecycle Management
+    policies.kyverno.io/description: >-
+      Look for Dependency objects that reference the UID of the object that is being deleted,
+      and if any exist block the delete API call.
+  labels:
+    {{- include "kyverno-dependency.labels" . | nindent 4 }}
+spec:
+  background: false
+  failurePolicy: Fail
+  rules:
+    - context:
+        - apiCall:
+            jmesPath: {{ `"items[?metadata.labels.dependsOn == '{{ request.oldObject.metadata.uid }}'] | length(@)"` }}
+            urlPath: /apis/dummy.crds.com/v1/dependencies
+          name: dependencyCount
+      match:
+        any:
+          - resources:
+              kinds:
+                - "*"
+              selector:
+                matchLabels:
+                  crossplane.io/composite: ?*
+      name: check-for-dependency
+      preconditions:
+        any:
+          - key:  {{ `"{{ request.operation }}"` }}
+            operator: Equals
+            value: DELETE
+      validate:
+        deny:
+          conditions:
+            any:
+              - key: {{ `"{{ dependencyCount }}"` }}
+                operator: GreaterThan
+                value: 0
+        message: Block deletion when there is a dependency configmap
+    - context:
+        - apiCall:
+            jmesPath: {{ `items[?metadata.labels.dependsOnUid == '{{ request.oldObject.metadata.labels.dependsOn }}'] | length(@)` }}
+            urlPath: /apis/dummy.crds.com/v1/dependencies
+          name: dependencyCount
+      match:
+        any:
+          - resources:
+              kinds:
+                - Dependency
+      name: Check for depending resource
+      preconditions:
+        any:
+          - key: {{ `"{{ request.operation }}"` }}
+            operator: Equals
+            value: DELETE
+      validate:
+        deny:
+          conditions:
+            any:
+              - key: {{ `"{{ dependencyCount }}"` }}
+                operator: GreaterThan
+                value: 0
+        message: Block deletion of the dependency until the dependant resource is deleted
+  validationFailureAction: enforce
