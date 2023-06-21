@@ -1,0 +1,25 @@
+{{- if .Values.backend.enabled }}
+{{- if .Values.backend.createOperator }}
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: Operator
+metadata:
+  name: {{ .Values.operatorName }}
+  labels:
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    syncAccountServer: true
+    claims:
+      operator:
+        systemAccount: sys-{{ .Values.operatorName }}
+        accountServerUrl: {{ .Values.backend.nats.resolver.address }}
+        operatorServiceUrls:
+          - {{ .Values.backend.nats.resolver.address }}
+        strictSigningKeyUsage: false
+  providerConfigRef:
+    name: provider-natssecrets
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: {{ .Values.operatorName }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,12 @@
+{{- if .Values.backend.enabled }}
+{{- $namespace := .Values.backend.nats.authConfigmapDestination.namespace }}
+{{- $existingNamespace := (lookup "v1" "Namespace" "" $namespace) }}
+{{- if not $existingNamespace }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespace }}
+  labels:
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+{{- end }}
+{{- end }}

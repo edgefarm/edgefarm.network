@@ -1,0 +1,50 @@
+{{- if .Values.backend.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nats-auth-config
+  labels:
+    app: nats-auth-config
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    metadata:
+      annotations:
+        vault.security.banzaicloud.io/vault-addr: "https://vault.vault.svc:8200"
+        vault.security.banzaicloud.io/vault-skip-verify: "true"
+      labels:
+        app: nats-auth-config
+    spec:
+      serviceAccount: nats-auth-config
+      serviceAccountName: nats-auth-config
+      containers:
+        - name: create-nats-auth-config
+          image: bitnami/kubectl:1.22
+          command:
+            [
+              "bash",
+              "-c",
+              'filled=$(echo "$TEMPLATE" | sed "s/\${OPERATOR_JWT}/${OPERATOR_JWT}/g" |  sed "s/\${SYS_ACCOUNT_PUBLIC_KEY}/${SYS_ACCOUNT_PUBLIC_KEY}/g" | sed "s/\${SYS_ACCOUNT_JWT}/${SYS_ACCOUNT_JWT}/g") && kubectl create configmap {{ .Values.backend.nats.authConfigmapDestination.name }} --namespace {{ .Values.backend.nats.authConfigmapDestination.namespace }} --from-literal=auth.config="${filled}"',
+            ]
+          env:
+            - name: OPERATOR_JWT
+              value: "vault:nats-secrets/jwt/operator/{{ .Values.operatorName }}#jwt"
+            - name: SYS_ACCOUNT_JWT
+              value: "vault:nats-secrets/jwt/operator/{{ .Values.operatorName }}/account/sys-{{ .Values.operatorName }}#jwt"
+            - name: SYS_ACCOUNT_PUBLIC_KEY
+              value: "vault:nats-secrets/nkey/operator/{{ .Values.operatorName }}/account/sys-{{ .Values.operatorName }}#publicKey"
+            - name: TEMPLATE
+              valueFrom:
+                configMapKeyRef:
+                  name: nats-auth-config-template
+                  key: config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+      restartPolicy: Never
+{{- end }}

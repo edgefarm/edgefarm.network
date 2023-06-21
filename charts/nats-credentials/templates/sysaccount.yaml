@@ -1,0 +1,45 @@
+{{- if .Values.backend.enabled }}
+{{- if .Values.backend.createSysaccount }}
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: Account
+metadata:
+  name: sys-{{ .Values.operatorName }}
+  labels:
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    operator: {{ .Values.operatorName }}
+    claims:
+      account:
+        limits:
+          subs: -1
+          conn: -1
+          leafNodeConn: -1
+          data: -1
+          payload: -1
+          wildcardExports: true
+          imports: -1
+          exports: -1
+        exports:
+          - name: account-monitoring-streams
+            subject: "$SYS.ACCOUNT.*.>"
+            type: Stream
+            accountTokenPosition: 3
+            description: Account specific monitoring stream
+            infoURL: https://docs.nats.io/nats-server/configuration/sys_accounts
+          - name: account-monitoring-services
+            subject: "$SYS.ACCOUNT.*.*"
+            type: Service
+            responseType: Stream
+            accountTokenPosition: 4
+            description:
+              "Request account specific monitoring services for: SUBSZ, CONNZ,
+              LEAFZ, JSZ and INFO"
+            infoURL: https://docs.nats.io/nats-server/configuration/sys_accounts
+  providerConfigRef:
+    name: provider-natssecrets
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: sys-{{ .Values.operatorName }}
+{{- end }}
+{{- end }}

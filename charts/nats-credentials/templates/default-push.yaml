@@ -1,0 +1,30 @@
+{{- if .Values.backend.enabled }}
+{{- if and .Values.backend.createSysaccount }}
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: default-push-{{ .Values.operatorName }}
+  labels:
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    operator: {{ .Values.operatorName }}
+    account: sys-{{ .Values.operatorName }}
+    claims:
+      user:
+        data: -1
+        payload: -1
+        subs: -1
+        pub:
+          allow:
+            - "$SYS.REQ.CLAIMS.LIST"
+            - "$SYS.REQ.CLAIMS.UPDATE"
+            - "$SYS.REQ.CLAIMS.DELETE"
+          resp:
+        sub:
+          allow:
+            - _INBOX.>
+  providerConfigRef:
+    name: provider-natssecrets
+{{- end }}
+{{- end }}

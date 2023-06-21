@@ -1,0 +1,11 @@
+{{- if .Values.core.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  labels:
+    {{- include "nats-credentials.labels" . | nindent 4 }}
+  name: network-base-config
+  namespace: crossplane-system
+data: 
+  operator: {{ .Values.operatorName }}
+{{- end }}
