@@ -3,10 +3,11 @@ kind: ProviderConfig
 metadata:
   name: provider-natssecrets
   labels: {{- include "provider-natssecrets.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
 spec:
   credentials:
     source: Secret
     secretRef:
-      namespace: {{ .Values.vault.token.secretRef.namespace }}
-      name: {{ .Values.vault.token.secretRef.name }}
-      key: {{ .Values.vault.token.secretRef.key }}
+      namespace: {{ .Values.namespace }}
+      name: {{ .Values.vault.credentials.secretRef.name }}
+      key: {{ .Values.vault.credentials.secretRef.key }}

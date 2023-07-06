@@ -1,8 +1,10 @@
 replicaCount: 1
 image:
-  repository: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook
+  # repository: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook
+  repository: siredmar/network-dependencies-webhook
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: test1
+  # tag: ""
 
 imagePullSecrets: []
 nameOverride: ""

@@ -8,4 +8,5 @@ metadata:
   namespace: crossplane-system
 data: 
   operator: {{ .Values.operatorName }}
+  sysAccount: sys
 {{- end }}

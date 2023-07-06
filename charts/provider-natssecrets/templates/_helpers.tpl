@@ -50,28 +50,3 @@ app.kubernetes.io/name: {{ include "provider-natssecrets.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-# {{/*
-# Create the name of the service account to use
-# */}}
-# {{- define "provider-natssecrets.serviceAccountName" -}}
-# {{- if .Values.serviceAccount.create }}
-# {{- default (include "provider-natssecrets.fullname" .) .Values.serviceAccount.name }}
-# {{- else }}
-# {{- default "default" .Values.serviceAccount.name }}
-# {{- end }}
-# {{- end }}
-
-{{- define "vaultData" -}}
-{{- $vault := .Values.vault.token.secretRef.data -}}
-{{- required "vault.token.secretRef.data.address is required" $vault.address -}}
-{{- required "vault.token.secretRef.data.tls is required" $vault.tls -}}
-{{- required "vault.token.secretRef.data.insecure is required" $vault.insecure -}}
-{{- required "vault.token.secretRef.data.token is required" $vault.token -}}
-{
-  "address": "{{ $vault.address }}",
-  "tls": {{ $vault.tls }},
-  "insecure": {{ $vault.insecure }},
-  "token": "{{ $vault.token }}",
-  "path": "nats-secrets"
-}
-{{- end -}}

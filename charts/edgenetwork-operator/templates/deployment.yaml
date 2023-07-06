@@ -12,8 +12,8 @@ spec:
       {{- include "edgenetwork-operator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      matchLabels:
-      {{- include "edgenetwork-operator.selectorLabels" . | nindent 6 }}
+      labels:
+        {{- include "edgenetwork-operator.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: controller

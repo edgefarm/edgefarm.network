@@ -1,3 +1,4 @@
+namespace: nats
 operatorName: operator
 
 core:
@@ -18,4 +19,4 @@ backend:
         timeout: "1.9s"
     authConfigmapDestination:
       name: nats-auth-config
-      namespace: test
+      namespace: nats

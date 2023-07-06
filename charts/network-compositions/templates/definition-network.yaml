@@ -2,8 +2,6 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
   name: xnetworks.streams.network.edgefarm.io
-  labels:
-    {{- include "network-compositions.labels" . | nindent 4 }}
 spec:
   group: streams.network.edgefarm.io
   names:
@@ -30,6 +28,10 @@ spec:
                 operator:
                   description: >
                     The operator for the NATS server
+                  type: string
+                sysAccount:
+                  description: >
+                    The sys account name for the NATS server
                   type: string
                 system:
                   description: >

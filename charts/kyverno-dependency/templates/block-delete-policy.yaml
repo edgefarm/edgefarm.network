@@ -17,7 +17,7 @@ spec:
   rules:
     - context:
         - apiCall:
-            jmesPath: {{ `"items[?metadata.labels.dependsOn == '{{ request.oldObject.metadata.uid }}'] | length(@)"` }}
+            jmesPath: {{ `"items[?metadata.labels.dependsOn == '{{ request.oldObject.metadata.uid }}'] | length(@)"`  }}
             urlPath: /apis/dummy.crds.com/v1/dependencies
           name: dependencyCount
       match:
@@ -44,7 +44,7 @@ spec:
         message: Block deletion when there is a dependency configmap
     - context:
         - apiCall:
-            jmesPath: {{ `items[?metadata.labels.dependsOnUid == '{{ request.oldObject.metadata.labels.dependsOn }}'] | length(@)` }}
+            jmesPath: {{ `items[?metadata.labels.dependsOnUid == '{{ request.oldObject.metadata.labels.dependsOn }}'] | length(@)`  }}
             urlPath: /apis/dummy.crds.com/v1/dependencies
           name: dependencyCount
       match:

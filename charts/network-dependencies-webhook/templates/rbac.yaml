@@ -15,17 +15,40 @@ kind: ClusterRole
 metadata:
   name: {{ include "network-dependencies-webhook.name" . }}
 rules:
-  - apiGroups:
-      - ""
+  - apiGroups: [""]
     resources:
-      - pods
-    verbs: ["get", "list"]
+      - "pods"
+    verbs:
+      - "update"
+      - "get"
+      - "watch"
+      - "list"
   - apiGroups:
       - "streams.network.edgefarm.io"
     resources:
-      - users
-      - xstreams
-    verbs: ["get", "list"]
+      - "xstreams"
+      - "xconsumers"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "issue.natssecrets.crossplane.io"
+    resources:
+      - "users"
+      - "accounts"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "nats.crossplane.io"
+    resources:
+      - "providerconfigs"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

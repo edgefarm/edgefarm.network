@@ -4,6 +4,7 @@ metadata:
   name: {{ include "network-resource-info.name" . }}
   labels:
     {{- include "network-resource-info.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}

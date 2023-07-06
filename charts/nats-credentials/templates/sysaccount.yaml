@@ -4,6 +4,8 @@ apiVersion: issue.natssecrets.crossplane.io/v1alpha1
 kind: Account
 metadata:
   name: sys-{{ .Values.operatorName }}
+  annotations:
+    crossplane.io/external-name: sys
   labels:
     {{- include "nats-credentials.labels" . | nindent 4 }}
 spec:

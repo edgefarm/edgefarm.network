@@ -18,8 +18,11 @@ spec:
   rules:
     - generate:
         apiVersion: dummy.crds.com/v1
+        kind: Dependency
+        name: {{ `"{{request.name}}-{{request.object.metadata.labels.dependsOnUid}}"` }}
         data:
           metadata:
+            namespace: {{ `"{{request.object.metadata.name}}"` }}
             labels:
               dependsOn: {{ `"{{request.object.metadata.labels.dependsOnUid}}"` }}
             ownerReferences:
@@ -28,8 +31,6 @@ spec:
                 kind: {{ `"{{request.kind.kind}}"` }}
                 name: {{ `"{{request.name}}"` }}
                 uid: {{ `"{{request.object.metadata.uid}}"` }}
-        kind: Dependency
-        name: {{ `"{{request.name}}-{{request.object.metadata.labels.dependsOnUid}}"` }}
       match:
         any:
           - resources:

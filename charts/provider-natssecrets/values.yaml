@@ -1,3 +1,5 @@
+namespace: crossplane-system
+
 provider:
   package: ghcr.io/edgefarm/provider-natssecrets/provider-natssecrets
   # Overrides the image tag whose default is the chart appVersion.
@@ -7,16 +9,29 @@ provider:
   args: []
 
 vault:
-  token:
-    # reference a secret containing the token secret, defaults to bank-vaults secret
+  credentials:
+    # Reference a secret containing the credentials to accesss vault
+    # The format is a json string that looks like this:
+    # {
+    #   "address": "https://vault.vault.svc:8200",
+    #   "tls": true,
+    #   "insecure": true,
+    #   "token": "<vault token>",
+    #   "path": "nats-secrets"
+    # }
     secretRef:
-      name: bank-vaults
-      namespace: vault
-      key: vault-root
-      # Uncomment `data` to passe a custom values and create a secret with it to reference.
+      name: provider-natssecrets
+      key: credentials
+      # If `data` is passed a secret is created with the given data.
       # If not used, an existing secret must exist.
-      # data:
-      #   address: https://vault.example.com:8200
-      #   tls: true
-      #   insecure: true
-      #   token: supersecret
+      data:
+        address: https://vault.vault.svc:8200
+        tls: true
+        insecure: true
+        token:
+          # Either set the token directly using `value` or reference a secret
+          # value: supersecret
+          fromSecret:
+            name: bank-vaults
+            namespace: vault
+            key: vault-root

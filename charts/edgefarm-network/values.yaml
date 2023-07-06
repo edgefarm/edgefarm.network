@@ -1,0 +1,50 @@
+nats:
+  namespaceOverride: nats
+  fullnameOverride: nats
+  nameOverride: nats
+  statefulSet:
+    patch:
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value: { name: auth-config, configMap: { name: nats-auth-config } }
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value: { name: auth-config, mountPath: /etc/nats-config/auth/ }
+  config:
+    merge:
+      00$include: ./auth/auth.config
+    jetstream:
+      enabled: true
+      merge:
+        domain: main
+      fileStore:
+        enabled: true
+        dir: /data/jetstream
+        maxSize: 10G
+      memoryStore:
+        enabled: true
+        maxSize: 1G
+    leafnodes:
+      enabled: true
+      port: 7422
+  natsBox:
+    enabled: false
+  reloader:
+    enabled: false
+  extraResources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        labels:
+          kubernetes.io/metadata.name: nats
+        name: nats
+
+provider-natssecrets:
+  namespace: crossplane-system
+
+nats-credentials:
+  # must be the same as set in nats.operatorName Vault Helm chart
+  operatorName: operator
+
+network-resource-info: 
+  namespaceOverride: crossplane-system

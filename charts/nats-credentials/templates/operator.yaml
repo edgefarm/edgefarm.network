@@ -11,7 +11,7 @@ spec:
     syncAccountServer: true
     claims:
       operator:
-        systemAccount: sys-{{ .Values.operatorName }}
+        systemAccount: sys
         accountServerUrl: {{ .Values.backend.nats.resolver.address }}
         operatorServiceUrls:
           - {{ .Values.backend.nats.resolver.address }}

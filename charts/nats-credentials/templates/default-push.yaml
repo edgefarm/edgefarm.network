@@ -4,12 +4,15 @@ apiVersion: issue.natssecrets.crossplane.io/v1alpha1
 kind: User
 metadata:
   name: default-push-{{ .Values.operatorName }}
+  annotations:
+    crossplane.io/external-name: default-push
   labels:
     {{- include "nats-credentials.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
 spec:
   forProvider:
     operator: {{ .Values.operatorName }}
-    account: sys-{{ .Values.operatorName }}
+    account: sys
     claims:
       user:
         data: -1

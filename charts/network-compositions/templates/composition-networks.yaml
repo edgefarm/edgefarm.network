@@ -32,7 +32,7 @@ spec:
           policy:
             fromFieldPath: Optional
           toFieldPath: metadata.labels['external-name']
-          type: fromcompositefieldpath
+          type: FromCompositeFieldPath
 
     - name: provider-natssecrets-common-fields
       patches:
@@ -79,6 +79,12 @@ spec:
           toFieldPath: status.operator
           policy:
             fromFieldPath: Required
+
+        - type: ToCompositeFieldPath
+          fromFieldPath: status.atProvider.manifest.data[sysAccount]
+          toFieldPath: status.sysAccount
+          policy:
+            fromFieldPath: Required    
       readinessChecks:
         - type: None
 
@@ -222,6 +228,10 @@ spec:
 
         - fromFieldPath: status.operator
           toFieldPath: spec.forProvider.operator
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: status.sysAccount
+          toFieldPath: metadata.annotations["crossplane.io/external-name"]
           type: FromCompositeFieldPath
 
         - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]

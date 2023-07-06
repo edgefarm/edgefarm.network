@@ -1,0 +1,13 @@
+{{- if .Values.storage.enabled }}
+{{- if .Values.storage.persistentVolumeClaim.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vault-file
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "vault.labels" . | nindent 4 }}
+spec:
+  {{ toYaml .Values.storage.persistentVolumeClaim.spec | nindent 2 }}
+{{- end }}
+{{- end }}
