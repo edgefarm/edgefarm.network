@@ -1,6 +1,6 @@
 resources:
   - dependency_crd.yaml
-  - clusterrole.yaml
+  # - clusterrole.yaml
   - add-dependency-policy.yaml
   - add-second-dependency-policy.yaml
   - block-delete-policy.yaml

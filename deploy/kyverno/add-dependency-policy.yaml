@@ -11,11 +11,14 @@ metadata:
       gets deleted automatically when the dependent resource is deleted.
   name: add-dependency
 spec:
+  schemaValidation: false
   background: false
   failurePolicy: Fail
   rules:
     - generate:
         apiVersion: dummy.crds.com/v1
+        kind: Dependency
+        namespace: "{{request.object.metadata.name}}"
         data:
           metadata:
             labels:
@@ -26,13 +29,17 @@ spec:
                 kind: "{{request.kind.kind}}"
                 name: "{{request.name}}"
                 uid: "{{request.object.metadata.uid}}"
-        kind: Dependency
         name: "{{request.name}}-{{request.object.metadata.labels.dependsOnUid}}"
       match:
         any:
           - resources:
               kinds:
                 - "*"
+                # - User
+                # - ProviderConfig
+                # - XEdgeNetwork
+                # - XStream
+                # - XConsumer
               selector:
                 matchLabels:
                   dependsOnUid: ?*

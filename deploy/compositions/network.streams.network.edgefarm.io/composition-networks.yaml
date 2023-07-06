@@ -78,6 +78,12 @@ spec:
           toFieldPath: status.operator
           policy:
             fromFieldPath: Required
+
+        - type: ToCompositeFieldPath
+          fromFieldPath: status.atProvider.manifest.data[sysAccount]
+          toFieldPath: status.sysAccount
+          policy:
+            fromFieldPath: Required
       readinessChecks:
         - type: None
 
@@ -192,7 +198,7 @@ spec:
             name: #patched
           forProvider:
             operator: #patched
-            account: sys
+            account: #patched
             claims:
               user:
                 data: -1
@@ -221,6 +227,10 @@ spec:
 
         - fromFieldPath: status.operator
           toFieldPath: spec.forProvider.operator
+          type: FromCompositeFieldPath
+
+        - fromFieldPath: status.sysAccount
+          toFieldPath: spec.forProvider.account
           type: FromCompositeFieldPath
 
         - fromFieldPath: metadata.labels["crossplane.io/claim-namespace"]

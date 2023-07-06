@@ -29,6 +29,10 @@ spec:
                   description: >
                     The operator for the NATS server
                   type: string
+                sysAccount:
+                  description: >
+                    The sys account name for the NATS server
+                  type: string
                 system:
                   description: >
                     The UID of the secret user resource

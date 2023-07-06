@@ -32,7 +32,7 @@ spec:
         any:
           - resources:
               kinds:
-                - "*"
+                - "XEdgeNetwork"
               selector:
                 matchLabels:
                   dependsOnSecondUid: ?*
