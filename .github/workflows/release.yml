@@ -32,7 +32,9 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USER: siredmar
+          GITHUB_USER: ${{ github.actor }}
+          REGISTRY_USERNAME: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ secrets.PACKAGES_TOKEN }}
         run: |-
           #!/bin/bash
           set -e
