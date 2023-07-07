@@ -9,6 +9,9 @@ on:
     types:
       - completed
 
+env:
+  REGISTRY: ghcr.io
+
 jobs:
   on-success:
     name: Release
@@ -28,6 +31,13 @@ jobs:
         uses: azure/setup-helm@v3
         with:
           version: "v3.11.1"
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Release
         env:
