@@ -1,21 +1,17 @@
 apiVersion: v2
 name: network-resource-info-helm
 description: A Helm chart for network-resource-info. Note that you need to have crossplane and provider-nats installed to be able to install this chart.
-
 type: application
-version: 0.1.0
-appVersion: "1.0.0-beta.23"
-
+version: 1.0.0-beta.24
+appVersion: 1.0.0-beta.24
 keywords:
   - edgefarm.network
   - crossplane
   - provider
   - crd
   - nats
-
 sources:
   - https://github.com/edgefarm/edgefarm.network/tree/beta/cmd/network-resource-info
-
 maintainers:
   - name: Armin Schlegel
     email: armin.schlegel@gmx.de
