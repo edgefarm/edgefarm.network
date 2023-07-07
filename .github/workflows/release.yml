@@ -24,6 +24,11 @@ jobs:
         with:
           node-version: "lts/*"
 
+      - name: Setup helm
+        uses: azure/setup-helm@v3
+        with:
+          version: "v3.11.1"
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,7 +37,5 @@ jobs:
           #!/bin/bash
           set -e
           # add more plugins: https://semantic-release.gitbook.io/semantic-release/extending/plugins-list
-          npm install @semantic-release/exec @eclass/semantic-release-docker @semantic-release/git -D
-          # the ... || true is to prevent the script from failing caused by a bug in semantic-release regarding 
-          # rate limit changes on github. See https://github.com/semantic-release/github/pull/487
-          npx -c semantic-release || true
+          npm install @semantic-release/exec @eclass/semantic-release-docker @semantic-release/git semantic-release-helm3 -D
+          npx -c semantic-release

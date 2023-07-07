@@ -1,5 +1,4 @@
-{{- if .Values.backend.enabled }}
-{{- if .Values.backend.createSysaccount }}
+{{- if .Values.sysAccount.enabled }}
 apiVersion: issue.natssecrets.crossplane.io/v1alpha1
 kind: Account
 metadata:
@@ -7,7 +6,7 @@ metadata:
   annotations:
     crossplane.io/external-name: sys
   labels:
-    {{- include "nats-credentials.labels" . | nindent 4 }}
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
 spec:
   forProvider:
     operator: {{ .Values.operatorName }}
@@ -43,5 +42,33 @@ spec:
   writeConnectionSecretToRef:
     namespace: crossplane-system
     name: sys-{{ .Values.operatorName }}
-{{- end }}
+---
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: default-push-{{ .Values.operatorName }}
+  annotations:
+    crossplane.io/external-name: default-push
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    operator: {{ .Values.operatorName }}
+    account: sys
+    claims:
+      user:
+        data: -1
+        payload: -1
+        subs: -1
+        pub:
+          allow:
+            - "$SYS.REQ.CLAIMS.LIST"
+            - "$SYS.REQ.CLAIMS.UPDATE"
+            - "$SYS.REQ.CLAIMS.DELETE"
+          resp:
+        sub:
+          allow:
+            - _INBOX.>
+  providerConfigRef:
+    name: provider-natssecrets
 {{- end }}

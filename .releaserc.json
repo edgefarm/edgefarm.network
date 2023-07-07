@@ -202,17 +202,55 @@
       }
     ],
     [
+      "semantic-release-helm3",
+      {
+        "chartPath": "./charts/network-compositions-helm",
+        "registry": "ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
+      "semantic-release-helm3",
+      {
+        "chartPath": "./charts/network-dependencies-webhook-helm",
+        "registry": "ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
+      "semantic-release-helm3",
+      {
+        "chartPath": "./charts/network-resource-info-helm",
+        "registry": "ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
+      "semantic-release-helm3",
+      {
+        "chartPath": "./charts/provider-kubernetes-helm",
+        "registry": "ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": [
           "deploy/compositions/network.streams.network.edgefarm.io/composition-networks.yaml",
           "deploy/network-resource-info/deployment.yaml",
-          "deploy/network-dependencies-webhook/deployment.yaml"
+          "deploy/network-dependencies-webhook/deployment.yaml",
+          "charts/network-compositions-helm/Chart.yaml",
+          "charts/network-dependencies-webhook-helm/Chart.yaml",
+          "charts/network-resource-info-helm/Chart.yaml",
+          "charts/provider-kubernetes-helm/Chart.yaml"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     "@semantic-release/release-notes-generator",
-    "@semantic-release/github"
+    [
+      "@semantic-release/github",
+      {
+        "successComment": false,
+        "failTitle": false
+      }
+    ]
   ]
 }

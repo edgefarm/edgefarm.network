@@ -11,9 +11,6 @@ dependencies:
 - name: edgenetwork-operator
   repository: file://../edgenetwork-operator
   version: 0.1.0
-- name: nats-credentials
-  repository: file://../nats-credentials
-  version: 0.1.0
 - name: provider-nats
   repository: file://../provider-nats
   version: 0.1.0
@@ -26,5 +23,5 @@ dependencies:
 - name: nats
   repository: https://nats-io.github.io/k8s/helm/charts/
   version: 1.0.0-rc.0
-digest: sha256:d3ae48f5d3aa380980ee4070fc00b64227a7da397e282ececfe67e6c73856819
-generated: "2023-07-06T14:41:27.882206821+02:00"
+digest: sha256:05db8f71bb857e38d396bedd44b45c0fbd908e18f8ca615d612d5a0b915e9474
+generated: "2023-07-07T08:54:05.131453431+02:00"

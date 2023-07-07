@@ -1,5 +1,5 @@
 apiVersion: v2
-name: network-resource-info
+name: network-resource-info-helm
 description: A Helm chart for network-resource-info. Note that you need to have crossplane and provider-nats installed to be able to install this chart.
 
 type: application

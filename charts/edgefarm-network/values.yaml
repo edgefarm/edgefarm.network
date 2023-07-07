@@ -1,3 +1,34 @@
+# Set the operator name
+operatorName: operator
+
+natsAuthConfig:
+  enabled: true
+  namespace: nats
+  nats:
+    resolver:
+      address: nats://nats.nats.svc:4222
+      config:
+        type: full
+        dir: "/data/jwt"
+        allow_delete: true
+        interval: "2m"
+        timeout: "1.9s"
+    authConfigmapDestination:
+      name: nats-auth-config
+      namespace: nats
+
+networkBaseConfig:
+  enabled: true
+
+operator:
+  # set to `true` if you want to create the operator
+  enabled: true
+
+sysAccount:
+  # set to `true` if you want to create the sysAccount
+  enabled: true
+
+# Sub-Charts configurations
 nats:
   namespaceOverride: nats
   fullnameOverride: nats
@@ -42,9 +73,5 @@ nats:
 provider-natssecrets:
   namespace: crossplane-system
 
-nats-credentials:
-  # must be the same as set in nats.operatorName Vault Helm chart
-  operatorName: operator
-
-network-resource-info: 
+network-resource-info:
   namespaceOverride: crossplane-system

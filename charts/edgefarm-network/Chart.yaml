@@ -1,6 +1,6 @@
 apiVersion: v2
 name: edgefarm-network
-description: A Helm chart for edgefarm.network. Note that you need to have metacontroller, crossplane, vault with  installed to be able to install this chart.
+description: A Helm chart for edgefarm.network. Note that you need to have metacontroller, crossplane, vault with installed to be able to install this chart.
 
 type: application
 version: 0.1.0
@@ -10,9 +10,12 @@ keywords:
   - edgefarm.network
   - crd
   - metacontroller
+  - crossplane
+  - nats
+  - credentials
 
 sources:
-  - https://github.com/edgefarm/edgenetwork-operator
+  - https://github.com/edgefarm/edgefarm.network
 
 maintainers:
   - name: Armin Schlegel
@@ -31,18 +34,12 @@ dependencies:
   - name: edgenetwork-operator
     version: 0.1.0
     repository: "file://../edgenetwork-operator"
-  - name: nats-credentials
-    version: 0.1.0
-    repository: "file://../nats-credentials"
   - name: provider-nats
     version: 0.1.0
     repository: "file://../provider-nats"
   - name: provider-natssecrets
     version: 0.1.0
     repository: "file://../provider-natssecrets"
-  # - name: kyverno-dependency
-  #   version: 0.1.0
-  #   repository: "file://../kyverno-dependency"
   - name: network-dependencies-webhook
     version: 0.1.0
     repository: "file://../network-dependencies-webhook"
