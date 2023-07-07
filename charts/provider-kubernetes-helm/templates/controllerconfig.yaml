@@ -1,0 +1,12 @@
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: provider-kubernetes
+  labels: {{- include "provider-kubernetes.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.provider.replicas }}
+  args: 
+  {{- range $i, $v := $.Values.provider.args }}
+    - {{ $v }}
+  {{- end }}
+  serviceAccountName: provider-kubernetes

@@ -1,0 +1,23 @@
+{{- if .Values.operator.enabled }}
+apiVersion: issue.natssecrets.crossplane.io/v1alpha1
+kind: Operator
+metadata:
+  name: {{ .Values.operatorName }}
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    syncAccountServer: true
+    claims:
+      operator:
+        systemAccount: sys
+        accountServerUrl: {{ .Values.natsAuthConfig.nats.resolver.address }}
+        operatorServiceUrls:
+          - {{ .Values.natsAuthConfig.nats.resolver.address }}
+        strictSigningKeyUsage: false
+  providerConfigRef:
+    name: provider-natssecrets
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: {{ .Values.operatorName }}
+{{- end }}

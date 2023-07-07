@@ -1,0 +1,56 @@
+replicaCount: 1
+image:
+  # repository: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook
+  repository: siredmar/network-dependencies-webhook
+  pullPolicy: IfNotPresent
+  tag: test1
+  # tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 128M
+  requests:
+    cpu: 100m
+    memory: 64M
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: 8443
+
+autoscaling:
+  enabled: false
+  # minReplicas: 1
+  # maxReplicas: 100
+  # targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

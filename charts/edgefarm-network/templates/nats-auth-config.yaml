@@ -1,0 +1,134 @@
+{{- if .Values.natsAuthConfig.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nats-auth-config
+  labels:
+    app: nats-auth-config
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+  namespace: {{ .Values.natsAuthConfig.namespace }}
+spec:
+  backoffLimit: 20
+  template:
+    metadata:
+      annotations:
+        vault.security.banzaicloud.io/vault-addr: "https://vault.vault:8200"
+        vault.security.banzaicloud.io/vault-skip-verify: "true"
+      labels:
+        app: nats-auth-config
+    spec:
+      serviceAccount: nats-auth-config
+      serviceAccountName: nats-auth-config
+      restartPolicy: Never
+      containers:
+        - name: create-nats-auth-config
+          image: bitnami/kubectl:1.22
+          command:
+            [
+              "bash",
+              "-c",
+              'kubectl get namespace {{ .Values.natsAuthConfig.nats.authConfigmapDestination.namespace }} || kubectl create namespace {{ .Values.natsAuthConfig.nats.authConfigmapDestination.namespace }} && filled=$(echo "$TEMPLATE" | sed "s/\${OPERATOR_JWT}/${OPERATOR_JWT}/g" |  sed "s/\${SYS_ACCOUNT_PUBLIC_KEY}/${SYS_ACCOUNT_PUBLIC_KEY}/g" | sed "s/\${SYS_ACCOUNT_JWT}/${SYS_ACCOUNT_JWT}/g") && kubectl create configmap {{ .Values.natsAuthConfig.nats.authConfigmapDestination.name }} --namespace {{ .Values.natsAuthConfig.nats.authConfigmapDestination.namespace }} --from-literal=auth.config="${filled}"',
+            ]
+          env:
+            - name: OPERATOR_JWT
+              value: "vault:nats-secrets/jwt/operator/{{ .Values.operatorName }}#jwt"
+            - name: SYS_ACCOUNT_JWT
+              value: "vault:nats-secrets/jwt/operator/{{ .Values.operatorName }}/account/sys#jwt"
+            - name: SYS_ACCOUNT_PUBLIC_KEY
+              value: "vault:nats-secrets/nkey/operator/{{ .Values.operatorName }}/account/sys#publicKey"
+            - name: TEMPLATE
+              valueFrom:
+                configMapKeyRef:
+                  name: nats-auth-config-template
+                  key: config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nats-auth-config-template
+  namespace: {{ .Values.natsAuthConfig.namespace }}
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+data:
+  config: |-
+    {
+      "operator": "${OPERATOR_JWT}",
+      "system_account": "${SYS_ACCOUNT_PUBLIC_KEY}",
+      "resolver": {
+          "type": "{{ .Values.natsAuthConfig.nats.resolver.config.type }}",
+          "dir": "{{ .Values.natsAuthConfig.nats.resolver.config.dir }}",
+          "allow_delete": {{ .Values.natsAuthConfig.nats.resolver.config.allow_delete }},
+          "interval": "{{ .Values.natsAuthConfig.nats.resolver.config.interval }}",
+          "timeout": "{{ .Values.natsAuthConfig.nats.resolver.config.timeout }}"
+      },
+      "resolver_preload": {
+          "${SYS_ACCOUNT_PUBLIC_KEY}": "${SYS_ACCOUNT_JWT}"
+      }
+    }
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nats-auth-config
+  namespace: {{ .Values.natsAuthConfig.namespace }}
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: nats-auth-config
+  namespace: {{ .Values.natsAuthConfig.nats.authConfigmapDestination.namespace }}
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    verbs:
+      - create
+  - apiGroups: [""]
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nats-auth-config
+  namespace: {{ .Values.natsAuthConfig.nats.authConfigmapDestination.namespace }}
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: nats-auth-config
+subjects:
+  - kind: ServiceAccount
+    name: nats-auth-config
+    namespace: {{ .Values.natsAuthConfig.namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nats-auth-config-binding
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}  
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: nats-auth-config
+    namespace: {{ .Values.natsAuthConfig.namespace }}
+{{- end }}

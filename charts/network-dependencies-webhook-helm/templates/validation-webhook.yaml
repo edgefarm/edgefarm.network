@@ -1,0 +1,101 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "network-dependencies-webhook.name" . }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "network-dependencies-webhook.name" . }}
+webhooks:
+  - name: validating.network.edgefarm.io.v1alpha1.pods
+    sideEffects: "None"
+    objectSelector:
+      matchLabels:
+        network.edgefarm.io/type: leaf
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validating-network-edgefarm-io-v1alpha1-pods
+      caBundle: Cg==
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+        operations: ["DELETE"]
+
+  - name: validating.network.edgefarm.io.v1alpha1.users
+    sideEffects: "None"
+    objectSelector:
+      matchExpressions:
+        - key: dependsOnUid
+          operator: Exists
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validating-network-edgefarm-io-v1alpha1-users
+      caBundle: Cg==
+    rules:
+      - apiGroups: ["issue.natssecrets.crossplane.io"]
+        apiVersions: ["v1alpha1"]
+        resources: ["users"]
+        operations: ["DELETE"]
+
+  - name: validating.network.edgefarm.io.v1alpha1.streams
+    sideEffects: "None"
+    objectSelector:
+      matchExpressions:
+        - key: dependsOnUid
+          operator: Exists
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validating-network-edgefarm-io-v1alpha1-streams
+      caBundle: Cg==
+    rules:
+      - apiGroups: ["streams.network.edgefarm.io"]
+        apiVersions: ["v1alpha1"]
+        resources: ["xstreams"]
+        operations: ["DELETE"]
+
+  - name: validating.network.edgefarm.io.v1alpha1.providerconfigs
+    sideEffects: "None"
+    objectSelector:
+      matchExpressions:
+        - key: dependsOnUid
+          operator: Exists
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validating-network-edgefarm-io-v1alpha1-providerconfigs
+      caBundle: Cg==
+    rules:
+      - apiGroups: ["nats.crossplane.io"]
+        apiVersions: ["v1alpha1"]
+        resources: ["providerconfigs"]
+        operations: ["DELETE"]
+
+  - name: validating.network.edgefarm.io.v1alpha1.accounts
+    sideEffects: "None"
+    admissionReviewVersions:
+      - "v1beta1"
+    clientConfig:
+      service:
+        name: {{ include "network-dependencies-webhook.name" . }}
+        namespace: {{ .Release.Namespace }}
+        path: /validating-network-edgefarm-io-v1alpha1-accounts
+      caBundle: Cg==
+    rules:
+      - apiGroups: ["issue.natssecrets.crossplane.io"]
+        apiVersions: ["v1alpha1"]
+        resources: ["account"]
+        operations: ["DELETE"]

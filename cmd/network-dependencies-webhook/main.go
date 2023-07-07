@@ -12,7 +12,7 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	v "github.com/edgefarm/edgefarm.network/cmd/network-dependencies-webhook/pkg/validate"
+	"github.com/edgefarm/edgefarm.network/cmd/network-dependencies-webhook/pkg/validate"
 )
 
 type ServerParameters struct {
@@ -57,8 +57,20 @@ func main() {
 		}
 		config = c
 	}
-	http.HandleFunc("/validate", func(w http.ResponseWriter, r *http.Request) {
-		v.Validate(config, w, r)
+	http.HandleFunc("/validating-network-edgefarm-io-v1alpha1-pods", func(w http.ResponseWriter, r *http.Request) {
+		validate.Pods(config, w, r)
+	})
+	http.HandleFunc("/validating-network-edgefarm-io-v1alpha1-accounts", func(w http.ResponseWriter, r *http.Request) {
+		validate.Accounts(config, w, r)
+	})
+	http.HandleFunc("/validating-network-edgefarm-io-v1alpha1-users", func(w http.ResponseWriter, r *http.Request) {
+		validate.Users(config, w, r)
+	})
+	http.HandleFunc("/validating-network-edgefarm-io-v1alpha1-providerconfigs", func(w http.ResponseWriter, r *http.Request) {
+		validate.ProviderConfigs(config, w, r)
+	})
+	http.HandleFunc("/validating-network-edgefarm-io-v1alpha1-streams", func(w http.ResponseWriter, r *http.Request) {
+		validate.Streams(config, w, r)
 	})
 	err := http.ListenAndServeTLS(":"+strconv.Itoa(parameters.port), parameters.certFile, parameters.keyFile, nil)
 	if err != nil {

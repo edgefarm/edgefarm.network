@@ -1,0 +1,20 @@
+apiVersion: v2
+name: vault
+description: A Helm chart for vault using bank-vaults vault operator. Note that you need to have bank-vaults operator (https://bank-vaults.dev/docs/operator/) installed to be able to install this chart.
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+  - edgefarm.network
+  - bank-vaults
+  - vault
+  - nats
+
+sources:
+  - https://github.com/banzaicloud/bank-vaults/
+
+maintainers:
+  - name: Armin Schlegel
+    email: armin.schlegel@gmx.de

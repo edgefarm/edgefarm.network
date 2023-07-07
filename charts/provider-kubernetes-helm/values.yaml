@@ -1,0 +1,7 @@
+provider:
+  package: crossplanecontrib/provider-kubernetes
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  packagePullPolicy: IfNotPresent
+  replicas: 1
+  args: []

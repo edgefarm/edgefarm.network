@@ -1,0 +1,77 @@
+# Set the operator name
+operatorName: operator
+
+natsAuthConfig:
+  enabled: true
+  namespace: nats
+  nats:
+    resolver:
+      address: nats://nats.nats.svc:4222
+      config:
+        type: full
+        dir: "/data/jwt"
+        allow_delete: true
+        interval: "2m"
+        timeout: "1.9s"
+    authConfigmapDestination:
+      name: nats-auth-config
+      namespace: nats
+
+networkBaseConfig:
+  enabled: true
+
+operator:
+  # set to `true` if you want to create the operator
+  enabled: true
+
+sysAccount:
+  # set to `true` if you want to create the sysAccount
+  enabled: true
+
+# Sub-Charts configurations
+nats:
+  namespaceOverride: nats
+  fullnameOverride: nats
+  nameOverride: nats
+  statefulSet:
+    patch:
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value: { name: auth-config, configMap: { name: nats-auth-config } }
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value: { name: auth-config, mountPath: /etc/nats-config/auth/ }
+  config:
+    merge:
+      00$include: ./auth/auth.config
+    jetstream:
+      enabled: true
+      merge:
+        domain: main
+      fileStore:
+        enabled: true
+        dir: /data/jetstream
+        maxSize: 10G
+      memoryStore:
+        enabled: true
+        maxSize: 1G
+    leafnodes:
+      enabled: true
+      port: 7422
+  natsBox:
+    enabled: false
+  reloader:
+    enabled: false
+  extraResources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        labels:
+          kubernetes.io/metadata.name: nats
+        name: nats
+
+provider-natssecrets:
+  namespace: crossplane-system
+
+network-resource-info:
+  namespaceOverride: crossplane-system

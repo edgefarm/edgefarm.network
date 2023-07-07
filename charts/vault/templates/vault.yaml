@@ -1,0 +1,39 @@
+apiVersion: "vault.banzaicloud.com/v1alpha1"
+kind: "Vault"
+metadata:
+  name: {{ include "vault.name" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "vault.labels" . | nindent 4 }}
+spec:
+{{- if .Values.nats.enabled }}
+{{- $operator := .Values.nats.operatorName }}
+{{- $rules := printf "path \"nats-secrets/jwt/operator/%s\" { capabilities = [\"read\"] }\npath \"nats-secrets/nkey/operator/%s/account/sys\" { capabilities = [\"read\"] }\npath \"nats-secrets/jwt/operator/%s/account/sys\" { capabilities = [\"read\"] }" $operator $operator $operator }}
+{{- $additionalPolicy := list (dict "name" "nats-auth-config" "rules" $rules) }}
+{{- if .Values.vault.externalConfig.policies }}
+  {{- $mergedPolicies := concat .Values.vault.externalConfig.policies $additionalPolicy }}
+  {{- $_ := set .Values.vault.externalConfig "policies" $mergedPolicies }}
+{{- else }}
+  {{- $_ := set .Values.vault.externalConfig "policies" $additionalPolicy }}
+{{- end }}
+{{- end }}
+
+{{- range $index, $auth := .Values.vault.externalConfig.auth }}
+  {{- if eq $auth.type "kubernetes" }}
+    {{- if $auth.config.kubernetes_ca_cert }}
+      {{- $_ := set $auth.config "kubernetes_ca_cert" $auth.config.kubernetes_ca_cert }}
+    {{- else }}
+      {{- $kubeServiceAccount := lookup "v1" "ServiceAccount" "default" "default" }}
+      {{- if $kubeServiceAccount }}
+        {{- $kubeSecretName := index $kubeServiceAccount.secrets 0 "name" }}
+        {{- $kubeSecret := lookup "v1" "Secret" "default" $kubeSecretName }}
+        {{- if and $kubeSecret (hasKey $kubeSecret.data "ca.crt") }}
+          {{- $kubeCaCert := (index $kubeSecret.data "ca.crt") | b64dec }}
+          {{- $_ := set $auth.config "kubernetes_ca_cert" $kubeCaCert }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- toYaml .Values.vault | nindent 2 }}

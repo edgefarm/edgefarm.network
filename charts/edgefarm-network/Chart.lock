@@ -1,0 +1,27 @@
+dependencies:
+- name: provider-kubernetes
+  repository: file://../provider-kubernetes
+  version: 0.1.0
+- name: network-resource-info
+  repository: file://../network-resource-info
+  version: 0.1.0
+- name: network-compositions
+  repository: file://../network-compositions
+  version: 0.1.0
+- name: edgenetwork-operator
+  repository: file://../edgenetwork-operator
+  version: 0.1.0
+- name: provider-nats
+  repository: file://../provider-nats
+  version: 0.1.0
+- name: provider-natssecrets
+  repository: file://../provider-natssecrets
+  version: 0.1.0
+- name: network-dependencies-webhook
+  repository: file://../network-dependencies-webhook
+  version: 0.1.0
+- name: nats
+  repository: https://nats-io.github.io/k8s/helm/charts/
+  version: 1.0.0-rc.0
+digest: sha256:05db8f71bb857e38d396bedd44b45c0fbd908e18f8ca615d612d5a0b915e9474
+generated: "2023-07-07T08:54:05.131453431+02:00"

@@ -24,9 +24,9 @@ pipelines:
 dev:
   network-dependencies-webhook:
     labelSelector:
-      app: network-dependencies-webhook
+      app.kubernetes.io/name: network-dependencies-webhook
     devImage: ghcr.io/loft-sh/devspace-containers/go:1.20-alpine
-    namespace: crossplane-system
+    namespace: edgefarm-network
     terminal: {}
     ports:
       - port: "2346"

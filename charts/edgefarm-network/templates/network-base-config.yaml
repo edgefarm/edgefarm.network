@@ -1,0 +1,12 @@
+{{- if .Values.networkBaseConfig.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  labels:
+    {{- include "edgefarm-network.labels" . | nindent 4 }}
+  name: network-base-config
+  namespace: crossplane-system
+data: 
+  operator: {{ .Values.operatorName }}
+  sysAccount: sys
+{{- end }}
