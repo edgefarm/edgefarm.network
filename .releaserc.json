@@ -230,6 +230,13 @@
       }
     ],
     [
+      "semantic-release-helm3",
+      {
+        "chartPath": "./charts/charts/edgefarm-network",
+        "registry": "ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": [
@@ -239,7 +246,8 @@
           "charts/network-compositions-helm/Chart.yaml",
           "charts/network-dependencies-webhook-helm/Chart.yaml",
           "charts/network-resource-info-helm/Chart.yaml",
-          "charts/provider-kubernetes-helm/Chart.yaml"
+          "charts/provider-kubernetes-helm/Chart.yaml",
+          "charts/edgefarm-network/Chart.yaml"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }

@@ -22,33 +22,33 @@ maintainers:
     email: armin.schlegel@gmx.de
 
 dependencies:
-  - name: provider-kubernetes
-    version: 0.1.0
-    repository: "file://../provider-kubernetes"
+  - name: provider-kubernetes-helm
+    version: 1.0.0-beta.26
+    repository: oci://ghcr.io/edgefarm/edgefarm.network
 
-  - name: network-resource-info
-    version: 0.1.0
-    repository: "file://../network-resource-info"
+  - name: network-resource-info-helm
+    version: 1.0.0-beta.26
+    repository: oci://ghcr.io/edgefarm/edgefarm.network
 
-  - name: network-compositions
-    version: 0.1.0
-    repository: "file://../network-compositions"
+  - name: network-compositions-helm
+    version: 1.0.0-beta.26
+    repository: oci://ghcr.io/edgefarm/edgefarm.network
 
-  - name: edgenetwork-operator
-    version: 0.1.0
-    repository: "file://../edgenetwork-operator"
+  - name: network-dependencies-webhook-helm
+    version: 1.0.0-beta.26
+    repository: oci://ghcr.io/edgefarm/edgefarm.network
 
-  - name: network-dependencies-webhook
-    version: 0.1.0
-    repository: "file://../network-dependencies-webhook"
+  - name: edgenetwork-operator-helm
+    version: 2.3.3
+    repository: oci://ghcr.io/edgefarm/edgenetwork-operator
 
-  - name: provider-nats
+  - name: provider-nats-helm
     version: 0.2.0-1.g106c473
-    repository: oci://ghcr.io/edgefarm/provider-nats/provider-nats-helm
+    repository: oci://ghcr.io/edgefarm/provider-nats
 
-  - name: provider-natssecrets
+  - name: provider-natssecrets-helm
     version: 0.2.2-1.gaba697b
-    repository: oci://ghcr.io/edgefarm/provider-natssecrets/provider-natssecrets-helm
+    repository: oci://ghcr.io/edgefarm/provider-natssecrets
 
   - name: nats
     version: 1.0.0-rc.0
