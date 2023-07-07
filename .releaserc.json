@@ -232,7 +232,7 @@
     [
       "semantic-release-helm3",
       {
-        "chartPath": "./charts/charts/edgefarm-network",
+        "chartPath": "./charts/edgefarm-network",
         "registry": "ghcr.io/edgefarm/edgefarm.network"
       }
     ],
