@@ -2,8 +2,8 @@ apiVersion: v2
 name: edgefarm-network
 description: A Helm chart for edgefarm.network. Note that you need to have metacontroller, crossplane, vault with installed to be able to install this chart.
 type: application
-version: 1.0.0-beta.28
-appVersion: 1.0.0-beta.28
+version: 1.0.0-beta.29
+appVersion: 1.0.0-beta.29
 keywords:
   - edgefarm.network
   - crd

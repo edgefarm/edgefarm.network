@@ -30,7 +30,7 @@ spec:
             requests:
               cpu: 100m
               memory: 64M
-          image: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook:1.0.0-beta.28
+          image: ghcr.io/edgefarm/edgefarm.network/network-dependencies-webhook:1.0.0-beta.29
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
