@@ -34,7 +34,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: {{ include "network-resource-info.name" . }}
-    namespace: crossplane-system
+    namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
 roleRef:
   kind: ClusterRole
   name: {{ include "network-resource-info.name" . }}
