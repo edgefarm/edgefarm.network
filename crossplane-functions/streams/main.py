@@ -6,7 +6,7 @@ import requests
 import json
 import time
 
-NetworkResourceInfoAddress = "http://network-resource-info.crossplane-system.svc"
+NetworkResourceInfoAddress = "http://network-resource-info.edgefarm-network.svc"
 NetworkResourceInfoPort = "9090"
 StreamTypeStandard = "Standard"
 StreamTypeAggregate = "Aggregate"

@@ -32,6 +32,12 @@ jobs:
         with:
           version: "v3.11.1"
 
+      - name: Setup updatechart
+        uses: edgefarm/setup-updatechart@v1.1.0
+
+      - name: Setup yq
+        uses: mikefarah/yq@v4.34.2
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:

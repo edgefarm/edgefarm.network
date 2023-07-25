@@ -237,6 +237,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "updateChart -c charts/edgefarm-network/Chart.yaml -k -v ${nextRelease.version} -l charts -r oci://ghcr.io/edgefarm/edgefarm.network"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": [
