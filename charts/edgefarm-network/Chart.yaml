@@ -18,16 +18,16 @@ maintainers:
     email: armin.schlegel@gmx.de
 dependencies:
   - name: provider-kubernetes-helm
-    version: 1.0.0-beta.29
+    version: 1.0.0-beta.31
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-resource-info-helm
-    version: 1.0.0-beta.29
+    version: 1.0.0-beta.31
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-compositions-helm
-    version: 1.0.0-beta.29
+    version: 1.0.0-beta.31
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-dependencies-webhook-helm
-    version: 1.0.0-beta.29
+    version: 1.0.0-beta.31
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: edgenetwork-operator-helm
     version: 2.3.3

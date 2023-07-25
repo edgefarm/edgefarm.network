@@ -1,16 +1,16 @@
 dependencies:
 - name: provider-kubernetes-helm
   repository: oci://ghcr.io/edgefarm/edgefarm.network
-  version: 1.0.0-beta.29
+  version: 1.0.0-beta.31
 - name: network-resource-info-helm
   repository: oci://ghcr.io/edgefarm/edgefarm.network
-  version: 1.0.0-beta.29
+  version: 1.0.0-beta.31
 - name: network-compositions-helm
   repository: oci://ghcr.io/edgefarm/edgefarm.network
-  version: 1.0.0-beta.29
+  version: 1.0.0-beta.31
 - name: network-dependencies-webhook-helm
   repository: oci://ghcr.io/edgefarm/edgefarm.network
-  version: 1.0.0-beta.29
+  version: 1.0.0-beta.31
 - name: edgenetwork-operator-helm
   repository: oci://ghcr.io/edgefarm/edgenetwork-operator
   version: 2.3.3
@@ -23,5 +23,5 @@ dependencies:
 - name: nats
   repository: https://nats-io.github.io/k8s/helm/charts/
   version: 1.0.0-rc.0
-digest: sha256:a159b2738778f12c22a4fac6ab90720f9edf2358a3521812834e6d33916cc2b1
-generated: "2023-07-25T07:07:50.863626942+02:00"
+digest: sha256:c525de943c904954660b6ac97d177088ece486ad2dc6f996bdf97b2aa243e140
+generated: "2023-07-25T08:16:15.846593187+02:00"
