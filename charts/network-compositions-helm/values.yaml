@@ -8,28 +8,28 @@ networkComposition:
   functions:
     addStreams:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-streams
-      tag: 1.0.0-beta.35
+      tag: 1.0.0-beta.36
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Runner
     addEdgeNetworks:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks
-      tag: 1.0.0-beta.35
+      tag: 1.0.0-beta.36
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Isolated
     addUsers:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-users
-      tag: 1.0.0-beta.35
+      tag: 1.0.0-beta.36
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Isolated
     addConsumers:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-consumers
-      tag: 1.0.0-beta.35
+      tag: 1.0.0-beta.36
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
