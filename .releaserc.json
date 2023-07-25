@@ -230,6 +230,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "cd charts/edgefarm-network && helm dependency build"
+      }
+    ],
+    [
       "semantic-release-helm3",
       {
         "chartPath": "./charts/edgefarm-network",
