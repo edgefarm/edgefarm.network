@@ -202,6 +202,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "yq e '.networkComposition.functions.*.tag = \"${nextRelease.version}\"' -i charts/network-compositions-helm/values.yaml"
+      }
+    ],
+    [
       "semantic-release-helm3",
       {
         "chartPath": "./charts/network-compositions-helm",
@@ -256,6 +262,7 @@
           "deploy/network-resource-info/deployment.yaml",
           "deploy/network-dependencies-webhook/deployment.yaml",
           "charts/network-compositions-helm/Chart.yaml",
+          "charts/network-compositions-helm/values.yaml",
           "charts/network-dependencies-webhook-helm/Chart.yaml",
           "charts/network-resource-info-helm/Chart.yaml",
           "charts/provider-kubernetes-helm/Chart.yaml",
