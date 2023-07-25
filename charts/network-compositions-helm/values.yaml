@@ -8,36 +8,32 @@ networkComposition:
   functions:
     addStreams:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-streams
-      tag: 1.0.0-beta.23
+      tag: 1.0.0-beta.35
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Runner
-
     addEdgeNetworks:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-edgenetworks
-      tag: 1.0.0-beta.23
+      tag: 1.0.0-beta.35
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Isolated
-
     addUsers:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-users
-      tag: 1.0.0-beta.23
+      tag: 1.0.0-beta.35
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Isolated
-
     addConsumers:
       image: ghcr.io/edgefarm/edgefarm.network/xfn-consumers
-      tag: 1.0.0-beta.23
+      tag: 1.0.0-beta.35
       imagePullPolicy: IfNotPresent
       timeout: 60s
       network:
         policy: Isolated
-
   # Log the output of the composition functions to a webhook.
   log2webhook:
     # Define the stages where the log2webhook function should be used
