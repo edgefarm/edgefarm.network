@@ -2,8 +2,8 @@ apiVersion: v2
 name: provider-kubernetes-helm
 description: A Helm chart for provider-kubernetes. Note that you need to have crossplane installed to be able to install this chart.
 type: application
-version: 1.0.0-beta.36
-appVersion: 1.0.0-beta.36
+version: 1.0.0-beta.37
+appVersion: 1.0.0-beta.37
 keywords:
   - crossplane
   - provider

@@ -2,8 +2,8 @@ apiVersion: v2
 name: edgefarm-network
 description: A Helm chart for edgefarm.network. Note that you need to have metacontroller, crossplane, vault with installed to be able to install this chart.
 type: application
-version: 1.0.0-beta.36
-appVersion: 1.0.0-beta.36
+version: 1.0.0-beta.37
+appVersion: 1.0.0-beta.37
 keywords:
   - edgefarm.network
   - crd
@@ -18,16 +18,16 @@ maintainers:
     email: armin.schlegel@gmx.de
 dependencies:
   - name: provider-kubernetes-helm
-    version: 1.0.0-beta.36
+    version: 1.0.0-beta.37
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-resource-info-helm
-    version: 1.0.0-beta.36
+    version: 1.0.0-beta.37
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-compositions-helm
-    version: 1.0.0-beta.36
+    version: 1.0.0-beta.37
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: network-dependencies-webhook-helm
-    version: 1.0.0-beta.36
+    version: 1.0.0-beta.37
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: edgenetwork-operator-helm
     version: 2.3.3
