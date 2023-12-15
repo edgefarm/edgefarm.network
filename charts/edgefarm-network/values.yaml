@@ -35,6 +35,10 @@ nats:
   nameOverride: nats
   statefulSet:
     patch:
+      - op: remove
+        path: /spec/template/spec/containers/0/readinessProbe
+      - op: remove
+        path: /spec/template/spec/containers/0/startupProbe
       - op: add
         path: /spec/template/spec/volumes/-
         value: { name: auth-config, configMap: { name: nats-auth-config } }
