@@ -30,7 +30,7 @@ dependencies:
     version: 1.0.0-beta.38
     repository: oci://ghcr.io/edgefarm/edgefarm.network
   - name: edgenetwork-operator-helm
-    version: 2.3.3
+    version: 2.4.0
     repository: oci://ghcr.io/edgefarm/edgenetwork-operator
   - name: provider-nats-helm
     version: 0.2.0-1.g106c473
