@@ -4,8 +4,8 @@ description: A Helm chart for edgefarm.network crossplane compositions. Note
   that you need to have crossplane, provider-nats, provider-natssecrets and
   edgenetwork-operator installed to be able to install this chart.
 type: application
-version: 1.0.0-beta.38
-appVersion: 1.0.0-beta.38
+version: 1.0.0-beta.39
+appVersion: 1.0.0-beta.39
 keywords:
   - edgefarm.network
   - crd
