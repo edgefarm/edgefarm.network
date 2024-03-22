@@ -33,10 +33,10 @@ dependencies:
     version: 2.4.1
     repository: oci://ghcr.io/edgefarm/edgenetwork-operator
   - name: provider-nats-helm
-    version: 0.2.0-1.g106c473
+    version: 0.3.0
     repository: oci://ghcr.io/edgefarm/provider-nats
   - name: provider-natssecrets-helm
-    version: 0.2.2-1.gaba697b
+    version: 0.3.0
     repository: oci://ghcr.io/edgefarm/provider-natssecrets
   - name: nats
     version: 1.0.0-rc.0
