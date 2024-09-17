@@ -3,7 +3,7 @@ module log2webhook
 go 1.20
 
 require (
-	github.com/crossplane/crossplane v1.11.3
+	github.com/crossplane/crossplane v1.17.1
 	github.com/pkg/errors v0.9.1
 	sigs.k8s.io/yaml v1.3.0
 )
